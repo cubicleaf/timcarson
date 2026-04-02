@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tim Carson</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f0eb;
+  --bg-dark: #1a1a1a;
+  --text: #1a1a1a;
+  --text-light: #666;
+  --text-muted: #999;
+  --accent: #c45a3c;
+  --accent-light: rgba(196, 90, 60, 0.1);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: white; }
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  mix-blend-mode: difference;
+}
+
+nav * { color: white; }
+
+.nav-name {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overline {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: slide-in-left 1.2s ease forwards;
+  animation-delay: 3.2s;
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: reveal-up 2.4s cubic-bezier(0.25, 0, 0, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-title .accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.hero-desc {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--text-light);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-top: 3rem;
+  opacity: 0;
+  animation: fade-in 1.8s ease forwards;
+  animation-delay: 2s;
+}
+
+.hero-watermark {
+  position: absolute;
+  right: 5vw;
+  bottom: 10vh;
+  font-family: var(--serif);
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 900;
+  color: rgba(26, 26, 26, 0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* HORIZONTAL SCROLL PROJECTS */
+.horizontal-section {
+  height: 300vh;
+  position: relative;
+}
+
+.horizontal-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.horizontal-track {
+  display: flex;
+  gap: 4rem;
+  padding: 0 8vw;
+  will-change: transform;
+}
+
+.h-card {
+  min-width: 400px;
+  max-width: 400px;
+  flex-shrink: 0;
+}
+
+.h-card-number {
+  font-family: var(--serif);
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.h-card h3 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.01em;
+}
+
+.h-card p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.h-card-tag {
+  display: inline-block;
+  margin-top: 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+a.h-card-tag:hover { opacity: 0.7; }
+
+/* BIG STATEMENT */
+.big-statement {
+  padding: 12rem 8vw;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-dark);
+  color: var(--bg);
+}
+
+.big-text {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.4;
+  max-width: 900px;
+}
+
+/* Stroke-draw text: outlined, then clip-path reveals, then fills */
+.big-text .stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--bg);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 2.0s linear;
+}
+
+.big-text .stroke-text.draw {
+  clip-path: inset(0 0% 0 0);
+}
+
+.big-text .stroke-text.fill {
+  color: var(--bg);
+  -webkit-text-stroke: 0px;
+  transition: color 1s ease, -webkit-text-stroke 1s ease;
+}
+
+/* "your problem." — fades in first as a single inline unit */
+.big-text .accent-reveal {
+  color: var(--accent);
+  font-style: italic;
+  opacity: 0;
+  transform: translateY(8px);
+  display: inline;
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.25, 0, 0, 1);
+}
+
+.big-text .accent-reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* SKILLS */
+.skills-editorial {
+  padding: 8rem 8vw;
+}
+
+.skills-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4rem;
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.25, 0, 0, 1);
+  cursor: default;
+}
+
+.skill-row:hover {
+  padding-left: 2rem;
+  border-bottom-color: var(--accent);
+}
+
+.skill-row:hover .skill-name {
+  transform: skewX(-3deg);
+  color: var(--accent);
+}
+
+.skill-name {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  transition: all 0.4s cubic-bezier(0.25, 0, 0, 1);
+}
+
+.skill-level {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* CONTACT */
+.contact-editorial {
+  padding: 10rem 8vw;
+  text-align: center;
+}
+
+.contact-headline {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+}
+
+/* Blinking cursor injected by JS as a span */
+.contact-cursor {
+  display: inline-block;
+  width: 3px;
+  background: var(--accent);
+  margin-left: 0.05em;
+  vertical-align: baseline;
+  height: 0.85em;
+  animation: contact-blink 0.7s step-end infinite;
+}
+
+@keyframes contact-blink {
+  50% { opacity: 0; }
+}
+
+.contact-headline .accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* Word-by-word stagger */
+.contact-sub {
+  font-size: 1rem;
+  color: var(--text-light);
+  font-weight: 300;
+  margin-bottom: 3rem;
+}
+
+.contact-sub span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  margin-right: 0.25em;
+}
+
+.contact-sub.go span {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Ink Blot (Bloom + Saturate) */
+.contact-link {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: var(--text);
+  padding-bottom: 4px;
+  border-bottom: none;
+  position: relative;
+  display: inline-block;
+  /* Ink blot initial state */
+  opacity: 0;
+  filter: blur(30px) saturate(0);
+  transform: scale(0.7);
+}
+
+.contact-link.go {
+  opacity: 1;
+  filter: blur(0) saturate(1);
+  transform: scale(1);
+  transition: opacity 1s ease, filter 2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.5s ease;
+}
+
+/* Restore hover/interaction transitions only after reveal */
+.contact-link.go:hover {
+  transition: color 0.3s ease;
+}
+
+/* Line under email — original position, slides in from off-screen left */
+.contact-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: var(--accent);
+  transform: translateX(-110vw);
+}
+
+.contact-link.line-in::after {
+  transform: translateX(0);
+  transition: transform 0.6s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.contact-link:hover {
+  color: var(--accent);
+}
+
+footer {
+  padding: 3rem 8vw;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 0 5vw; }
+  .hero-watermark { display: none; }
+  .h-card { min-width: 280px; max-width: 280px; }
+  .big-statement { padding: 8rem 5vw; }
+  .skills-editorial { padding: 6rem 5vw; }
+  .contact-editorial { padding: 6rem 5vw; }
+  footer { padding: 2rem 5vw; flex-direction: column; gap: 0.5rem; }
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-name">Tim Carson</div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-overline">Chattanooga, TN · 2026</div>
+  <h1 class="hero-title">
+    Inputs &amp; outputs,<br>
+    with <span class="accent">clarity</span><br>
+    along the way.
+  </h1>
+  <p class="hero-desc">Former teacher. Now I use AI to build apps, websites, and tools for people who know what they need but not how to get there.</p>
+  <div class="hero-watermark" id="watermark">TC</div>
+</section>
+
+<!-- PROJECTS -->
+<div class="horizontal-section" id="projects">
+  <div class="horizontal-sticky">
+    <div class="horizontal-track" id="h-track">
+
+      <div class="h-card">
+        <div class="h-card-number">01</div>
+        <h3>Fitness Tracker</h3>
+        <p>A mobile-first workout tracking app built from scratch. IndexedDB for offline storage, custom sound design, progressive overload tracking, and a design system with mood colors, animations, and time inputs. No frameworks — just vanilla JS and intention.</p>
+        <a href="https://timsfitness.netlify.app" target="_blank" class="h-card-tag">View Live App →</a>
+      </div>
+
+      <div class="h-card">
+        <div class="h-card-number">02</div>
+        <h3>The Draw</h3>
+        <p>A weekly vocabulary newsletter built with a custom frontend and the Buttondown API. Subscribers get ten curated English words every Sunday — each one selected, defined, and contextually placed. Full-stack: design, copy, API integration, delivery.</p>
+        <a href="https://the-draw-black.vercel.app" target="_blank" class="h-card-tag">View Live Site →</a>
+      </div>
+
+      <div class="h-card">
+        <div class="h-card-number">03</div>
+        <h3>Chinese Learning Platform</h3>
+        <p>An interactive Mandarin learning system with flashcard apps, verb production drills, and grammar modules. Built around real correspondence with native speakers — not textbook exercises. Includes a persistent vocabulary tracker with 90+ entries.</p>
+        <a href="https://chinese-learning-my-way.netlify.app" target="_blank" class="h-card-tag">View Live App →</a>
+      </div>
+
+      <div class="h-card">
+        <div class="h-card-number">04</div>
+        <h3>This Portfolio</h3>
+        <p>Hand-built. No templates, no page builders. Kinetic editorial design with horizontal scrolling, parallax, and clip-path reveals. The kind of thing I build for myself — and can build for you.</p>
+        <span class="h-card-tag">You're looking at it</span>
+      </div>
+
+      <div class="h-card">
+        <div class="h-card-number">—</div>
+        <h3>What's next?</h3>
+        <p>Your project, maybe. I'm building new things every week and looking for the right problems to solve.</p>
+        <span class="h-card-tag">Let's talk</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BIG STATEMENT -->
+<section class="big-statement">
+  <div class="big-text" id="big-reveal"><span class="stroke-text">I don't start with the technology. I start with </span><span class="accent-reveal">your problem.</span><span class="stroke-text"> The technology is just how it gets solved.</span></div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-editorial" id="skills">
+  <div class="skills-label">What I Bring</div>
+
+  <div class="skill-row"><span class="skill-name">AI-Assisted Development</span><span class="skill-level">Core</span></div>
+  <div class="skill-row"><span class="skill-name">Web Applications</span><span class="skill-level">Core</span></div>
+  <div class="skill-row"><span class="skill-name">Rapid Prototyping</span><span class="skill-level">Core</span></div>
+  <div class="skill-row"><span class="skill-name">Video Production</span><span class="skill-level">Growing</span></div>
+  <div class="skill-row"><span class="skill-name">API Integration</span><span class="skill-level">Growing</span></div>
+  <div class="skill-row"><span class="skill-name">Workflow Automation</span><span class="skill-level">Growing</span></div>
+  <div class="skill-row"><span class="skill-name">Brand & Visual Design</span><span class="skill-level">Exploring</span></div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-editorial" id="contact">
+  <h2 class="contact-headline" id="contact-headline"></h2>
+  <p class="contact-sub" id="contact-sub"><span>I'm</span><span>looking</span><span>for</span><span>the</span><span>right</span><span>people</span><span>with</span><span>the</span><span>right</span><span>problems.</span></p>
+  <a href="mailto:tim.d.carson@gmail.com" class="contact-link" id="contact-link">tim.d.carson@gmail.com</a>
+</section>
+
+<footer>
+  <span>Tim Carson · 2026</span>
+  <span>Built with curiosity</span>
+</footer>
+
+<script>
+// Horizontal scroll
+(function() {
+  const section = document.querySelector('.horizontal-section');
+  const track = document.getElementById('h-track');
+
+  function updateHorizontalScroll() {
+    if (!section || !track) return;
+    const rect = section.getBoundingClientRect();
+    const sectionHeight = section.offsetHeight - window.innerHeight;
+    const scrollProgress = Math.max(0, Math.min(1, -rect.top / sectionHeight));
+    const trackWidth = track.scrollWidth - window.innerWidth;
+    const translateX = -scrollProgress * trackWidth;
+    track.style.transform = `translateX(${translateX}px)`;
+  }
+
+  window.addEventListener('scroll', updateHorizontalScroll, { passive: true });
+})();
+
+// Parallax watermark
+(function() {
+  const watermark = document.getElementById('watermark');
+  window.addEventListener('scroll', () => {
+    const y = window.pageYOffset;
+    if (y < window.innerHeight * 1.5) {
+      watermark.style.transform = `translateY(${y * -0.3}px)`;
+    }
+  }, { passive: true });
+})();
+
+// Big statement: "your problem." fades in first, then stroke-draw reveals the rest
+(function() {
+  const el = document.getElementById('big-reveal');
+  if (!el) return;
+
+  const accentEl = el.querySelector('.accent-reveal');
+  const strokeEls = el.querySelectorAll('.stroke-text');
+  let hasRun = false;
+
+  function runAnimation() {
+    if (hasRun) return;
+    hasRun = true;
+
+    // Phase 1: "your problem." fades in
+    accentEl.classList.add('show');
+
+    // Phase 2: after 1.2s, stroke outlines draw in
+    setTimeout(() => {
+      strokeEls.forEach(span => span.classList.add('draw'));
+
+      // Phase 3: after strokes finish drawing (2s), fill with solid color
+      setTimeout(() => {
+        strokeEls.forEach(span => span.classList.add('fill'));
+      }, 2100);
+    }, 1200);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runAnimation();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(el);
+})();
+
+// Contact section reveal sequence: typewriter -> word stagger -> ink blot
+(function() {
+  const headline = document.getElementById('contact-headline');
+  const sub = document.getElementById('contact-sub');
+  const link = document.getElementById('contact-link');
+  if (!headline) return;
+
+  const wordSpans = sub.querySelectorAll('span');
+  let hasRun = false;
+
+  // The text to type, with markup for the accent span
+  const typeText = [
+    { text: "Let's ", accent: false },
+    { text: "build.", accent: true }
+  ];
+  const CHAR_DELAY = 130; // 130ms per character (~1.6s total for 12 chars)
+
+  const CURSOR_HTML = '<span class="contact-cursor"></span>';
+
+  function typeWriter(callback) {
+    // Show cursor immediately
+    headline.innerHTML = CURSOR_HTML;
+
+    let segments = [];
+    typeText.forEach(seg => {
+      for (let i = 0; i < seg.text.length; i++) {
+        segments.push({ char: seg.text[i], accent: seg.accent });
+      }
+    });
+
+    let idx = 0;
+    let plainBuf = '';
+    let accentBuf = '';
+    let inAccent = false;
+
+    function typeNext() {
+      if (idx >= segments.length) {
+        // Typing done — brief blink then remove cursor
+        setTimeout(() => {
+          const cursor = headline.querySelector('.contact-cursor');
+          if (cursor) cursor.remove();
+          callback();
+        }, 400);
+        return;
+      }
+      const seg = segments[idx];
+      if (seg.accent) {
+        inAccent = true;
+        accentBuf += seg.char;
+      } else {
+        plainBuf += seg.char;
+      }
+      // Rebuild innerHTML each tick, cursor always at the end
+      headline.innerHTML = plainBuf +
+        (inAccent ? '<span class="accent">' + accentBuf + '</span>' : '') +
+        CURSOR_HTML;
+      idx++;
+      setTimeout(typeNext, CHAR_DELAY);
+    }
+    typeNext();
+  }
+
+  function runContactReveal() {
+    if (hasRun) return;
+    hasRun = true;
+
+    // Phase 1: JS typewriter on "Let's build."
+    typeWriter(() => {
+
+      // Phase 2: Word-by-word stagger on subtitle (280ms between words, 20% faster)
+      sub.classList.add('go');
+      wordSpans.forEach((span, i) => {
+        span.style.transitionDelay = (i * 280) + 'ms';
+      });
+
+      // Phase 3: Ink blot on email after words finish
+      // 10 words * 280ms stagger + 700ms transition = ~3500ms
+      setTimeout(() => {
+        link.classList.add('go');
+
+        // Phase 4: Line slides in from off-screen left
+        setTimeout(() => {
+          link.classList.add('line-in');
+        }, 1500);
+      }, 3500);
+    });
+  }
+
+  const contactSection = document.querySelector('.contact-editorial');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runContactReveal();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(contactSection);
+})();
+
+// Smooth scroll with ease-in-out quart easing
+(function() {
+  function easeInOutQuart(t) {
+    return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+  }
+
+  function smoothScrollTo(targetY, duration) {
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    const startTime = performance.now();
+
+    function step(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeInOutQuart(progress);
+
+      window.scrollTo(0, startY + distance * easedProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').slice(1);
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+
+      const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset;
+      smoothScrollTo(targetY, 1200);
+    });
+  });
+})();
+</script>
+</body>
+</html>
