@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tim Carson</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<title>Tim Carson | Work</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f5f0eb;
-  --bg-dark: #1a1a1a;
-  --text: #1a1a1a;
-  --text-light: #666;
-  --text-muted: #999;
-  --accent: #c45a3c;
-  --accent-light: rgba(196, 90, 60, 0.1);
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'DM Sans', -apple-system, sans-serif;
+  --bg: #e9eef5;
+  --bg-dark: #13211d;
+  --text: #101818;
+  --text-light: #50615d;
+  --text-muted: #72837f;
+  --accent: #18b368;
+  --accent-light: rgba(24, 179, 104, 0.12);
+  --serif: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', monospace;
 }
 
@@ -101,7 +101,7 @@ nav * { color: white; }
   font-family: var(--serif);
   font-size: clamp(3.5rem, 9vw, 8rem);
   font-weight: 900;
-  line-height: 0.95;
+  line-height: 1.05;
   letter-spacing: -0.01em;
   opacity: 0;
   animation: reveal-up 2.4s cubic-bezier(0.25, 0, 0, 1) forwards;
@@ -120,7 +120,6 @@ nav * { color: white; }
 
 .hero-title .accent {
   color: var(--accent);
-  font-style: italic;
 }
 
 .hero-desc {
@@ -143,14 +142,14 @@ nav * { color: white; }
   font-family: var(--serif);
   font-size: clamp(8rem, 20vw, 18rem);
   font-weight: 900;
-  color: rgba(26, 26, 26, 0.04);
+  color: rgba(16, 24, 24, 0.05);
   line-height: 1;
   pointer-events: none;
 }
 
 /* HORIZONTAL SCROLL PROJECTS */
 .horizontal-section {
-  height: 300vh;
+  height: 400vh;
   position: relative;
 }
 
@@ -234,38 +233,6 @@ a.h-card-tag:hover { opacity: 0.7; }
   max-width: 900px;
 }
 
-/* Stroke-draw text: outlined, then clip-path reveals, then fills */
-.big-text .stroke-text {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--bg);
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 2.0s linear;
-}
-
-.big-text .stroke-text.draw {
-  clip-path: inset(0 0% 0 0);
-}
-
-.big-text .stroke-text.fill {
-  color: var(--bg);
-  -webkit-text-stroke: 0px;
-  transition: color 1s ease, -webkit-text-stroke 1s ease;
-}
-
-/* "your problem." — fades in first as a single inline unit */
-.big-text .accent-reveal {
-  color: var(--accent);
-  font-style: italic;
-  opacity: 0;
-  transform: translateY(8px);
-  display: inline;
-  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.25, 0, 0, 1);
-}
-
-.big-text .accent-reveal.show {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* SKILLS */
 .skills-editorial {
@@ -348,7 +315,6 @@ a.h-card-tag:hover { opacity: 0.7; }
 
 .contact-headline .accent {
   color: var(--accent);
-  font-style: italic;
 }
 
 /* Word-by-word stagger */
@@ -362,20 +328,21 @@ a.h-card-tag:hover { opacity: 0.7; }
 .contact-sub span {
   display: inline-block;
   opacity: 0;
-  transform: translateY(14px) scale(0.96);
+  transform: translateY(20px) scale(0.94);
   margin-right: 0.25em;
+  /* No transition — WAAPI owns the entrance animation entirely.
+     Leaving a CSS transition here caused it to fire simultaneously
+     and smooth out the overshoot keyframe. */
 }
 
 .contact-sub.go span {
   opacity: 1;
   transform: translateY(0) scale(1);
-  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-/* Ink Blot (Bloom + Saturate) */
 .contact-link {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   letter-spacing: 1px;
   text-decoration: none;
   color: var(--text);
@@ -383,27 +350,15 @@ a.h-card-tag:hover { opacity: 0.7; }
   border-bottom: none;
   position: relative;
   display: inline-block;
-  /* Ink blot initial state */
   opacity: 0;
-  filter: blur(30px) saturate(0);
-  transform: scale(0.7);
 }
 
-.contact-link.go {
-  opacity: 1;
-  filter: blur(0) saturate(1);
-  transform: scale(1);
-  transition: opacity 1s ease, filter 2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.5s ease;
+.contact-link:hover {
+  color: var(--accent);
 }
 
-/* Restore hover/interaction transitions only after reveal */
-.contact-link.go:hover {
-  transition: color 0.3s ease;
-}
-
-/* Line under email — original position, slides in from off-screen left */
-.contact-link::after {
-  content: '';
+/* Real DOM element replaces ::after — WAAPI cannot target pseudo-elements */
+.contact-underline {
   position: absolute;
   bottom: -1px;
   left: 15%;
@@ -411,15 +366,7 @@ a.h-card-tag:hover { opacity: 0.7; }
   height: 1px;
   background: var(--accent);
   transform: translateX(-110vw);
-}
-
-.contact-link.line-in::after {
-  transform: translateX(0);
-  transition: transform 0.6s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.contact-link:hover {
-  color: var(--accent);
+  transform-origin: center center; /* compresses from the middle outward */
 }
 
 footer {
@@ -445,12 +392,324 @@ footer {
   nav { padding: 1rem 1.5rem; }
   .nav-links { gap: 1rem; }
 }
+
+/* ============================================
+   BEGIN PULSE — glowing text behind the fill
+   Visible only through the "begin" mask cutouts.
+   Animation controls opacity; cleared inline style
+   lets it snap back to 0 on stopTrace.
+   ============================================ */
+
+@keyframes begin-pulse {
+  0%   { opacity: 0;    filter: blur(0px);   }   /* fades in from invisible      */
+  25%  { opacity: 0.82; filter: blur(0px);   }   /* arrives sharp and warm       */
+  65%  { opacity: 1.0;  filter: blur(1.5px); }   /* drifts to soft peak          */
+  100% { opacity: 0.82; filter: blur(0px);   }   /* settles back — loops cleanly */
+}
+
+/* ============================================
+   SCROLL-TRACKING CTA BUTTON + MODAL
+   ============================================ */
+
+/* The puzzle piece button that rides the right edge, tracking scroll position */
+.scroll-cta {
+  position: fixed;
+  right: 24px;
+  top: 48px; /* overridden dynamically by JS */
+  z-index: 90;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 82px;
+  will-change: top, opacity;
+  /*
+    Opacity is driven by --scroll-opacity, a custom property updated by JS as the
+    user scrolls. Default 0 means the button is invisible at page top. When the
+    .hidden class is applied (modal open), its direct opacity:0 wins via
+    specificity, so modal-hide behavior stays intact regardless of scroll state.
+  */
+  opacity: var(--scroll-opacity, 0);
+  transition: opacity 0.35s ease;
+}
+
+/* Active/press is instant — no transition-duration on transform */
+.scroll-cta:active {
+  transform: scale(0.95);
+}
+
+/* Fades out when modal opens */
+.scroll-cta.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The puzzle piece SVG itself */
+.scroll-cta-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Puzzle piece fill — hover darkens it slightly */
+.scroll-cta-svg path {
+  fill: var(--accent);
+  transition: fill 0.3s ease;
+}
+
+.scroll-cta:hover .scroll-cta-svg {
+  transform: scale(1.05);
+}
+
+
+/* ---- Overlay / backdrop ---- */
+.cta-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 26, 21, 0.42);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.cta-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ---- Modal card ---- */
+.cta-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 201;
+  width: min(460px, calc(100vw - 48px));
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 2.5rem;
+  pointer-events: none;
+  opacity: 0;
+  /*
+    Starts tiny. transform-origin is set as an inline style by JS
+    so the scale radiates from wherever the button is sitting.
+    IMPORTANT: JS must never set inline opacity or transform —
+    only transformOrigin. Inline styles beat class styles, so if
+    JS sets transform inline, the .open class can never override it.
+  */
+  transform: translate(-50%, -50%) scale(0.01);
+  transform-origin: 90% 50%; /* fallback; JS overwrites per click */
+  transition: opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.cta-modal.open {
+  pointer-events: all;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/*
+  .measuring — lets JS briefly inflate the modal to full size (invisible)
+  so it can read the actual rendered height before the blob animation starts.
+  Used only for a single synchronous measurement, then removed immediately.
+*/
+.cta-modal.measuring {
+  transition: none !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/*
+  .no-transition — suppresses the scale/fade CSS transition for one frame
+  so the modal can snap to its open state without animating (the blob
+  handled all the visuals; this just makes the real DOM element appear).
+*/
+.cta-modal.no-transition {
+  transition: none !important;
+}
+
+/* Close button — min 44px touch target */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.modal-title {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+}
+
+.modal-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ---- Form fields ---- */
+.cta-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.cta-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.cta-form label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+}
+
+/* Inputs: no box, just a bottom border — editorial / minimal */
+.cta-form input,
+.cta-form textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(16, 24, 24, 0.14);
+  padding: 0.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text);
+  outline: none;
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  transition: border-color 0.25s ease;
+}
+
+.cta-form input:focus,
+.cta-form textarea:focus {
+  border-bottom-color: var(--accent);
+}
+
+.cta-form input::placeholder,
+.cta-form textarea::placeholder {
+  color: var(--text-muted);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.cta-form textarea {
+  min-height: 56px;
+  line-height: 1.6;
+}
+
+.submit-btn {
+  margin-top: 2rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 0.9rem 2rem;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border-radius: 20px;
+  cursor: pointer;
+  width: auto;
+  min-width: 160px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background 0.25s ease;
+}
+
+.submit-btn:hover {
+  background: color-mix(in srgb, var(--accent) 80%, var(--bg-dark));
+}
+
+.submit-btn:active { transform: scale(0.97); }
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---- Success state ---- */
+.modal-success {
+  display: none;
+  text-align: center;
+  padding: 3rem 0 1.5rem;
+}
+
+.modal-success .success-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.modal-success .success-title {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.modal-success p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .scroll-cta { right: 16px; }
+  .cta-modal { padding: 2rem 1.5rem; }
+  .modal-title { font-size: 1.5rem; }
+  .cta-form .form-row { grid-template-columns: 1fr; gap: 0; }
+}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-name">Tim Carson</div>
+  <div class="nav-name">Tim Carson | Work</div>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -462,9 +721,8 @@ footer {
 <section class="hero">
   <div class="hero-overline">Chattanooga, TN · 2026</div>
   <h1 class="hero-title">
-    Inputs &amp; outputs,<br>
-    with <span class="accent">clarity</span><br>
-    along the way.
+    <span class="accent">Unpuzzle</span> the mess.<br>
+    Build the tool.
   </h1>
   <p class="hero-desc">Former teacher. Now I use AI to build apps, websites, and tools for people who know what they need but not how to get there.</p>
   <div class="hero-watermark" id="watermark">TC</div>
@@ -477,27 +735,42 @@ footer {
 
       <div class="h-card">
         <div class="h-card-number">01</div>
-        <h3>Fitness Tracker</h3>
-        <p>A mobile-first workout tracking app built from scratch. IndexedDB for offline storage, custom sound design, progressive overload tracking, and a design system with mood colors, animations, and time inputs. No frameworks — just vanilla JS and intention.</p>
-        <a href="https://timsfitness.netlify.app" target="_blank" class="h-card-tag">View Live App →</a>
+        <h3>Good Steward Workshop</h3>
+        <p>An 11-module interactive brand-building workshop built for a working farm — with an AI assistant who knows the whole operation embedded in the room. Clients walk through one small decision at a time and leave with a downloadable brand brief. Real client, real deliverable.</p>
+        <!-- TODO(Tim): confirm with Charles & Sarah before deploying this link publicly -->
+        <a href="https://good-steward-workshop.vercel.app" target="_blank" class="h-card-tag">View Live App &rarr;</a>
       </div>
 
       <div class="h-card">
         <div class="h-card-number">02</div>
+        <h3>Fitness Tracker</h3>
+        <p>A mobile-first workout tracking app built from scratch. IndexedDB for offline storage, custom sound design, progressive overload tracking, and a design system with mood colors, animations, and time inputs. No frameworks — just vanilla JS and intention.</p>
+        <a href="https://fit-logs.vercel.app" target="_blank" class="h-card-tag">View Live App →</a>
+      </div>
+
+      <div class="h-card">
+        <div class="h-card-number">03</div>
         <h3>The Draw</h3>
         <p>A weekly vocabulary newsletter built with a custom frontend and the Buttondown API. Subscribers get ten curated English words every Sunday — each one selected, defined, and contextually placed. Full-stack: design, copy, API integration, delivery.</p>
         <a href="https://the-draw-black.vercel.app" target="_blank" class="h-card-tag">View Live Site →</a>
       </div>
 
       <div class="h-card">
-        <div class="h-card-number">03</div>
+        <div class="h-card-number">04</div>
         <h3>Chinese Learning Platform</h3>
         <p>An interactive Mandarin learning system with flashcard apps, verb production drills, and grammar modules. Built around real correspondence with native speakers — not textbook exercises. Includes a persistent vocabulary tracker with 90+ entries.</p>
-        <a href="https://chinese-learning-my-way.netlify.app" target="_blank" class="h-card-tag">View Live App →</a>
+        <a href="https://zifang.vercel.app" target="_blank" class="h-card-tag">View Live App →</a>
       </div>
 
       <div class="h-card">
-        <div class="h-card-number">04</div>
+        <div class="h-card-number">05</div>
+        <h3>Greenway Cleanup</h3>
+        <p>A community organizing site for trail cleanups in Cleveland, TN. Event info, volunteer signups, momentum. Software in service of picking up actual garbage — proof these tools work outside the browser too.</p>
+        <a href="https://greenwaycleanup.vercel.app" target="_blank" class="h-card-tag">View Live Site &rarr;</a>
+      </div>
+
+      <div class="h-card">
+        <div class="h-card-number">06</div>
         <h3>This Portfolio</h3>
         <p>Hand-built. No templates, no page builders. Kinetic editorial design with horizontal scrolling, parallax, and clip-path reveals. The kind of thing I build for myself — and can build for you.</p>
         <span class="h-card-tag">You're looking at it</span>
@@ -516,7 +789,12 @@ footer {
 
 <!-- BIG STATEMENT -->
 <section class="big-statement">
-  <div class="big-text" id="big-reveal"><span class="stroke-text">I don't start with the technology. I start with </span><span class="accent-reveal">your problem.</span><span class="stroke-text"> The technology is just how it gets solved.</span></div>
+  <div class="big-text">The perfect tool for your business probably doesn't exist yet. That used to be tough luck. Now it's a project we can finish in weeks.</div>
+</section>
+
+<!-- HOW I WORK -->
+<section class="big-statement">
+  <div class="big-text">Prompting is nice. Knowing what we’re making is nicer.</div>
 </section>
 
 <!-- SKILLS -->
@@ -536,13 +814,99 @@ footer {
 <section class="contact-editorial" id="contact">
   <h2 class="contact-headline" id="contact-headline"></h2>
   <p class="contact-sub" id="contact-sub"><span>I'm</span><span>looking</span><span>for</span><span>the</span><span>right</span><span>people</span><span>with</span><span>the</span><span>right</span><span>problems.</span></p>
-  <a href="mailto:tim.d.carson@gmail.com" class="contact-link" id="contact-link">tim.d.carson@gmail.com</a>
+  <a href="mailto:tim.d.carson@gmail.com" class="contact-link" id="contact-link">tim.d.carson@gmail.com<span class="contact-underline" id="contactLine"></span></a>
 </section>
 
 <footer>
   <span>Tim Carson · 2026</span>
   <span>Built with curiosity</span>
 </footer>
+
+<!-- SCROLL-TRACKING CTA BUTTON — puzzle piece with "begin" cut out; fades in on scroll -->
+<button class="scroll-cta" id="scrollCta" aria-label="Get in touch">
+  <svg class="scroll-cta-svg" viewBox="0 0 497.689 497.689" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <!--
+        Mask that cuts "begin" out of the puzzle piece fill.
+        White pixels keep the fill visible; black pixels punch through to transparent.
+        The word itself is painted black inside a white rectangle, so the letters
+        become see-through holes that reveal whatever page content is behind the button.
+      -->
+      <mask id="beginCutout">
+        <rect width="497.689" height="497.689" fill="white"/>
+        <text x="248.845" y="238"
+              fill="black"
+              text-anchor="middle"
+              dominant-baseline="central"
+              font-family="'IBM Plex Mono', monospace"
+              font-size="72"
+              font-weight="500"
+              letter-spacing="2">begin</text>
+      </mask>
+    </defs>
+    <path d="M88.604,318.598c24.989-24.99,65.503-24.99,90.489,0c24.989,24.988,24.989,65.5,0,90.488
+      c-3.233,3.233-6.729,6.039-10.417,8.436l80.169,80.168l80.168-80.168c-3.686-2.396-7.182-5.201-10.416-8.436
+      c-24.989-24.988-24.989-65.5,0-90.488c24.988-24.99,65.502-24.99,90.488,0c3.234,3.232,6.039,6.73,8.436,10.415l80.168-80.168
+      l-80.168-80.168c3.686-2.396,7.184-5.202,10.416-8.436c24.99-24.989,24.99-65.502,0-90.489c-24.988-24.989-65.502-24.989-90.488,0
+      c-3.232,3.234-6.037,6.732-8.436,10.417L248.845,0l-80.168,80.168c-2.396-3.685-5.202-7.183-8.436-10.417
+      c-24.989-24.989-65.502-24.989-90.489,0c-24.986,24.989-24.989,65.5,0,90.489c3.235,3.234,6.732,6.039,10.417,8.436L0,248.845
+      l80.168,80.168C82.566,325.328,85.37,321.83,88.604,318.598z"
+      mask="url(#beginCutout)"/>
+  </svg>
+</button>
+
+<!-- WARM INK OVERLAY / BACKDROP -->
+<div class="cta-overlay" id="ctaOverlay"></div>
+
+<!-- CONTACT MODAL -->
+<div class="cta-modal" id="ctaModal" role="dialog" aria-modal="true" aria-label="Contact Tim">
+  <button class="modal-close" id="modalClose" aria-label="Close">&#x2715;</button>
+
+  <h3 class="modal-title">Say <em>hello.</em></h3>
+
+  <!--
+    FORMSPREE SETUP:
+    1. Go to https://formspree.io and create a free account
+    2. Create a new form — it will give you an ID like "xyzabc12"
+    3. Replace REPLACE_WITH_YOUR_FORM_ID below with that ID
+    Submissions will land in your inbox at tim.d.carson@gmail.com
+  -->
+  <form class="cta-form" id="ctaForm"
+        action="https://formspree.io/f/xkokjrnw"
+        method="POST">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="ctaName">Name</label>
+        <input type="text" id="ctaName" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label for="ctaEmail">Email</label>
+        <input type="email" id="ctaEmail" name="email" placeholder="your@email.com" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ctaProject">What are you working on or trying to build?</label>
+      <textarea id="ctaProject" name="project" rows="3"
+                placeholder="Tell me about it..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="ctaPain">What are you wasting time on that a tool could handle?</label>
+      <textarea id="ctaPain" name="pain_point" rows="3"
+                placeholder="The thing you keep doing manually that shouldn't need a human."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Send it</button>
+  </form>
+
+  <div class="modal-success" id="modalSuccess">
+    <div class="success-eyebrow">Received.</div>
+    <div class="success-title">I'll be in touch.</div>
+    <p>Go back to what you were doing.</p>
+  </div>
+</div>
 
 <script>
 // Horizontal scroll
@@ -574,44 +938,6 @@ footer {
   }, { passive: true });
 })();
 
-// Big statement: "your problem." fades in first, then stroke-draw reveals the rest
-(function() {
-  const el = document.getElementById('big-reveal');
-  if (!el) return;
-
-  const accentEl = el.querySelector('.accent-reveal');
-  const strokeEls = el.querySelectorAll('.stroke-text');
-  let hasRun = false;
-
-  function runAnimation() {
-    if (hasRun) return;
-    hasRun = true;
-
-    // Phase 1: "your problem." fades in
-    accentEl.classList.add('show');
-
-    // Phase 2: after 1.2s, stroke outlines draw in
-    setTimeout(() => {
-      strokeEls.forEach(span => span.classList.add('draw'));
-
-      // Phase 3: after strokes finish drawing (2s), fill with solid color
-      setTimeout(() => {
-        strokeEls.forEach(span => span.classList.add('fill'));
-      }, 2100);
-    }, 1200);
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        runAnimation();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  observer.observe(el);
-})();
 
 // Contact section reveal sequence: typewriter -> word stagger -> ink blot
 (function() {
@@ -628,7 +954,7 @@ footer {
     { text: "Let's ", accent: false },
     { text: "build.", accent: true }
   ];
-  const CHAR_DELAY = 130; // 130ms per character (~1.6s total for 12 chars)
+  const CHAR_DELAY = 150; // 150ms per character — 15% slower than original 130ms
 
   const CURSOR_HTML = '<span class="contact-cursor"></span>';
 
@@ -650,12 +976,13 @@ footer {
 
     function typeNext() {
       if (idx >= segments.length) {
-        // Typing done — brief blink then remove cursor
+        // Typing done — brief blink then remove cursor.
+        // 100ms (was 400ms) — trimmed 300ms so word stagger starts sooner.
         setTimeout(() => {
           const cursor = headline.querySelector('.contact-cursor');
           if (cursor) cursor.remove();
           callback();
-        }, 400);
+        }, 100);
         return;
       }
       const seg = segments[idx];
@@ -682,22 +1009,84 @@ footer {
     // Phase 1: JS typewriter on "Let's build."
     typeWriter(() => {
 
-      // Phase 2: Word-by-word stagger on subtitle (280ms between words, 20% faster)
-      sub.classList.add('go');
+      // Phase 2: Word-by-word stagger via WAAPI (Web Animations API).
+      //
+      // Why WAAPI instead of CSS transition + cubic-bezier:
+      // CSS transitions only know start and end. A cubic-bezier with a control
+      // point above 1.0 *tries* to overshoot, but browsers clamp the output at
+      // the end value — so the overshoot never actually happens. WAAPI lets you
+      // define an explicit intermediate keyframe at the real overshoot position,
+      // so the word literally travels to translateY(-6px) before settling at 0.
+      //
+      // STAGGER = gap between each word's animation starting.
+      // WORD_DUR = total duration of each word's animation.
+      // Both kept in sync with Phase 3 math below.
+      const STAGGER  = 102; // ms between words
+      const WORD_DUR = 510; // ms per word
+
       wordSpans.forEach((span, i) => {
-        span.style.transitionDelay = (i * 280) + 'ms';
+        setTimeout(() => {
+          span.animate(
+            [
+              // Frame 0% → 60%: rush from below up to overshoot position.
+              // easing on this keyframe controls the 0→60% segment.
+              // cubic-bezier(0.2,0,0.8,1) = fast start, slight deceleration into peak.
+              {
+                opacity:   0,
+                transform: 'translateY(20px) scale(0.94)',
+                offset:    0,
+                easing:    'cubic-bezier(0.2, 0, 0.8, 1)'
+              },
+              // Frame 60%: OVERSHOOT — physically above the resting spot.
+              // -12px up, 7% larger. Unmissable if the CSS transition isn't fighting it.
+              // easing on this keyframe controls the 60→100% settle segment.
+              // cubic-bezier(0.25,0.1,0.25,1) = Tim's standard smooth decelerate.
+              {
+                opacity:   1,
+                transform: 'translateY(-12px) scale(1.07)',
+                offset:    0.6,
+                easing:    'cubic-bezier(0.25, 0.1, 0.25, 1)'
+              },
+              // Frame 100%: settle exactly at rest.
+              {
+                opacity:   1,
+                transform: 'translateY(0px) scale(1)',
+                offset:    1
+              }
+            ],
+            {
+              duration: WORD_DUR,
+              fill:     'forwards'
+            }
+          );
+          // commitStyles() writes the final values as inline styles, then cancel()
+          // removes the animation. Bulletproof — nothing in CSS can fight inline styles.
+          anim.onfinish = () => { anim.commitStyles(); anim.cancel(); };
+        }, i * STAGGER);
       });
 
-      // Phase 3: Ink blot on email after words finish
-      // 10 words * 280ms stagger + 700ms transition = ~3500ms
+      // Phase 3: email fades in 200ms before "problems." finishes.
+      // Direct inline style — no class toggle, no ambiguity.
+      const emailDelay = (wordSpans.length - 1) * STAGGER + WORD_DUR - 200;
       setTimeout(() => {
-        link.classList.add('go');
+        link.style.transition = 'opacity 0.6s ease';
+        link.style.opacity    = '1';
 
-        // Phase 4: Line slides in from off-screen left
+        // Phase 4: underline WAAPI — slides in from left, overshoots right,
+        // compresses at peak, settles. ::after can't be targeted by WAAPI — real span used.
         setTimeout(() => {
-          link.classList.add('line-in');
-        }, 1500);
-      }, 3500);
+          const line = document.getElementById('contactLine');
+          const anim = line.animate(
+            [
+              { transform: 'translateX(-110vw) scaleX(1)',    offset: 0,    easing: 'cubic-bezier(0.3, 0, 0.7, 1)' },
+              { transform: 'translateX(20px) scaleX(0.75)',   offset: 0.62, easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)' },
+              { transform: 'translateX(0) scaleX(1)',         offset: 1 }
+            ],
+            { duration: 750, fill: 'forwards' }
+          );
+          anim.onfinish = () => { anim.commitStyles(); anim.cancel(); };
+        }, 200);
+      }, emailDelay);
     });
   }
 
@@ -712,6 +1101,525 @@ footer {
   }, { threshold: 0.2 });
 
   observer.observe(contactSection);
+})();
+
+// ============================================
+// SCROLL-TRACKING CTA + MODAL
+// ============================================
+(function() {
+  const btn      = document.getElementById('scrollCta');
+  const overlay  = document.getElementById('ctaOverlay');
+  const modal    = document.getElementById('ctaModal');
+  const closeBtn = document.getElementById('modalClose');
+  const form     = document.getElementById('ctaForm');
+  const success  = document.getElementById('modalSuccess');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if (!btn || !modal) return;
+
+  // Stored button center — captured in openModal() BEFORE overflow:hidden shifts
+  // the scrollbar away. closeModal() reuses these so the blob lands in the right spot.
+  var storedBtnCX = 0;
+  var storedBtnCY = 0;
+
+  // ---- 1. Scroll-position tracking + fade-in ----
+  // The button rides the right edge like a scroll thumb.
+  // As the page scrolls from top → bottom, the button moves
+  // from 48px from the top → 48px from the bottom.
+  //
+  // It also fades in from opacity 0 → 1 as the user scrolls the first 220px.
+  // The 30px grace zone at the top means tiny accidental scrolls (from trackpad
+  // inertia, touch jitter, etc.) don't start revealing the button prematurely.
+  const FADE_START_PX = 30;   // scroll distance before fade begins
+  const FADE_RANGE_PX = 220;  // scroll distance over which fade completes
+
+  function updateBtnPosition() {
+    const scrollY    = window.pageYOffset;
+    const maxScroll  = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const fraction   = Math.min(1, scrollY / maxScroll);
+    const pad        = 48;                                         // px gap from top and bottom edges
+    const travel     = window.innerHeight - btn.offsetHeight - (pad * 2);
+    btn.style.top    = (pad + fraction * travel) + 'px';
+
+    // Scroll-driven fade. Clamped 0 → 1. Feeds CSS var --scroll-opacity.
+    const fadeRaw = (scrollY - FADE_START_PX) / FADE_RANGE_PX;
+    const fadeIn  = Math.min(1, Math.max(0, fadeRaw));
+    btn.style.setProperty('--scroll-opacity', fadeIn.toFixed(3));
+  }
+
+  window.addEventListener('scroll', updateBtnPosition, { passive: true });
+  window.addEventListener('resize', updateBtnPosition, { passive: true });
+  updateBtnPosition(); // set initial position immediately
+
+  // ---- 2 & 3. Blob morph — Web Animations API ----
+  //
+  // We use element.animate() (WAAPI) instead of CSS transitions because we
+  // need TWO different easing curves within a single unbroken motion:
+  //
+  //   OPEN  leg 1: slow-start → accelerates  (ease-in)  as circle expands from dot
+  //   OPEN  leg 2: fast → decelerates        (ease-out) as it settles into the modal
+  //   CLOSE leg 1: sits → accelerates        (ease-in)  as modal contracts toward button
+  //   CLOSE leg 2: fast → decelerates        (ease-out) as circle collapses to a dot
+  //
+  // A middle keyframe at offset 0.28 (open) / 0.72 (close) marks the handoff
+  // point where the circle has just covered the button. The easing property ON
+  // a keyframe governs the curve FROM that keyframe TO the next one.
+  //
+  // The puzzle piece button is NOT hidden at the start — the expanding circle
+  // simply grows over it (z-index 202 vs button's 90). This is what creates
+  // the feeling that the puzzle piece IS the circle; nothing disappears.
+
+  function openModal() {
+    var btnRect = btn.getBoundingClientRect();
+    var btnCX   = btnRect.left + btnRect.width  / 2;
+    var btnCY   = btnRect.top  + btnRect.height / 2;
+    // Threshold: hide the button the frame the blob matches or exceeds this.
+    // Use the larger dimension in case the button isn't perfectly square.
+    var btnSize = Math.max(btnRect.width, btnRect.height);
+
+    // FIX B — store these NOW, before overflow:hidden removes the scrollbar
+    // and shifts fixed elements. closeModal() will read storedBtnCX/Y instead
+    // of re-measuring, so both ends of the animation aim at the same pixel.
+    storedBtnCX = btnCX;
+    storedBtnCY = btnCY;
+
+    // Blob starts at the same accent as the resting puzzle piece.
+    // The hover fill-color change has been removed from CSS so there's no
+    // mismatch between the button color and the blob's starting color.
+    var startColor = '#18b368';
+
+    // Measure modal at full size while invisible.
+    modal.style.transformOrigin = '';
+    modal.classList.add('measuring');
+    void modal.getBoundingClientRect();
+    var modalW = modal.offsetWidth;
+    var modalH = modal.offsetHeight;
+    modal.classList.remove('measuring');
+
+    var modalCX = window.innerWidth  / 2;
+    var modalCY = window.innerHeight / 2;
+
+    // Disable clicks immediately but leave the button VISIBLE.
+    // The expanding circle (z-index 202) grows over it naturally.
+    // overflow:hidden fires now (scroll lock) but the overlay is withheld —
+    // it won't darken the background until the blob has fully covered the button.
+    btn.style.pointerEvents = 'none';
+    document.body.style.overflow = 'hidden';
+
+    // Re-read the button center AFTER overflow:hidden.
+    // On systems with visible scrollbars, removing the scrollbar shifts
+    // position:fixed elements to the right. storedBtnCX (set above) holds
+    // the pre-shift value used by closeModal so the blob lands correctly
+    // when the scrollbar returns. blobStartX is the post-shift value — where
+    // the button actually sits during the open animation.
+    var postRect  = btn.getBoundingClientRect();
+    var blobStartX = postRect.left + postRect.width  / 2;
+    var blobStartY = postRect.top  + postRect.height / 2;
+
+    // Blob starts as a 4px dot at the exact geometric center of the button.
+    var blob = document.createElement('div');
+    blob.id = 'morphBlob';
+    blob.style.cssText = [
+      'position:fixed',
+      'z-index:202',
+      'pointer-events:none',
+      'box-sizing:border-box',
+      'background:' + startColor,
+      'border:2px solid ' + startColor,
+      'border-radius:50%',
+      'width:4px',
+      'height:4px',
+      'left:' + blobStartX + 'px',
+      'top:'  + blobStartY + 'px',
+      'transform:translate(-50%,-50%)',
+    ].join(';');
+    document.body.appendChild(blob);
+
+    // midSize: the blob's diameter at the leg-1/leg-2 handoff.
+    // Must exceed the button so it's fully covered BEFORE the blob starts
+    // moving toward the modal. Add 20px safety margin.
+    var midSize = Math.max(130, btnSize + 20);
+
+    // WAAPI — three keyframes, two legs, two easings:
+    //
+    // Leg 1 (0 → 0.44) — ease-in: blob grows from dot to midSize, stays
+    //   centered over the button. Button hidden via setTimeout at t=440ms,
+    //   the exact moment this keyframe fires.
+    //
+    // Leg 2 (0.44 → 1.0) — ease-out: blob travels to modal center, grows
+    //   to modal dimensions, corners square off, fill transitions to the page background.
+    var totalDur = 1000;
+    var anim = blob.animate([
+      {
+        width: '4px',
+        height: '4px',
+        left: blobStartX + 'px',
+        top:  blobStartY + 'px',
+        borderRadius: '50%',
+        background: startColor,
+        easing: 'cubic-bezier(0.4, 0, 1, 1)'   // ease-in: starts slow, accelerates
+      },
+      {
+        width: midSize + 'px',
+        height: midSize + 'px',
+        left: blobStartX + 'px',
+        top:  blobStartY + 'px',
+        borderRadius: '50%',
+        background: startColor,
+        offset: 0.44,
+        easing: 'cubic-bezier(0.25, 0, 0, 1)'  // ease-out: carries momentum, settles
+      },
+      {
+        width: modalW + 'px',
+        height: modalH + 'px',
+        left: modalCX + 'px',
+        top:  modalCY + 'px',
+        borderRadius: '12px',
+        background: '#e9eef5'
+      }
+    ], {
+      duration: totalDur,
+      fill: 'forwards'
+    });
+
+    // --- Exact-timing button hide ---
+    // At totalDur * 0.44 the blob is guaranteed to be at the midpoint keyframe:
+    // still centered over the button, already midSize px wide — definitely
+    // covering the button. Using setTimeout to this exact ms is reliable;
+    // getComputedStyle polling was unreliable because WAAPI can run on the
+    // compositor thread, making the width appear as the static 4px to JS.
+    // --- Size-based button hide ---
+    // Poll getComputedStyle(blob).width every frame. 'width' is a layout
+    // property so it runs on the main thread — unlike transform/opacity,
+    // it IS readable mid-WAAPI-animation.
+    // Threshold: 85% of btnSize. The puzzle SVG doesn't fill every corner
+    // of its bounding box, so the blob covers the visible shape slightly
+    // before reaching the full bbox edge.
+    // Fallback setTimeout at 44% fires if rAF somehow misses it.
+    var buttonHidden = false;
+    function hideButton() {
+      if (buttonHidden) return;
+      btn.style.transition = 'none'; // instant disappear, no 350ms fade
+      btn.classList.add('hidden');
+      overlay.classList.add('open');
+      buttonHidden = true;
+    }
+    function watchCoverage() {
+      if (buttonHidden) return;
+      var w = parseFloat(window.getComputedStyle(blob).width);
+      if (w >= btnSize * 0.85) {
+        hideButton();
+        return;
+      }
+      requestAnimationFrame(watchCoverage);
+    }
+    requestAnimationFrame(watchCoverage);
+    setTimeout(hideButton, Math.round(totalDur * 0.44)); // hard fallback
+
+    anim.onfinish = function() {
+      // Commit animated values to inline styles before canceling.
+      // Canceling without this snaps the blob back to 4px.
+      blob.style.width        = modalW  + 'px';
+      blob.style.height       = modalH  + 'px';
+      blob.style.left         = modalCX + 'px';
+      blob.style.top          = modalCY + 'px';
+      blob.style.borderRadius = '12px';
+      blob.style.background   = '#e9eef5';
+      anim.cancel();
+
+      // Safety net: ensure button is gone even if both rAF and setTimeout missed.
+      hideButton();
+
+      // Snap real modal in — no CSS transition (blob is covering it).
+      modal.classList.add('no-transition');
+      void modal.getBoundingClientRect();
+      modal.classList.add('open');
+      void modal.getBoundingClientRect();
+      modal.classList.remove('no-transition');
+
+      // Fade blob out — modal is underneath, identical in appearance.
+      blob.style.transition = 'opacity 200ms ease';
+      blob.style.opacity    = '0';
+      setTimeout(function() {
+        if (blob.parentNode) blob.parentNode.removeChild(blob);
+      }, 200);
+    };
+  }
+
+  function closeModal() {
+    var stale = document.getElementById('morphBlob');
+    if (stale && stale.parentNode) stale.parentNode.removeChild(stale);
+
+    if (!modal.classList.contains('open')) {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(function() { btn.classList.remove('hidden'); }, 300);
+      return;
+    }
+
+    var mRect  = modal.getBoundingClientRect();
+    var blobCX = mRect.left + mRect.width  / 2;
+    var blobCY = mRect.top  + mRect.height / 2;
+
+    // FIX B — use the coordinates captured at open time (before overflow:hidden
+    // shifted the scrollbar). Reading getBoundingClientRect() here would give a
+    // position ~15-17px to the right because the scrollbar is still hidden.
+    var btnCX = storedBtnCX;
+    var btnCY = storedBtnCY;
+
+    // Blob starts as an exact visual copy of the open modal.
+    var blob = document.createElement('div');
+    blob.id = 'morphBlob';
+    blob.style.cssText = [
+      'position:fixed',
+      'z-index:202',
+      'pointer-events:none',
+      'box-sizing:border-box',
+      'background:#e9eef5',
+      'border:2px solid #18b368',
+      'border-radius:12px',
+      'width:'  + mRect.width  + 'px',
+      'height:' + mRect.height + 'px',
+      'left:'   + blobCX       + 'px',
+      'top:'    + blobCY       + 'px',
+      'transform:translate(-50%,-50%)',
+    ].join(';');
+    document.body.appendChild(blob);
+
+    // Instantly hide the real modal — blob takes over visually.
+    modal.classList.add('no-transition');
+    void modal.getBoundingClientRect();
+    modal.classList.remove('open');
+    void modal.getBoundingClientRect();
+    modal.classList.remove('no-transition');
+
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+
+    // WAAPI keyframes — exact reverse of open:
+    //
+    // Frame 0 → Frame 1  (0% to 72%, ~864ms)
+    //   Easing: cubic-bezier(0.8, 0, 1, 0.8) — ease-in
+    //   Blob contracts from modal shape → circle covering the button.
+    //   Color fades page background → accent, corners dissolve, rushes to button.
+    //
+    // Frame 1 → Frame 2  (72% to 100%, ~336ms)
+    //   Easing: cubic-bezier(0.2, 0, 0.6, 1) — ease-out
+    //   Circle collapses from 110px to a 4px dot, decelerating into place.
+    var totalDur = 1000;
+    var anim = blob.animate([
+      {
+        width: mRect.width  + 'px',
+        height: mRect.height + 'px',
+        left: blobCX + 'px',
+        top:  blobCY + 'px',
+        borderRadius: '12px',
+        background: '#e9eef5',
+        easing: 'cubic-bezier(1, 0, 0.75, 1)'  // reverse of open leg 2 — fast start, decelerates to circle
+      },
+      {
+        width: '110px',
+        height: '110px',
+        left: btnCX + 'px',
+        top:  btnCY + 'px',
+        borderRadius: '50%',
+        background: '#18b368',
+        offset: 0.56,
+        easing: 'cubic-bezier(0, 0, 0.6, 1)'   // reverse of open leg 1 — ease-out, soft landing at button
+      },
+      {
+        width: '4px',
+        height: '4px',
+        left: btnCX + 'px',
+        top:  btnCY + 'px',
+        borderRadius: '50%',
+        background: '#18b368'
+      }
+    ], {
+      duration: totalDur,
+      fill: 'forwards'
+    });
+
+    // Button reappears when blob reaches button size (72% = 864ms).
+    // Both are terracotta at this point, so the blob circle sits over the
+    // button seamlessly while collapsing to a dot in the final 28%.
+    setTimeout(function() {
+      // Blob is still covering the button at this point, so the reveal is
+      // invisible to the user. Instant show (no transition) — blob shrinks
+      // away over the remaining 44% and exposes the button naturally.
+      // Also clear pointerEvents inline style set during openModal — without
+      // this the button looks normal but ignores every click after first use.
+      btn.style.transition = 'none';
+      btn.style.pointerEvents = '';
+      btn.classList.remove('hidden');
+    }, Math.round(totalDur * 0.56));
+
+    anim.onfinish = function() {
+      anim.cancel();
+      if (blob.parentNode) blob.parentNode.removeChild(blob);
+      // Restore opacity transition so scroll-driven fade works on next scroll.
+      btn.style.transition = '';
+    };
+  }
+
+  // ---- 4. Event listeners ----
+  btn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
+  // ---- 5. Form submission via Formspree ----
+  // Sends data as JSON to Formspree (no page reload).
+  // On success: shows the "I'll be in touch" panel, then auto-closes.
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled    = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method:  'POST',
+        body:    new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display    = 'none';
+        success.style.display = 'block';
+
+        // Auto-close after 3s, then reset for next use
+        setTimeout(closeModal, 3000);
+        setTimeout(function() {
+          form.reset();
+          form.style.display    = '';
+          success.style.display = 'none';
+          submitBtn.textContent = 'Send it';
+          submitBtn.disabled    = false;
+        }, 3600);
+      } else {
+        submitBtn.textContent = 'Something went wrong — try again';
+        submitBtn.disabled    = false;
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Something went wrong — try again';
+      submitBtn.disabled    = false;
+    }
+  });
+})();
+
+// ============================================
+// PUZZLE PIECE PERIMETER TRACE
+// Triggers when user hits 100% scroll — a gentle
+// "hey, take the next step" loop around the outline.
+// ============================================
+(function() {
+  const btn = document.getElementById('scrollCta');
+  if (!btn) return;
+  const svg = btn.querySelector('svg');
+  const mainPath = svg.querySelector('path');
+
+  // ── "begin" pulse text ──────────────────────────────────────────────
+  // Inserted BEFORE the main path so it renders behind the terracotta fill.
+  // The fill's mask punches "begin" holes → this text glows through them.
+  // Nothing outside the cutout area is visible because the fill covers it.
+  const pulseText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  pulseText.setAttribute('x', '248.845');
+  pulseText.setAttribute('y', '238');
+  pulseText.setAttribute('text-anchor', 'middle');
+  pulseText.setAttribute('dominant-baseline', 'central');
+  pulseText.setAttribute('font-family', "'IBM Plex Mono', monospace");
+  pulseText.setAttribute('font-size', '72');
+  pulseText.setAttribute('font-weight', '500');
+  pulseText.setAttribute('letter-spacing', '2');
+  pulseText.setAttribute('fill', 'rgba(255, 200, 165, 1)'); // warm peach glow
+  pulseText.setAttribute('pointer-events', 'none');
+  pulseText.textContent = 'begin';
+  pulseText.style.opacity = '0';           // hidden at rest
+  pulseText.style.transition = 'opacity 0.6s ease'; // fade-out on stopTrace
+  svg.insertBefore(pulseText, mainPath);   // behind the fill, above nothing
+
+  // Clone the same shape as a pure stroke path — no fill, no mask.
+  // The mask on the original cuts "begin" into the fill; the trace
+  // goes on top and ignores it, tracing the raw puzzle edge.
+  const tracePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  tracePath.setAttribute('d', mainPath.getAttribute('d'));
+  tracePath.setAttribute('fill', 'none');
+  tracePath.setAttribute('stroke', 'rgba(255, 245, 238, 0.92)');
+  tracePath.setAttribute('stroke-width', '18');       // ~3px visual at 82px render size
+  tracePath.setAttribute('stroke-linecap', 'round');  // tapered ends on the traveling arc
+  tracePath.style.opacity = '0';
+  tracePath.style.transition = 'opacity 0.6s ease';
+  tracePath.style.pointerEvents = 'none';
+  svg.appendChild(tracePath);
+
+  // Measure the exact perimeter after appending (must be in DOM)
+  const totalLength = tracePath.getTotalLength();
+  const dashLen = totalLength * 0.25; // 25% arc travels around the edge
+
+  // dasharray: [visible arc, gap] — gap fills the remaining 75%
+  // so only one arc is ever on-screen at once
+  tracePath.setAttribute('stroke-dasharray', `${dashLen} ${totalLength - dashLen}`);
+  tracePath.setAttribute('stroke-dashoffset', '0');
+
+  // rAF loop — advances offset by (totalLength / duration) each ms
+  // One full lap = 3200ms
+  const speed = totalLength / 3200;
+  let offset = 0;
+  let lastTs = null;
+  let animFrame = null;
+  let running = false;
+
+  function tick(ts) {
+    if (lastTs === null) lastTs = ts;
+    const elapsed = ts - lastTs;
+    lastTs = ts;
+    offset = (offset + speed * elapsed) % totalLength;
+    tracePath.setAttribute('stroke-dashoffset', -offset);
+    animFrame = requestAnimationFrame(tick);
+  }
+
+  function startTrace() {
+    if (running) return;
+    running = true;
+    lastTs = null;
+    tracePath.style.opacity = '1';
+    animFrame = requestAnimationFrame(tick);
+    // Begin pulse: clear inline opacity so the @keyframes animation owns it.
+    // The animation fades in and pulses on its own loop.
+    pulseText.style.opacity = '';
+    pulseText.style.animation = 'begin-pulse 3.4s ease-in-out infinite';
+  }
+
+  function stopTrace() {
+    if (!running) return;
+    running = false;
+    tracePath.style.opacity = '0';
+    if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+    // Stop begin pulse: clear animation, restore inline opacity → 0.6s fade out.
+    pulseText.style.animation = '';
+    pulseText.style.opacity = '0';
+  }
+
+  // Hysteresis band: starts at 98% scroll, stops below 94%.
+  // The gap prevents rapid start/stop flickering near the trigger point.
+  let atBottom = false;
+
+  window.addEventListener('scroll', function() {
+    const scrollY    = window.pageYOffset;
+    const maxScroll  = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const fraction   = scrollY / maxScroll;
+
+    if (fraction >= 0.98 && !atBottom) {
+      atBottom = true;
+      startTrace();
+    } else if (fraction < 0.94 && atBottom) {
+      atBottom = false;
+      stopTrace();
+    }
+  }, { passive: true });
 })();
 
 // Smooth scroll with ease-in-out quart easing
