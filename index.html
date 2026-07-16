@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tim Carson | Work</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -99,7 +100,7 @@ nav * { color: white; }
 
 .hero-title {
   font-family: var(--serif);
-  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-size: clamp(3rem, 7.4vw, 6.6rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.01em;
@@ -135,12 +136,63 @@ nav * { color: white; }
   animation-delay: 2s;
 }
 
+.hero-desc-trigger {
+  margin-top: 3rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.hero-desc-trigger .hero-desc {
+  margin-top: 0;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.hero-desc-cue {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hero-desc-trigger:hover .hero-desc,
+.hero-desc-trigger:focus-visible .hero-desc {
+  color: var(--text);
+  transform: translateX(6px);
+}
+
+.hero-desc-trigger:hover .hero-desc-cue,
+.hero-desc-trigger:focus-visible .hero-desc-cue {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-desc-trigger:focus-visible {
+  outline: none;
+}
+
+.hero-desc-trigger:focus-visible .hero-desc {
+  text-decoration: underline;
+  text-decoration-color: rgba(24, 179, 104, 0.45);
+  text-underline-offset: 0.22em;
+}
+
 .hero-watermark {
   position: absolute;
   right: 5vw;
   bottom: 10vh;
   font-family: var(--serif);
-  font-size: clamp(8rem, 20vw, 18rem);
+  font-size: clamp(7rem, 16vw, 14rem);
   font-weight: 900;
   color: rgba(16, 24, 24, 0.05);
   line-height: 1;
@@ -227,7 +279,7 @@ a.h-card-tag:hover { opacity: 0.7; }
 
 .big-text {
   font-family: var(--serif);
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(2.25rem, 5.25vw, 4.35rem);
   font-weight: 400;
   line-height: 1.4;
   max-width: 900px;
@@ -363,8 +415,10 @@ a.h-card-tag:hover { opacity: 0.7; }
   bottom: -1px;
   left: 15%;
   right: 15%;
-  height: 1px;
+  height: 2px;
   background: var(--accent);
+  border-radius: 999px;
+  box-shadow: 0 0 0 rgba(24, 179, 104, 0);
   transform: translateX(-110vw);
   transform-origin: center center; /* compresses from the middle outward */
 }
@@ -383,6 +437,10 @@ footer {
 
 @media (max-width: 768px) {
   .hero { padding: 0 5vw; }
+  .hero-title { font-size: clamp(2.7rem, 13vw, 4.35rem); line-height: 1.02; }
+  .hero-desc { font-size: 0.98rem; max-width: 24rem; margin-top: 2.25rem; }
+  .hero-desc-trigger { gap: 0.5rem; margin-top: 2.25rem; }
+  .hero-desc-cue { opacity: 1; transform: none; }
   .hero-watermark { display: none; }
   .h-card { min-width: 280px; max-width: 280px; }
   .big-statement { padding: 8rem 5vw; }
@@ -391,6 +449,8 @@ footer {
   footer { padding: 2rem 5vw; flex-direction: column; gap: 0.5rem; }
   nav { padding: 1rem 1.5rem; }
   .nav-links { gap: 1rem; }
+  .story-modal { width: min(700px, calc(100vw - 24px)); padding: 2rem 1.2rem 1.35rem; }
+  .story-grid { grid-template-columns: 1fr; gap: 1.35rem; }
 }
 
 /* ============================================
@@ -698,6 +758,86 @@ footer {
   font-weight: 300;
 }
 
+.story-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: rgba(10, 18, 16, 0.54);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+.story-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.story-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 211;
+  width: min(700px, calc(100vw - 48px));
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  background: color-mix(in srgb, var(--bg) 94%, white);
+  border: 1px solid rgba(24, 179, 104, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(8, 20, 17, 0.18);
+  padding: 2.5rem 2.25rem 2.1rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(-50% + 22px)) scale(0.97);
+  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.story-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.85fr);
+  gap: 2rem;
+}
+
+.story-copy p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-light);
+  margin-bottom: 1.2rem;
+}
+
+.story-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.story-aside {
+  padding: 1.1rem 1.15rem;
+  border-radius: 14px;
+  background: rgba(24, 179, 104, 0.06);
+  border: 1px solid rgba(24, 179, 104, 0.14);
+  align-self: start;
+}
+
+.story-aside-label {
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+}
+
+.story-aside p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-light);
+}
+
 @media (max-width: 768px) {
   .scroll-cta { right: 16px; }
   .cta-modal { padding: 2rem 1.5rem; }
@@ -721,10 +861,13 @@ footer {
 <section class="hero">
   <div class="hero-overline">Chattanooga, TN · 2026</div>
   <h1 class="hero-title">
-    <span class="accent">Unpuzzle</span> the mess.<br>
-    Build the tool.
+    Sometimes the hardest part is
+    <span class="accent">naming</span> what needs to change.
   </h1>
-  <p class="hero-desc">Former teacher. Now I use AI to build apps, websites, and tools for people who know what they need but not how to get there.</p>
+  <button class="hero-desc-trigger" id="storyTrigger" type="button" aria-haspopup="dialog" aria-controls="storyModal">
+    <span class="hero-desc">Former teacher. Now I use AI to build apps, websites, and tools for people who know what they need but not how to get there.</span>
+    <span class="hero-desc-cue">More about me</span>
+  </button>
   <div class="hero-watermark" id="watermark">TC</div>
 </section>
 
@@ -819,8 +962,26 @@ footer {
 
 <footer>
   <span>Tim Carson · 2026</span>
-  <span>Built with curiosity</span>
 </footer>
+
+<div class="story-overlay" id="storyOverlay"></div>
+<div class="story-modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle" aria-describedby="storySummary">
+  <button class="modal-close" id="storyClose" aria-label="Close">&#x2715;</button>
+  <div class="modal-eyebrow">A little more context</div>
+  <h3 class="modal-title" id="storyTitle">How I got <em>here.</em></h3>
+  <div class="story-grid">
+    <div class="story-copy">
+      <p id="storySummary">I spent years teaching before I started building software. That matters because I still think like a teacher: start with the real confusion, name it clearly, and build the smallest thing that makes the next step obvious.</p>
+      <p>I am not coming at this from a traditional engineering biography. I came in through language, explanation, and the stubborn feeling that too many useful tools stayed trapped behind someone else's gate. AI changed that. It turned software from a closed profession I was orbiting into a medium I could work in directly.</p>
+      <p>Now I build apps, websites, and internal tools for people who can already feel the friction in their work, even if they do not yet know the shape of the fix. That is the through-line: translate a fuzzy problem into something concrete enough to ship.</p>
+      <p>If you want the short version, it is this: teacher brain, builder tools, very little patience for waste, and a real interest in making software feel more human than the process that usually produces it.</p>
+    </div>
+    <aside class="story-aside">
+      <div class="story-aside-label">Quick sketch</div>
+      <p>Based in Chattanooga. Former teacher. Now building practical software with AI, design, and a bias toward clarity over theater.</p>
+    </aside>
+  </div>
+</div>
 
 <!-- SCROLL-TRACKING CTA BUTTON — puzzle piece with "begin" cut out; fades in on scroll -->
 <button class="scroll-cta" id="scrollCta" aria-label="Get in touch">
@@ -938,8 +1099,46 @@ footer {
   }, { passive: true });
 })();
 
+// Hero story modal: optional context for people who want more than the one-line version.
+(function() {
+  const trigger = document.getElementById('storyTrigger');
+  const overlay = document.getElementById('storyOverlay');
+  const modal = document.getElementById('storyModal');
+  const closeBtn = document.getElementById('storyClose');
+  if (!trigger || !overlay || !modal || !closeBtn) return;
 
-// Contact section reveal sequence: typewriter -> word stagger -> ink blot
+  let lastFocused = null;
+
+  function openStory() {
+    lastFocused = document.activeElement;
+    overlay.classList.add('open');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeStory() {
+    overlay.classList.remove('open');
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    if (lastFocused && typeof lastFocused.focus === 'function') {
+      lastFocused.focus();
+    }
+  }
+
+  trigger.addEventListener('click', openStory);
+  closeBtn.addEventListener('click', closeStory);
+  overlay.addEventListener('click', closeStory);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeStory();
+    }
+  });
+})();
+
+
+// Contact section reveal sequence: typewriter -> reassemble cascade -> ink blot
 (function() {
   const headline = document.getElementById('contact-headline');
   const sub = document.getElementById('contact-sub');
@@ -954,7 +1153,11 @@ footer {
     { text: "Let's ", accent: false },
     { text: "build.", accent: true }
   ];
-  const CHAR_DELAY = 150; // 150ms per character — 15% slower than original 130ms
+  const CHAR_DELAY = 142; // Slightly faster type cadence for a quicker headline beat
+  const CASCADE_SPEED = 50; // ms between words from the selected WDM spec
+  const CASCADE_INTENSITY = 1.0; // 100%
+  const MOTION_CALM = 0.13; // calm 13%
+  const IMPACT = 0.95; // 95%
 
   const CURSOR_HTML = '<span class="contact-cursor"></span>';
 
@@ -977,7 +1180,7 @@ footer {
     function typeNext() {
       if (idx >= segments.length) {
         // Typing done — brief blink then remove cursor.
-        // 100ms (was 400ms) — trimmed 300ms so word stagger starts sooner.
+        // Kept short so the subtitle handoff feels immediate.
         setTimeout(() => {
           const cursor = headline.querySelector('.contact-cursor');
           if (cursor) cursor.remove();
@@ -1008,81 +1211,93 @@ footer {
 
     // Phase 1: JS typewriter on "Let's build."
     typeWriter(() => {
-
-      // Phase 2: Word-by-word stagger via WAAPI (Web Animations API).
-      //
-      // Why WAAPI instead of CSS transition + cubic-bezier:
-      // CSS transitions only know start and end. A cubic-bezier with a control
-      // point above 1.0 *tries* to overshoot, but browsers clamp the output at
-      // the end value — so the overshoot never actually happens. WAAPI lets you
-      // define an explicit intermediate keyframe at the real overshoot position,
-      // so the word literally travels to translateY(-6px) before settling at 0.
-      //
-      // STAGGER = gap between each word's animation starting.
-      // WORD_DUR = total duration of each word's animation.
-      // Both kept in sync with Phase 3 math below.
-      const STAGGER  = 102; // ms between words
-      const WORD_DUR = 510; // ms per word
+      // Phase 2: exact WDM #03 "Reassemble" choreography.
+      // Uses the same scatter math and easing model as the lab, with the
+      // selected live values plugged into the same formula.
+      const character = MOTION_CALM;
+      const intensity = CASCADE_INTENSITY;
+      const impact = IMPACT * intensity;
+      const WORD_DUR = 420 + (impact * 280);
+      const STAGGER = CASCADE_SPEED;
+      const easing = `cubic-bezier(.16, ${(0.72 + (0.22 * character)).toFixed(2)}, ${(0.22 - (0.16 * character)).toFixed(2)}, 1)`;
 
       wordSpans.forEach((span, i) => {
         setTimeout(() => {
-          span.animate(
+          const sign = i % 2 ? 1 : -1;
+          const y = (12 + (28 * impact)) * sign;
+          const x = (7 + (22 * impact)) * ((i % 3) - 1);
+          const r = (2 + (10 * impact)) * sign;
+          const anim = span.animate(
             [
-              // Frame 0% → 60%: rush from below up to overshoot position.
-              // easing on this keyframe controls the 0→60% segment.
-              // cubic-bezier(0.2,0,0.8,1) = fast start, slight deceleration into peak.
               {
-                opacity:   0,
-                transform: 'translateY(20px) scale(0.94)',
-                offset:    0,
-                easing:    'cubic-bezier(0.2, 0, 0.8, 1)'
+                opacity: 0,
+                transform: `translate(${x}px, ${y}px) rotate(${r}deg)`,
+                filter: `blur(${1 + (4 * impact)}px)`,
+                offset: 0,
+                easing
               },
-              // Frame 60%: OVERSHOOT — physically above the resting spot.
-              // -12px up, 7% larger. Unmissable if the CSS transition isn't fighting it.
-              // easing on this keyframe controls the 60→100% settle segment.
-              // cubic-bezier(0.25,0.1,0.25,1) = Tim's standard smooth decelerate.
               {
-                opacity:   1,
-                transform: 'translateY(-12px) scale(1.07)',
-                offset:    0.6,
-                easing:    'cubic-bezier(0.25, 0.1, 0.25, 1)'
-              },
-              // Frame 100%: settle exactly at rest.
-              {
-                opacity:   1,
-                transform: 'translateY(0px) scale(1)',
-                offset:    1
+                opacity: 1,
+                filter: 'blur(0px)',
+                transform: 'translate(0px, 0px) rotate(0deg)',
+                offset: 1
               }
             ],
             {
-              duration: WORD_DUR,
-              fill:     'forwards'
+              duration: WORD_DUR + (impact * 140),
+              fill: 'forwards'
             }
           );
-          // commitStyles() writes the final values as inline styles, then cancel()
-          // removes the animation. Bulletproof — nothing in CSS can fight inline styles.
           anim.onfinish = () => { anim.commitStyles(); anim.cancel(); };
         }, i * STAGGER);
       });
 
-      // Phase 3: email fades in 200ms before "problems." finishes.
-      // Direct inline style — no class toggle, no ambiguity.
+      // Phase 3: email fades in just before the final word resolves.
       const emailDelay = (wordSpans.length - 1) * STAGGER + WORD_DUR - 200;
       setTimeout(() => {
         link.style.transition = 'opacity 0.6s ease';
         link.style.opacity    = '1';
 
         // Phase 4: underline WAAPI — slides in from left, overshoots right,
-        // compresses at peak, settles. ::after can't be targeted by WAAPI — real span used.
+        // compresses at peak, thickens under pressure, then settles.
+        // ::after can't be targeted by WAAPI — real span used.
         setTimeout(() => {
           const line = document.getElementById('contactLine');
           const anim = line.animate(
             [
-              { transform: 'translateX(-110vw) scaleX(1)',    offset: 0,    easing: 'cubic-bezier(0.3, 0, 0.7, 1)' },
-              { transform: 'translateX(20px) scaleX(0.75)',   offset: 0.62, easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)' },
-              { transform: 'translateX(0) scaleX(1)',         offset: 1 }
+              {
+                transform: 'translateX(-110vw) scaleX(1.14) scaleY(0.72)',
+                opacity: 0.35,
+                filter: 'blur(0px)',
+                boxShadow: '0 0 0 rgba(24, 179, 104, 0)',
+                offset: 0,
+                easing: 'cubic-bezier(0.32, 0, 0.72, 1)'
+              },
+              {
+                transform: 'translateX(28px) scaleX(0.46) scaleY(2.5)',
+                opacity: 1,
+                filter: 'blur(0px)',
+                boxShadow: '0 0 14px rgba(24, 179, 104, 0.32)',
+                offset: 0.58,
+                easing: 'cubic-bezier(0.22, 0.88, 0.2, 1)'
+              },
+              {
+                transform: 'translateX(-6px) scaleX(1.06) scaleY(0.88)',
+                opacity: 1,
+                filter: 'blur(0px)',
+                boxShadow: '0 0 8px rgba(24, 179, 104, 0.2)',
+                offset: 0.82,
+                easing: 'cubic-bezier(0.22, 0.06, 0.18, 1)'
+              },
+              {
+                transform: 'translateX(0) scaleX(1) scaleY(1)',
+                opacity: 1,
+                filter: 'blur(0px)',
+                boxShadow: '0 0 0 rgba(24, 179, 104, 0)',
+                offset: 1
+              }
             ],
-            { duration: 750, fill: 'forwards' }
+            { duration: 860, fill: 'forwards' }
           );
           anim.onfinish = () => { anim.commitStyles(); anim.cancel(); };
         }, 200);
