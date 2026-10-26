@@ -846,6 +846,25 @@ footer {
   .modal-title { font-size: 1.5rem; }
   .cta-form .form-row { grid-template-columns: 1fr; gap: 0; }
 }
+
+/* Door to /work: the favicon puzzle piece, scaled up */
+.work-door {
+  display: inline-flex; align-items: center; gap: 1.1rem; align-self: flex-start; width: fit-content;
+  margin-top: 2.25rem; padding: 0.6rem 1.4rem 0.6rem 0.6rem;
+  border-radius: 20px;
+  background: #f3f6fa;
+  color: var(--text); text-decoration: none;
+  box-shadow: 0 1px 2px rgba(16,24,24,.04);
+  transition: box-shadow .25s cubic-bezier(0.25,0.1,0.25,1), transform .25s cubic-bezier(0.25,0.1,0.25,1), background-color .2s;
+  position: relative; z-index: 2;
+}
+.work-door:active { transform: scale(0.97); transition-duration: 0s; }
+.work-door:focus-visible { outline: none; background: #dcefe4; }
+@media (hover: hover) { .work-door:hover { box-shadow: 0 6px 24px rgba(16,24,24,.10), 0 2px 6px rgba(16,24,24,.05); transform: translateY(-1px); } }
+.work-door-icon { width: 84px; height: 84px; flex: none; }
+.work-door-icon svg { width: 100%; height: 100%; display: block; }
+.work-door-text { display: flex; flex-direction: column; font: 600 1.2rem/1.2 'Space Grotesk', sans-serif; }
+.work-door-sub { margin-top: .25rem; font: 400 .85rem/1.3 'IBM Plex Sans', sans-serif; color: var(--text-light); }
 </style>
 </head>
 <body>
@@ -870,6 +889,15 @@ footer {
     <span class="hero-desc">Former teacher. Now I use AI to build apps, websites, and tools for people who know what they need but not how to get there.</span>
     <span class="hero-desc-cue">More about me</span>
   </button>
+  <a class="work-door" href="/work">
+    <span class="work-door-icon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 497.689 497.689">
+  <path d="M 248.845,485.247 C 137.403,485.247 81.683,485.247 47.063,450.626 C 12.442,416.007 12.442,360.285 12.442,248.845 C 12.442,137.403 12.442,81.683 47.063,47.063 C 81.683,12.442 137.403,12.442 248.845,12.442 C 360.285,12.442 416.007,12.442 450.626,47.063 C 485.247,81.683 485.247,137.403 485.247,248.845 C 485.247,360.285 485.247,416.007 450.626,450.626 C 416.007,485.247 360.285,485.247 248.845,485.247 " fill="#e9eef5"/>
+  <g transform="translate(248.845 248.845) rotate(-20) scale(0.82) translate(-248.845 -248.845)">
+    <path fill="#18b368" d="M88.604 318.598c24.989-24.99 65.503-24.99 90.489 0 24.989 24.988 24.989 65.5 0 90.488-3.233 3.233-6.729 6.039-10.417 8.436l80.169 80.168 80.168-80.168c-3.686-2.396-7.182-5.201-10.416-8.436-24.989-24.988-24.989-65.5 0-90.488 24.988-24.99 65.502-24.99 90.488 0 3.234 3.232 6.039 6.73 8.436 10.415l80.168-80.168-80.168-80.168c3.686-2.396 7.184-5.202 10.416-8.436 24.99-24.989 24.99-65.502 0-90.489-24.988-24.989-65.502-24.989-90.488 0-3.232 3.234-6.037 6.732-8.436 10.417L248.845 0l-80.168 80.168c-2.396-3.685-5.202-7.183-8.436-10.417-24.989-24.989-65.502-24.989-90.489 0-24.986 24.989-24.989 65.5 0 90.489 3.235 3.234 6.732 6.039 10.417 8.436L0 248.845l80.168 80.168c2.398-3.685 5.202-7.183 8.436-10.415z"/>
+  </g>
+</svg></span>
+    <span class="work-door-text">See what I've built<span class="work-door-sub">8 projects · what each one does</span></span>
+  </a>
   <div class="hero-watermark" id="watermark">TC</div>
 </section>
 
