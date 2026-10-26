@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tim Carson | Work</title>
+<meta name="description" content="Things Tim Carson has built.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Same tokens as index-rebuild.html: cool slate / signal green, locked 2026-07-15. */
+:root {
+  --paper:      #e9eef5;
+  --paper-lift: #f3f6fa;
+  --ink:        #101818;
+  --ink-soft:   #50615d;
+  --ink-mute:   #6a7b77;
+  --rule:       #c9d5de;
+  --signal:     #18b368;
+  --signal-deep:#0d7a46;
+  --focus-fill: #dcefe4;
+  --shadow-rest: 0 1px 2px rgba(16, 24, 24, 0.04);
+  --shadow-lift: 0 6px 24px rgba(16, 24, 24, 0.10), 0 2px 6px rgba(16, 24, 24, 0.05);
+  --display: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --sans:    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, monospace;
+  --r-container: 12px;
+  --r-small: 8px;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1rem/1.5 var(--sans);
+  min-height: 100vh;
+}
+a, button { color: inherit; text-decoration: none; font: inherit; }
+:focus { outline: none; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 1rem; }
+
+header { padding: 2.5rem 0.25rem 1.5rem; }
+.name { font: 700 1.75rem/1.1 var(--display); letter-spacing: -0.02em; }
+
+/* Gallery: pictures and names only. 2 columns on phones, 3 from 760px, 4 from 1040px */
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 0.75rem;
+  padding-bottom: 3rem;
+}
+@media (min-width: 760px)  { .grid { grid-template-columns: repeat(3, 1fr); gap: 1.75rem 1.25rem; } }
+@media (min-width: 1040px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+.tile { display: block; border-radius: var(--r-container); }
+.tile:active .media { transform: scale(0.97); transition-duration: 0s; }
+.tile:focus-visible .label { color: var(--signal-deep); }
+.tile:focus-visible .media { box-shadow: var(--shadow-lift); }
+@media (hover: hover) {
+  .tile:hover .media { box-shadow: var(--shadow-lift); transform: translateY(-1px); }
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-container);
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: var(--shadow-rest);
+  overflow: hidden;
+  display: grid; place-items: center;
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.media .mark {
+  font: 700 1.2rem/1.1 var(--mark-font, var(--display));
+  padding: 0 0.75rem; text-align: center;
+}
+.media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+}
+.label {
+  display: block;
+  margin-top: 0.55rem;
+  padding: 0 0.15rem;
+  font: 500 0.95rem/1.25 var(--display);
+  transition: color 0.2s var(--ease);
+}
+
+/* The detail sheet: rises from the bottom on phones, floats centered on wider screens */
+dialog {
+  margin: auto auto 0;
+  width: 100%; max-width: 100%;
+  border: none;
+  border-radius: 16px 16px 0 0;
+  background: var(--paper-lift);
+  color: var(--ink);
+  padding: 0;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), overlay 0.25s allow-discrete, display 0.25s allow-discrete;
+}
+dialog[open] { opacity: 1; transform: none; }
+@starting-style { dialog[open] { opacity: 0; transform: translateY(24px); } }
+dialog::backdrop {
+  background: rgba(16, 24, 24, 0);
+  transition: background-color 0.25s var(--ease), overlay 0.25s allow-discrete, display 0.25s allow-discrete;
+}
+dialog[open]::backdrop { background: rgba(16, 24, 24, 0.45); }
+@starting-style { dialog[open]::backdrop { background: rgba(16, 24, 24, 0); } }
+@media (min-width: 760px) {
+  dialog { margin: auto; max-width: 560px; border-radius: var(--r-container); transform: translateY(8px) scale(0.96); }
+  @starting-style { dialog[open] { transform: translateY(8px) scale(0.96); } }
+}
+
+.sheet-media { aspect-ratio: 16 / 10; background: var(--bg); overflow: hidden; }
+.sheet-media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.sheet-body { padding: 1.1rem 1.25rem 1.5rem; }
+.sheet-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.sheet-title { font: 700 1.35rem/1.2 var(--display); }
+.sheet-kind {
+  flex: none;
+  font: 400 0.72rem/1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.sheet-line { margin-top: 0.4rem; color: var(--ink-soft); }
+.sheet-actions { margin-top: 1.25rem; display: flex; gap: 0.5rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 1.25rem;
+  border: none; border-radius: var(--r-small);
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease);
+}
+.btn:active { transform: scale(0.95); }
+.btn-go { flex: 1; background: var(--ink); color: var(--paper-lift); font-weight: 500; }
+.btn-go:focus-visible { background: var(--signal-deep); }
+.btn-close { background: var(--paper); color: var(--ink-soft); }
+.btn-close:focus-visible { background: var(--focus-fill); color: var(--ink); }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 1.25rem 0.25rem 2.5rem;
+  display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem;
+  justify-content: space-between;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+footer a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--signal-deep);
+  border-radius: var(--r-small);
+  transition: background-color 0.2s var(--ease);
+}
+footer a:focus-visible { background: var(--focus-fill); }
+.email { user-select: all; display: inline-flex; align-items: center; min-height: 44px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after, dialog, dialog::backdrop { transition: none !important; }
+  .tile:active .media, .btn:active { transform: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="name">Tim Carson</h1>
+  </header>
+
+  <main>
+    <!-- Each tile links to the live site, so the page still works without JavaScript.
+         With JavaScript, a tap opens the detail sheet instead. -->
+    <ul class="grid">
+      <li><a class="tile" href="https://carsonclean.co" data-kind="Business"
+        data-line="My mobile car detailing business, from the brand to the website.">
+        <span class="media" style="--bg:#160E07;--fg:#e8d9c4"><span class="mark">Carson Clean</span><img src="shots/carson.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">Carson Clean</span></a></li>
+
+      <li><a class="tile" href="https://good-steward-workshop.vercel.app" data-kind="Client"
+        data-line="An 11-step brand workshop for a working farm, with an AI guide built in.">
+        <span class="media" style="--bg:#2f3b25;--fg:#efe7d4"><span class="mark">Good Steward Workshop</span><img src="shots/gsw.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">Good Steward Workshop</span></a></li>
+
+      <li><a class="tile" href="https://fit-logs.vercel.app" data-kind="App"
+        data-line="A workout log for the phone that works offline, with its own sound design.">
+        <span class="media" style="--bg:#1a0a12;--fg:#c98aa9;"><span class="mark">Fitness</span><img src="shots/fitness.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">Fitness Tracker</span></a></li>
+
+      <li><a class="tile" href="https://zifang.vercel.app" data-kind="App"
+        data-line="Mandarin drills built from real conversations with native speakers.">
+        <span class="media" style="--bg:#f5f0e8;--fg:#2c2416;"><span class="mark">字坊</span><img src="shots/zifang.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">Zifang</span></a></li>
+
+      <li><a class="tile" href="https://project-fernweh.vercel.app" data-kind="Site"
+        data-line="A glossary of untranslatable words and the feelings they name.">
+        <span class="media" style="--bg:#efe4d2;--fg:#2c1810;"><span class="mark">fernweh</span><img src="shots/fernweh.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">Fernweh</span></a></li>
+
+      <li><a class="tile" href="https://the-draw-black.vercel.app" data-kind="Newsletter"
+        data-line="Ten hand-picked English words, every Sunday.">
+        <span class="media" style="--bg:#111;--fg:#f2f2f2;"><span class="mark">The Draw</span><img src="shots/draw.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">The Draw</span></a></li>
+
+      <li><a class="tile" href="https://greenwaycleanup.vercel.app" data-kind="Community"
+        data-line="Trail cleanups in Cleveland, TN: events and volunteer sign-ups.">
+        <span class="media" style="--bg:#2D3A1E;--fg:#F5F0E8;"><span class="mark">Greenway Cleanup</span><img src="shots/greenway.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">Greenway Cleanup</span></a></li>
+
+      <li><a class="tile" href="https://zoomerslangsurvivalguide.vercel.app" data-kind="Site"
+        data-line="Gen Z slang, translated for everyone else.">
+        <span class="media" style="--bg:#f3e94f;--fg:#151515;"><span class="mark">no cap.</span><img src="shots/zoomer.jpg" alt="" onerror="this.remove()"></span>
+        <span class="label">Zoomer Slang</span></a></li>
+    </ul>
+  </main>
+
+  <footer>
+    <span class="email">tim.d.carson@gmail.com</span>
+    <a href="../">More about me &rarr;</a>
+  </footer>
+</div>
+
+<dialog id="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-media" id="sheet-media"></div>
+  <div class="sheet-body">
+    <div class="sheet-top"><h2 class="sheet-title" id="sheet-title"></h2><span class="sheet-kind" id="sheet-kind"></span></div>
+    <p class="sheet-line" id="sheet-line"></p>
+    <div class="sheet-actions">
+      <a class="btn btn-go" id="sheet-go" target="_blank" rel="noopener">Open it</a>
+      <button class="btn btn-close" type="button" id="sheet-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const sheet = document.getElementById('sheet');
+  const $ = id => document.getElementById(id);
+
+  document.querySelectorAll('.tile').forEach(tile => {
+    tile.addEventListener('click', e => {
+      e.preventDefault();
+      const media = tile.querySelector('.media');
+      const img = media.querySelector('img');
+      $('sheet-media').style.setProperty('--bg', media.style.getPropertyValue('--bg'));
+      // Tiles use the phone-sized shot; the sheet uses the wide desktop one
+      $('sheet-media').innerHTML = img ? `<img src="${img.getAttribute('src').replace('.jpg', '-wide.jpg')}" alt="">` : '';
+      $('sheet-title').textContent = tile.querySelector('.label').textContent;
+      $('sheet-kind').textContent = tile.dataset.kind;
+      $('sheet-line').textContent = tile.dataset.line;
+      $('sheet-go').href = tile.href;
+      sheet.showModal();
+    });
+  });
+
+  $('sheet-close').addEventListener('click', () => sheet.close());
+  // Tapping the dimmed area outside the sheet closes it
+  sheet.addEventListener('click', e => { if (e.target === sheet) sheet.close(); });
+})();
+</script>
+</body>
+</html>
