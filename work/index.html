@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tim Carson | Work</title>
 <meta name="description" content="Things Tim Carson has built.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500&family=Space+Grotesk:wght@500;700&family=Fraunces:wght@600&display=swap" rel="stylesheet">
 <style>
 /* Same tokens as index-rebuild.html: cool slate / signal green, locked 2026-07-15. */
 :root {
@@ -67,7 +68,7 @@ header { padding: 2.5rem 0.25rem 1.5rem; }
 
 .media {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   border-radius: var(--r-container);
   background: var(--bg);
   color: var(--fg);
@@ -128,7 +129,7 @@ dialog[open]::backdrop { background: rgba(16, 24, 24, 0.45); }
   @starting-style { dialog[open] { transform: translateY(8px) scale(0.96); } }
 }
 
-.sheet-media { aspect-ratio: 16 / 10; background: var(--bg); overflow: hidden; }
+.sheet-media { aspect-ratio: 16 / 10; background: var(--bg); overflow: hidden; display: grid; place-items: center; }
 .sheet-media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 .sheet-body { padding: 1.1rem 1.25rem 1.5rem; }
 .sheet-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
@@ -170,8 +171,55 @@ footer a {
 footer a:focus-visible { background: var(--focus-fill); }
 .email { user-select: all; display: inline-flex; align-items: center; min-height: 44px; }
 
+
+/* Logo tiles: each project's own mark on its brand colour, nothing else (2026-11-08).
+   Carson Clean and Fitness animate when the tile comes into view, and again on hover or when the sheet opens. */
+.mark-svg { width: 46%; height: auto; overflow: visible; }
+.mark-svg.fx { width: 52%; }
+.media .mark-img { position: static; inset: auto; width: 50%; height: auto; }
+.sheet-media .mark-svg, .sheet-media .mark-img { width: 26%; height: auto; }
+.media .mark-img.zf { width: 70%; }
+.sheet-media .mark-img.zf { width: 36%; }
+/* Carson Clean: the white C over its name, on the brand's dark brown */
+.media { container-type: inline-size; }
+.cc-lockup { display: flex; flex-direction: column; align-items: center; gap: 7cqi; width: 100%; }
+.cc-c { width: 50%; height: auto; overflow: visible; }
+.cc-word { font: 600 9.5cqi/1 'Fraunces', Georgia, serif; letter-spacing: 0.01em; color: #FFF8EE; }
+.js .media:not(.play) .cc-word { opacity: 0; transform: translateY(6px); }
+.play .cc-word { animation: rise-in 0.6s var(--ease) 2.1s both; }
+@keyframes rise-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+/* ASSEMBLAGE: the landing page's wordmark, gold across a gradient, spaced 0.36em */
+.asm-word {
+  font: 400 8.6cqi/1 Georgia, Charter, 'Times New Roman', serif;
+  letter-spacing: 0.36em; padding-left: 0.36em; /* the trailing space of the last letter is balanced on the left */
+  color: #D4A853;
+  background: linear-gradient(100deg, #A97C2F 0%, #D4A853 22%, #F2D58C 46%, #D4A853 64%, #A97C2F 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.sheet-media { container-type: inline-size; }
+.sheet-media .cc-c { width: 22%; }
+.sheet-media .cc-lockup { gap: 3cqi; }
+.sheet-media .cc-word { font-size: 4.6cqi; }
+.sheet-media .asm-word { font-size: 5.4cqi; }
+.fx-axis, .fx-line { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.js .media:not(.play) .fx-axis, .js .media:not(.play) .fx-line { stroke-dashoffset: 1; }
+.fx-dot { transform-box: fill-box; transform-origin: center; }
+.js .media:not(.play) .fx-dot { transform: scale(0); }
+.play .fx-axis { animation: draw 0.6s var(--ease) both; }
+.play .fx-line { animation: draw 0.9s var(--ease) 0.45s both; }
+.play .fx-dot { animation: pop 0.3s var(--ease) both; }
+.play .fx-dot:nth-of-type(1) { animation-delay: 0.65s; }
+.play .fx-dot:nth-of-type(2) { animation-delay: 0.8s; }
+.play .fx-dot:nth-of-type(3) { animation-delay: 0.95s; }
+.play .fx-dot:nth-of-type(4) { animation-delay: 1.15s; }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after, dialog, dialog::backdrop { transition: none !important; }
+  *, *::before, *::after, dialog, dialog::backdrop { transition: none !important; animation: none !important; }
+  .js .media .fx-dot { transform: none; }
+  .js .media .cc-word { opacity: 1; transform: none; }
   .tile:active .media, .btn:active { transform: none; }
 }
 </style>
@@ -191,37 +239,66 @@ footer a:focus-visible { background: var(--focus-fill); }
     <ul class="grid">
       <li><a class="tile" data-marius-id="car-detailing" href="https://carsonclean.co" data-kind="Business"
         data-line="My mobile car detailing business, from the brand to the website.">
-        <span class="media" style="--bg:#160E07;--fg:#e8d9c4"><span class="mark">Carson Clean</span><img src="/work/shots/carson.jpg" alt="" onerror="this.remove()"></span>
+        <span class="media brand-cc" style="--bg:#241512">
+          <span class="cc-lockup">
+            <svg class="cc-c" viewBox="-14 -14 228 228" role="img" aria-label="Carson Clean logo">
+              <defs>
+                <!-- The site's "wiped clean" reveal, in white: the C arrives smeared and soft, and three passes wipe it sharp -->
+                <filter id="cc-wipe" x="-35%" y="-35%" width="170%" height="170%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.006 0.16" numOctaves="2" seed="7" result="grain"/>
+                  <feDisplacementMap in="SourceGraphic" in2="grain" scale="0" xChannelSelector="R" yChannelSelector="G" result="smear">
+                    <animate class="cc-anim" attributeName="scale" begin="indefinite" dur="2.6s" fill="freeze" calcMode="spline"
+                      values="52;34;30;16;12;0" keyTimes="0;.28;.38;.64;.74;1" keySplines=".25 .1 .25 1;.4 0 .6 1;.25 .1 .25 1;.4 0 .6 1;.25 .1 .25 1"/>
+                  </feDisplacementMap>
+                  <feGaussianBlur in="smear" stdDeviation="0">
+                    <animate class="cc-anim" attributeName="stdDeviation" begin="indefinite" dur="2.6s" fill="freeze" calcMode="spline"
+                      values="9;5;4.5;2;1.6;0" keyTimes="0;.28;.38;.64;.74;1" keySplines=".25 .1 .25 1;.4 0 .6 1;.25 .1 .25 1;.4 0 .6 1;.25 .1 .25 1"/>
+                  </feGaussianBlur>
+                </filter>
+              </defs>
+              <path class="cc-shape" filter="url(#cc-wipe)" fill="#FFF8EE" stroke="#FFF8EE" stroke-width="5" stroke-linejoin="round" d="M166.06,46.51C166.06,46.51 153.63,29.55 144.20,23.44C134.77,17.34 121.94,11.17 109.47,9.90C97.00,8.62 81.75,11.23 69.35,15.80C56.96,20.38 43.96,27.84 35.12,37.34C26.27,46.84 20.12,60.31 16.31,72.81C12.50,85.30 10.36,99.67 12.26,112.33C14.16,124.99 20.50,137.97 27.71,148.76C34.91,159.55 44.50,170.24 55.50,177.08C66.50,183.91 80.82,189.06 93.72,189.78C106.62,190.50 122.23,185.69 132.89,181.41C143.55,177.12 151.47,169.74 157.68,164.06C163.89,158.38 170.14,147.31 170.14,147.31C170.14,147.31 159.22,142.01 155.01,139.97C150.81,137.93 147.45,137.28 144.92,135.09C142.38,132.90 140.78,128.63 139.79,126.84C138.81,125.06 139.01,124.38 139.01,124.38C139.01,124.38 130.54,133.97 125.05,137.14C119.57,140.31 112.62,142.34 106.10,143.37C99.57,144.41 92.02,145.32 85.91,143.37C79.80,141.41 74.07,136.34 69.44,131.65C64.80,126.97 60.29,121.30 58.09,115.25C55.89,109.21 55.62,101.92 56.24,95.40C56.87,88.88 58.41,81.58 61.84,76.15C65.26,70.73 71.21,66.31 76.79,62.86C82.37,59.40 88.92,56.21 95.32,55.45C101.72,54.68 109.10,56.34 115.19,58.28C121.27,60.21 131.82,67.05 131.82,67.05C131.82,67.05 139.23,69.17 142.88,68.85C146.52,68.53 150.71,67.85 153.67,65.14C156.64,62.43 158.61,55.70 160.68,52.59C162.74,49.49 166.06,46.51 166.06,46.51Z">
+                <animate class="cc-anim" attributeName="opacity" begin="indefinite" dur="2.6s" fill="freeze" calcMode="spline"
+                  values="0;.4;.4;.75;.75;1" keyTimes="0;.28;.38;.64;.74;1" keySplines=".25 .1 .25 1;.4 0 .6 1;.25 .1 .25 1;.4 0 .6 1;.25 .1 .25 1"/>
+              </path>
+            </svg>
+            <span class="cc-word">Carson Clean</span>
+          </span>
+        </span>
         <span class="label">Carson Clean</span>
         <span class="does">Site for my car detailing business</span></a></li>
 
       <li><a class="tile" data-marius-id="assemblage" href="https://assemblage-studio.vercel.app" data-kind="Studio"
         data-line="My video studio: bring clips, photos or just an idea, and I build a film from it with editing and review tools I made.">
-        <span class="media" style="--bg:#1a0b10;--fg:#d6ac5a;--mark-font:Georgia,serif;"><span class="mark">ASSEMBLAGE</span><img src="/work/shots/assemblage.jpg" alt="" onerror="this.remove()"></span>
+        <span class="media brand-asm" style="--bg:radial-gradient(120% 80% at 85% 0%, #4A1525 0%, rgba(74,21,37,0) 60%), radial-gradient(90% 60% at 0% 100%, #2D1020 0%, rgba(45,16,32,0) 70%), #1A070D">
+          <span class="asm-word" role="img" aria-label="ASSEMBLAGE">ASSEMBLAGE</span>
+        </span>
         <span class="label">Assemblage</span>
         <span class="does">Turns your clips into a film</span></a></li>
 
-      <li><a class="tile" data-marius-id="good-steward-workshop" href="https://good-steward-workshop.vercel.app" data-kind="Client"
-        data-line="An 11-step brand workshop for a working farm, with an AI guide built in.">
-        <span class="media" style="--bg:#2f3b25;--fg:#efe7d4"><span class="mark">Good Steward Workshop</span><img src="/work/shots/gsw.jpg" alt="" onerror="this.remove()"></span>
-        <span class="label">Good Steward Workshop</span>
-        <span class="does">Walks a farm through its branding</span></a></li>
-
       <li><a class="tile" data-marius-id="fitness-tracker" href="https://fit-logs.vercel.app" data-kind="App"
         data-line="A workout log for the phone that works offline, with its own sound design.">
-        <span class="media" style="--bg:#1a0a12;--fg:#c98aa9;"><span class="mark">Fitness</span><img src="/work/shots/fitness.jpg" alt="" onerror="this.remove()"></span>
+        <span class="media" style="--bg:#1a0a12">
+          <svg class="mark-svg fx" viewBox="100 100 310 310" role="img" aria-label="Fitness Tracker logo" fill="none" stroke="#a04574" stroke-linecap="round" stroke-linejoin="round">
+            <path class="fx-axis" pathLength="1" stroke-width="26" d="M125 125V383H385"/>
+            <path class="fx-line" pathLength="1" stroke-width="22" d="M172 338L197 263L255 302L290 232L337 162L385 127"/>
+            <circle class="fx-dot" cx="197" cy="263" r="22" fill="#a04574" stroke="none"/>
+            <circle class="fx-dot" cx="255" cy="302" r="22" fill="#a04574" stroke="none"/>
+            <circle class="fx-dot" cx="290" cy="232" r="22" fill="#a04574" stroke="none"/>
+            <circle class="fx-dot" cx="337" cy="162" r="22" fill="#a04574" stroke="none"/>
+          </svg>
+        </span>
         <span class="label">Fitness Tracker</span>
         <span class="does">Logs workouts, even offline</span></a></li>
 
       <li><a class="tile" data-marius-id="zifang" href="https://zifang.vercel.app" data-kind="App"
         data-line="Mandarin drills built from real conversations with native speakers.">
-        <span class="media" style="--bg:#f5f0e8;--fg:#2c2416;"><span class="mark">字坊</span><img src="/work/shots/zifang.jpg" alt="" onerror="this.remove()"></span>
+        <span class="media" style="--bg:#f5f0e8"><img class="mark-img zf" src="/work/marks/zifang.png" alt="Zifang logo"></span>
         <span class="label">Zifang</span>
         <span class="does">Drills Mandarin from real chats</span></a></li>
 
       <li><a class="tile" data-marius-id="greenway-cleanup" href="https://greenwaycleanup.vercel.app" data-kind="Community"
         data-line="Trail cleanups in Cleveland, TN: events and volunteer sign-ups.">
-        <span class="media" style="--bg:#2D3A1E;--fg:#F5F0E8;"><span class="mark">Greenway Cleanup</span><img src="/work/shots/greenway.jpg" alt="" onerror="this.remove()"></span>
+        <span class="media" style="--bg:#3d5c20"><img class="mark-img" src="/work/marks/greenway.png" alt="Greenway Cleanup logo"></span>
         <span class="label">Greenway Cleanup</span>
         <span class="does">Signs up trail-cleanup volunteers</span></a></li>
     </ul>
@@ -250,19 +327,34 @@ footer a:focus-visible { background: var(--focus-fill); }
   const sheet = document.getElementById('sheet');
   const $ = id => document.getElementById(id);
 
+  // Play a tile's logo animation from the start
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const play = el => {
+    el.classList.remove('play'); void el.getBoundingClientRect(); el.classList.add('play');
+    if (!still) el.querySelectorAll('.cc-anim').forEach(a => a.beginElement());
+  };
+  // With JavaScript, the C waits hidden until its tile is seen (without it, the C simply shows)
+  if (!still) document.querySelectorAll('.cc-shape').forEach(c => c.setAttribute('opacity', '0'));
+  const seen = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { play(e.target); seen.unobserve(e.target); }
+  }), { threshold: 0.4 });
+
   document.querySelectorAll('.tile').forEach(tile => {
+    const media = tile.querySelector('.media');
+    seen.observe(media);
+    if (matchMedia('(hover: hover)').matches) tile.addEventListener('mouseenter', () => play(media));
     tile.addEventListener('click', e => {
       e.preventDefault();
-      const media = tile.querySelector('.media');
-      const img = media.querySelector('img');
+      // The sheet shows the same logo, larger, and plays it again
       $('sheet-media').style.setProperty('--bg', media.style.getPropertyValue('--bg'));
-      // Tiles use the phone-sized shot; the sheet uses the wide desktop one
-      $('sheet-media').innerHTML = img ? `<img src="${img.getAttribute('src').replace('.jpg', '-wide.jpg')}" alt="">` : '';
+      $('sheet-media').className = 'sheet-media ' + [...media.classList].filter(c => c.startsWith('brand-')).join(' ');
+      $('sheet-media').innerHTML = media.innerHTML.replace(/id="cc-wipe"/g, 'id="cc-wipe-s"').replace(/#cc-wipe\)/g, '#cc-wipe-s)');
       $('sheet-title').textContent = tile.querySelector('.label').textContent;
       $('sheet-kind').textContent = tile.dataset.kind;
       $('sheet-line').textContent = tile.dataset.line;
       $('sheet-go').href = tile.href;
       sheet.showModal();
+      play($('sheet-media'));
     });
   });
 
