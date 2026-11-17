@@ -50,7 +50,7 @@ nav a { color: var(--rose); text-decoration: none; margin-left: 1.25rem; padding
 .rule { height: 1px; background: var(--gold-line); margin-top: .35rem; }
 
 .over, .kicker { font-family: var(--display); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
-.hero { padding: 5.5rem 0 4.5rem; }
+.hero { padding: 5.5rem 0 7.5rem; }
 h1 { font-family: var(--display); font-weight: 500; font-size: clamp(2.1rem, 6vw, 4.1rem); line-height: 1.05; letter-spacing: -.025em; color: var(--cream-bright); margin: 1rem 0 1.4rem; max-width: 15em; }
 h1 em { font-style: normal; color: var(--gold); }
 .sub { color: var(--rose); font-size: 1.08rem; max-width: 30rem; }
@@ -307,46 +307,128 @@ a.sbtn { display: inline-flex; align-items: center; text-decoration: none; }
   #sheetA .sheet { transform: none; width: 100%; padding: 0; }
   .sheet-foot, .contact .sbtn { display: none; }
 }
+
+/* ===== 2026-11-17: Carson Clean photo section (assets/bio-edge.js) + the dot matrix (assets/matrix.js) ===== */
+html, body { overflow-x: hidden; }
+.mock-bar { background: var(--stage); color: var(--rose); font-size: .85rem; line-height: 1.45; padding: .6rem 1.5rem; text-align: center; position: relative; z-index: 5; }
+.mock-bar b { color: var(--gold); font-weight: 600; }
+.tag { position: absolute; z-index: 4; width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: var(--oxblood); font: 700 .9rem/30px var(--display); text-align: center; pointer-events: none; }
+.mx { position: absolute; pointer-events: none; z-index: 0; }
+
+/* 1: hero field, full bleed behind the headline */
+.hero { position: relative; }
+.hero > *:not(canvas):not(.tag) { position: relative; z-index: 1; }
+.mx-hero { top: -6rem; bottom: 0; left: calc(50% - 50vw); width: 100vw; height: calc(100% + 6rem); }
+.hero .tag { right: 0; top: 1rem; }
+
+/* the Carson Clean photo section, unchanged script, on the site's cream */
+#about { background: var(--cream); color: var(--ink); padding: 4.6rem 0 5.2rem; position: relative; }
+#about .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2.5rem; align-items: center; }
+#about .portrait-cell { aspect-ratio: 1 / 1; }
+#about .portrait-img { width: 100%; height: 100%; object-fit: cover; border-radius: 30px; display: block; }
+#about .sec-label { font-family: var(--display); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); margin-bottom: .8rem; }
+#about h2 { font-family: var(--display); font-weight: 600; font-size: clamp(2.2rem, 4.2vw, 3.1rem); line-height: 1.05; letter-spacing: -.02em; color: var(--oxblood); margin-bottom: 1.2rem; }
+#about p { color: #5a4a3e; font-size: 1.08rem; max-width: 30rem; margin-bottom: .9rem; }
+#about .tag.t-photo { left: 1rem; top: 1rem; width: auto; padding: 0 .8rem; border-radius: 15px; font-size: .78rem; background: var(--oxblood); color: var(--gold); }
+
+/* 2: the band's top and bottom edges dissolve into dots */
+.mx-edge-top { left: 0; width: 100%; top: -133px; height: 133px; }
+.mx-edge-bottom { left: 0; width: 100%; bottom: -133px; height: 133px; }
+#about > .tag.t2 { right: 1.5rem; top: -118px; }
+.after-about { padding-top: 9rem; }
+
+/* 3: doors */
+.door { position: relative; overflow: hidden; isolation: isolate; }
+.door .mx { inset: 0; width: 100%; height: 100%; z-index: -1; }
+#doors { position: relative; }
+#doors .tag { right: 0; top: -.4rem; }
+
+/* 4: footer */
+footer { position: relative; padding: 4rem 0 7rem; }
+footer .mx { top: 0; height: 100%; left: calc(50% - 50vw); width: 100vw; }
+footer span { position: relative; z-index: 1; }
+footer .tag { right: 0; top: 1rem; }
+
+@media (max-width: 760px) {
+  #about .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  #about .portrait-cell { width: 88%; justify-self: center; }
+  .hero { padding-bottom: 9rem; }   /* room for the band edge (2) below the words */
+}
+
+/* ===== round 2 (Tim, 2026-11-17) ===== */
+.hero { padding-top: 4.5rem; }
+/* two businesses big, three side projects smaller; all scale through the tiles' container units */
+.grid.grid-main { grid-template-columns: 1fr 1fr; gap: 1.5rem 1.25rem; padding-bottom: 1rem; }
+.grid.grid-side { grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1.1rem; padding-bottom: 0; }
+.tile.big .label { font-size: 1.35rem; margin-top: .9rem; }
+.role { display: block; font-family: var(--display); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-top: .25rem; }
+.tile.big .does { font-size: 1rem; margin-top: .3rem; }
+@media (max-width: 560px) { .grid.grid-main { gap: 1.1rem .8rem; } .grid.grid-side { gap: 1.1rem .6rem; } .tile.big .label { font-size: 1.1rem; } }
+
+/* the seal at the bottom: no link yet, a quiet lift on hover */
+footer { display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; }
+.seal { width: 96px; height: 96px; position: relative; z-index: 1; transition: transform .3s var(--ease), filter .3s var(--ease); }
+.seal svg { display: block; width: 100%; height: 100%; overflow: visible; }
+@media (hover: hover) { .seal:hover { transform: translateY(-2px) scale(1.04); filter: brightness(1.12); } }
+
+/* copy as an icon: clipboard, then a tick for 1.6 s (both drawn, crossfaded) */
+.copy { position: relative; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: color-mix(in srgb, var(--oxblood) 10%, #F7F1E7); color: var(--oxblood); cursor: pointer; transition: background .2s var(--ease); }
+.copy:active { transform: scale(.95); }
+@media (hover: hover) { .copy:hover { background: color-mix(in srgb, var(--oxblood) 18%, #F7F1E7); } }
+.copy:focus-visible { outline: none; background: var(--oxblood); color: var(--gold); }
+.copy svg { position: absolute; inset: 11px; width: 22px; height: 22px; transition: opacity .2s var(--ease); }
+.copy .ok { opacity: 0; }
+.copy[data-state="done"] .clip { opacity: 0; }
+.copy[data-state="done"] .ok { opacity: 1; }
+
+/* Hiring sheet, spiffed: title on its own line, detail under it */
+.rows dd b { display: block; font-weight: 600; color: var(--oxblood); }
+.rows dd span { display: block; }
+.langs { display: flex; flex-wrap: wrap; gap: .4rem; }
+.langs i { font-style: normal; background: color-mix(in srgb, var(--oxblood) 8%, #F7F1E7); border-radius: 20px; padding: .25rem .75rem; font-size: .9rem; }
+.lede { font-size: 1.08rem; }
+.offer { display: grid; gap: .9rem; }
+.offer div b { display: block; font-family: var(--display); font-size: 1.1rem; color: var(--oxblood); }
+.offer div span { color: #4b4032; }
+.how { color: #4b4032; }
 </style>
 </head>
 <body>
 
 
-<div class="wrap">
-  <nav>
-    <b>Tim Carson</b>
-    <div><a href="#work">Work</a><a href="#doors">Contact</a></div>
-  </nav>
-  <div class="rule"></div>
 
-  <header class="hero">
+
+<div class="wrap">
+
+
+  <header class="hero" data-matrix="hero">
     <div class="over">Cleveland, TN · 2026</div>
     <h1>I make <em>films, brands and websites</em> for small businesses.</h1>
-    <p class="sub">Former teacher. One person, from the name to the finished film.</p>
   </header>
+</div>
 
-  <section id="work">
-    <div class="kicker">What I do</div>
-    <div class="lanes">
-      <div class="lane">
-        <div class="still"><img src="img/sienna-poster.jpg" alt="Still from the 58-second Carson Clean film"></div>
-        <h2>Film</h2>
-        <p>Short films and ads that show a business doing what it does best.</p>
-        <p class="signed">Signed Assemblage</p>
-      </div>
-      <div class="lane">
-        <div class="still"><img src="img/carson-site.jpg" alt="The Carson Clean website"></div>
-        <h2>Brand and web</h2>
-        <p>The name, the mark, how it moves, and the site it lives on.</p>
-        <p class="signed">Carson Clean, start to finish</p>
+<section id="about">
+  <div data-matrix="edge-top" class="mx-host-top"></div>
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="portrait-cell"><img class="portrait-img" src="img/tim.jpg" alt="Tim Carson"></div>
+      <div class="about-copy">
+        <div class="sec-label">About</div>
+        <h2>How I got here.</h2>
+        <p>I taught English and Spanish in five countries. Teaching taught me to find the one thing someone needs to understand, and make it plain.</p>
+        <p>Now I make films, brands and websites for small businesses. The first was my own: Carson Clean, a mobile detailing business here in Cleveland. I made its name, its mark, its site and its film.</p>
       </div>
     </div>
-  </section>
+  </div>
+  <div data-matrix="edge-bottom" class="mx-host-bottom"></div>
+</section>
 
-  <section>
-    <div class="kicker">Things I've built</div>
-    <ul class="grid">
-      <li><a class="tile" data-marius-id="car-detailing" href="https://carsonclean.co" data-kind="Business"
+<div class="wrap after-about">
+
+  <section id="work">
+    <div class="kicker">What I'm building</div>
+    <ul class="grid grid-main">
+      <li><a class="tile big" data-direct data-marius-id="car-detailing" href="https://carsonclean.co" data-kind="Business"
         data-line="My mobile car detailing business, from the brand to the website.">
         <span class="shell"><span class="media" data-anim="cc" style="--bg:#160E07">
           <span class="cc-lockup">
@@ -357,17 +439,25 @@ a.sbtn { display: inline-flex; align-items: center; text-decoration: none; }
           </span>
         </span></span>
         <span class="label">Carson Clean</span>
-        <span class="does">Site for my car detailing business</span></a></li>
+        <span class="role">My business</span>
+        <span class="does">Mobile car detailing in Cleveland, TN</span></a></li>
 
-      <li><a class="tile" data-marius-id="assemblage" href="https://assemblage-studio.vercel.app" data-kind="Studio"
+      <li><a class="tile big" data-direct data-marius-id="assemblage" href="https://assemblage-studio.vercel.app" data-kind="Studio"
         data-line="My video studio: bring clips, photos or just an idea, and I build a film from it with editing and review tools I made.">
         <span class="shell"><span class="media" data-anim="asm" style="--bg:#1A070D">
           <span class="asm-glow g1"></span><span class="asm-glow g2"></span>
           <span class="asm-word" role="img" aria-label="ASSEMBLAGE">ASSEMBLAGE</span>
         </span></span>
         <span class="label">Assemblage</span>
+        <span class="role">My passion</span>
         <span class="does">Turns your clips into a film</span></a></li>
 
+    </ul>
+  </section>
+
+  <section>
+    <div class="kicker">Also built</div>
+    <ul class="grid grid-side">
       <li><a class="tile" data-marius-id="fitness-tracker" href="https://fit-logs.vercel.app" data-kind="App"
         data-line="A workout log for the phone that works offline, with its own sound design.">
         <span class="shell"><span class="media" data-anim="fx" style="--bg:#1a0a12">
@@ -424,12 +514,12 @@ a.sbtn { display: inline-flex; align-items: center; text-decoration: none; }
   <section id="doors">
     <div class="kicker">What now</div>
     <div class="doors">
-      <button class="door" type="button" data-opens="sheetA">Hiring?<small>My background, on one page</small></button>
-      <button class="door" type="button" data-opens="sheetB">Own a business?<small>What I'd make for you</small></button>
+      <button class="door" type="button" data-opens="sheetA" data-matrix="door">Hiring?<small>My background, on one page</small></button>
+      <button class="door" type="button" data-opens="sheetB" data-matrix="door">Own a business?<small>What I'd make for you</small></button>
     </div>
   </section>
 
-  <footer>Tim Carson · Cleveland, TN</footer>
+  <footer data-matrix="footer"><div class="seal" data-seal role="img" aria-label="Seal: 蒂姆製作, made by Tim"></div><span>Tim Carson · Cleveland, TN</span></footer>
 </div>
 
 <!-- Door A: the résumé replacement -->
@@ -437,19 +527,19 @@ a.sbtn { display: inline-flex; align-items: center; text-decoration: none; }
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetA-title">
     <div class="over">Background</div>
     <h2 id="sheetA-title">Tim Carson</h2>
-    <p>I make films, brands and websites. I work alone and finish what I start.</p>
+    <p class="lede">I make films, brands and websites for small businesses, and I finish what I start.</p>
     <div class="line"></div>
     <dl class="rows">
-      <dt>Now</dt><dd>Founder, Carson Clean <span>· Mobile car detailing in Bradley and Polk counties. Made the name, mark, site and film.</span></dd>
-      <dt>Also now</dt><dd>Independent film and web work <span>· Films as Assemblage; web apps in daily use.</span></dd>
-      <dt>2025</dt><dd>Account Executive, Best Version Media <span>· Cleveland, TN.</span></dd>
-      <dt>2016 to 2024</dt><dd>Teacher in five countries <span>· English and Spanish, in Taiwan, China, France, Honduras and the US.</span></dd>
-      <dt>Education</dt><dd>BA Communication and BA Spanish <span>· University of Cincinnati, 2016.</span></dd>
-      <dt>Languages</dt><dd>English, Spanish <span>· basic Mandarin.</span></dd>
+      <dt>Now</dt><dd><b>Founder, Carson Clean</b><span>Mobile car detailing in Bradley and Polk counties. I made the name, the mark, the site and the film.</span></dd>
+      <dt>Also now</dt><dd><b>Assemblage</b><span>Short films for small businesses, cut with editing tools I built. Plus web apps I use every day.</span></dd>
+      <dt>2025</dt><dd><b>Account Executive, Best Version Media</b><span>Cleveland, TN</span></dd>
+      <dt>2016 – 2024</dt><dd><b>Teacher in five countries</b><span>English and Spanish, in Taiwan, China, France, Honduras and the US.</span></dd>
+      <dt>Education</dt><dd><b>BA Communication and BA Spanish</b><span>University of Cincinnati</span></dd>
+      <dt>Languages</dt><dd class="langs"><i>English</i><i>Spanish</i><i>Basic Mandarin</i></dd>
     </dl>
     <div class="contact">
       <span class="email" id="emailA">tim.d.carson@gmail.com</span>
-      <button class="sbtn quiet" type="button" data-copy="emailA">Copy</button>
+      <button class="copy" type="button" data-copy="emailA" aria-label="Copy email address"><svg class="clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="17" rx="3"/><path d="M9 4.5V4a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4v.5"/><path d="M9 11h6M9 15h4"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
     </div>
     <div class="sheet-foot">
       <a class="sbtn" href="/tim-carson-background.pdf" target="_blank" rel="noopener">Full background (PDF)</a>
@@ -463,22 +553,18 @@ a.sbtn { display: inline-flex; align-items: center; text-decoration: none; }
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetB-title">
     <div class="over">For your business</div>
     <h2 id="sheetB-title">What I'd make for you</h2>
-    <p>Whichever of these you're missing. Most owners start with one.</p>
+    <p>Most owners start with one.</p>
     <div class="line"></div>
-    <dl class="rows">
-      <dt>A film</dt><dd>About a minute of your real work, made to be watched with the sound off. <span>For your site, your Google listing and your social pages.</span></dd>
-      <dt>A brand</dt><dd>A name if you need one, a mark, colours and type. <span>Delivered as files you own.</span></dd>
-      <dt>A website</dt><dd>One clear page that says what you do and how to book you. <span>Fast, and readable on a phone.</span></dd>
-    </dl>
+    <div class="offer">
+      <div><b>A film</b><span>A minute of your real work, for your site and social pages.</span></div>
+      <div><b>A brand</b><span>A name, a mark, colours and type, as files you own.</span></div>
+      <div><b>A website</b><span>One clear page: what you do and how to book you.</span></div>
+    </div>
     <div class="line"></div>
-    <ol class="steps">
-      <li>We talk for twenty minutes about what isn't working.</li>
-      <li>I show you one small piece before you commit to the rest.</li>
-      <li>You decide whether to keep going.</li>
-    </ol>
+    <p class="how">We talk for twenty minutes. I make one small piece. You decide whether to go on.</p>
     <div class="contact">
       <span class="email" id="emailB">tim.d.carson@gmail.com</span>
-      <button class="sbtn quiet" type="button" data-copy="emailB">Copy</button>
+      <button class="copy" type="button" data-copy="emailB" aria-label="Copy email address"><svg class="clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="17" rx="3"/><path d="M9 4.5V4a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4v.5"/><path d="M9 11h6M9 15h4"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
     </div>
     <div class="sheet-foot">
       <span></span>
@@ -1018,6 +1104,7 @@ window.CarsonMarkTile = function (HOST) {
     media._anim = make(media);
     seen.observe(media);
     tile.addEventListener('click', e => {
+      if (tile.hasAttribute('data-direct')) return;        // the two businesses go straight to their sites
       e.preventDefault();
       const art = pristine.cloneNode(true);
       $('sheet-media').replaceChildren(art);
@@ -1076,11 +1163,14 @@ window.CarsonMarkTile = function (HOST) {
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
       var text = document.getElementById(b.getAttribute('data-copy')).textContent;
-      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600); };
+      var done = function () { b.dataset.state = 'done'; b.setAttribute('aria-label', 'Copied'); setTimeout(function () { b.dataset.state = ''; b.setAttribute('aria-label', 'Copy email address'); }, 1600); };
       if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done); else done();
     });
   });
 })();
 </script>
+<script src="assets/bio-edge.js"></script>
+<script src="assets/matrix.js"></script>
+<script src="assets/seal.js"></script>
 </body>
 </html>
