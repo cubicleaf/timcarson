@@ -1,1881 +1,1083 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tim Carson</title>
+<meta name="description" content="Tim Carson makes films, brands and websites for small businesses. Cleveland, Tennessee.">
+<meta property="og:title" content="Tim Carson">
+<meta property="og:description" content="Films, brands and websites for small businesses. Cleveland, Tennessee.">
+<meta property="og:url" content="https://timcarson.vercel.app/">
+<meta name="theme-color" content="#501624">
+<link rel="canonical" href="https://timcarson.vercel.app/">
 <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@1,600&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
 <style>
+/* Tim Carson: direction C2 (oxblood and gold). Built from _docs/concept-2026-11/c2-draft.html, live 2026-11-17. */
 :root {
-  --bg: #e9eef5;
-  --bg-dark: #13211d;
-  --text: #101818;
-  --text-light: #50615d;
-  --text-muted: #72837f;
-  --accent: #18b368;
-  --accent-light: rgba(24, 179, 104, 0.12);
-  --serif: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
-  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
-  --mono: 'IBM Plex Mono', monospace;
+  --oxblood: #501624;            /* the page ground: flat, no glow, no gradient */
+  --cream: #F3E7D6;              /* body type */
+  --cream-bright: #F6ECDD;       /* headings */
+  --rose: #D3B8B0;               /* quiet type, warm so it never reads grey */
+  --gold: #E2BC6C;               /* gold as type */
+  --gold-line: #D4A853;          /* the one thin line */
+  --stage: #0A0506;              /* colourless dark around film stills */
+  --raised: color-mix(in srgb, var(--cream) 8%, var(--oxblood));   /* plate: one step lighter */
+  --raised-2: color-mix(in srgb, var(--cream) 15%, var(--oxblood)); /* door, and hover/focus fill */
+  --sunk: color-mix(in srgb, #1A070D 45%, var(--oxblood));          /* feature: one step darker */
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --display: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --body: 'IBM Plex Sans', -apple-system, sans-serif;
+  /* Names the /work tiles expect, re-pointed at this page's colours */
+  --paper: #EFE6D8; --paper-lift: #F7F1E7; --ink: #2c2416; --ink-soft: #6f6252; --ink-mute: #8a6a2a;
+  --signal-deep: #501624; --focus-fill: color-mix(in srgb, #501624 14%, #F7F1E7);
+  --sans: var(--body); --mono: var(--display); --r-container: 12px; --r-small: 8px;
+  --squircle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20'%3E%3Cpath d='M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22Z'/%3E%3C/svg%3E");
 }
+* { box-sizing: border-box; margin: 0; }
+html { background: var(--oxblood); }
+body { background: var(--oxblood); color: var(--cream); font-family: var(--body); font-size: 1rem; line-height: 1.55; }
+.draft-tag { background: var(--stage); color: var(--rose); font-size: .78rem; text-align: center; padding: .4rem 1rem; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.5rem; }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+nav { display: flex; justify-content: space-between; align-items: baseline; padding-top: 1.5rem; font-family: var(--display); }
+nav b { font-weight: 600; font-size: 1rem; }
+nav a { color: var(--rose); text-decoration: none; margin-left: 1.25rem; padding: .7rem .15rem; display: inline-block; transition: color .2s var(--ease); }
+.rule { height: 1px; background: var(--gold-line); margin-top: .35rem; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  overflow-x: hidden;
+.over, .kicker { font-family: var(--display); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.hero { padding: 5.5rem 0 4.5rem; }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(2.1rem, 6vw, 4.1rem); line-height: 1.05; letter-spacing: -.025em; color: var(--cream-bright); margin: 1rem 0 1.4rem; max-width: 15em; }
+h1 em { font-style: normal; color: var(--gold); }
+.sub { color: var(--rose); font-size: 1.08rem; max-width: 30rem; }
+
+section { padding-bottom: 3.75rem; }
+.kicker { margin-bottom: 1rem; }
+.lanes { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+.lane { background: var(--raised); border-radius: 18px; padding: .9rem .9rem 1.3rem; }
+.still { background: var(--stage); border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; display: grid; place-items: center; }
+.still img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.still.mark { background: #160E07; }   /* Carson Clean's own ground, mark in its own gradient, never recoloured */
+.still.mark img { width: 34%; height: auto; object-fit: contain; }
+.lane h2 { font-family: var(--display); font-size: 1.45rem; font-weight: 600; color: var(--cream-bright); margin: 1.1rem .35rem .3rem; }
+.lane p { color: var(--rose); margin: 0 .35rem; max-width: 26rem; }
+.lane .signed { color: var(--gold); font-family: var(--display); font-size: .86rem; margin-top: .7rem; }
+
+.feature { background: var(--sunk); border-radius: 18px; padding: 1.5rem 1.6rem 1.6rem; display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; }
+.feature h2 { font-family: var(--display); font-size: 1.45rem; font-weight: 600; color: var(--cream-bright); }
+.feature p { color: var(--rose); margin-top: .35rem; max-width: 34rem; }
+.live { display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; background: var(--gold); margin-right: .55rem; vertical-align: .12em; }
+.four { display: flex; gap: .45rem; flex-wrap: wrap; }
+.four span { background: var(--raised); border-radius: 20px; padding: .45rem .9rem; font-family: var(--display); font-size: .88rem; }
+
+.tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; }
+.tool { background: var(--raised); border-radius: 18px; padding: 1rem; display: flex; gap: .9rem; align-items: center; min-height: 44px; }
+.tool img, .tool .ph { width: 52px; height: 52px; border-radius: 14px; flex: none; }
+.tool .ph { background: #1a0a12; display: grid; place-items: center; }
+.tool h3 { font-family: var(--display); font-size: 1.02rem; font-weight: 600; color: var(--cream-bright); }
+.tool p { font-size: .86rem; color: var(--rose); line-height: 1.35; }
+.private { color: var(--rose); margin-top: 1.1rem; }
+
+.doors { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+.door { border: 0; outline: 0; background: var(--raised-2); border-radius: 18px; padding: 1.5rem 1.6rem; text-align: left; cursor: pointer; min-height: 44px; font-family: var(--display); color: var(--gold); font-size: 1.6rem; font-weight: 600; transition: background .2s var(--ease); }
+.door small { display: block; font-family: var(--body); font-weight: 400; font-size: .98rem; color: var(--cream); margin-top: .3rem; }
+.door:active { transform: scale(.95); }
+/* Keyboard focus is a whole-surface fill, never a ring. */
+.door:focus-visible, .sbtn:focus-visible { background: color-mix(in srgb, var(--cream) 30%, var(--oxblood)); }
+nav a:focus-visible { outline: 0; color: var(--gold); }
+@media (hover: hover) {
+  .door:hover { background: color-mix(in srgb, var(--cream) 22%, var(--oxblood)); }
+  nav a:hover { color: var(--cream-bright); }
 }
+footer { padding: 1rem 0 3rem; color: var(--rose); font-size: .88rem; }
 
-::selection { background: var(--accent); color: white; }
-
-/* NAV */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 3rem;
-  mix-blend-mode: difference;
-}
-
-nav * { color: white; }
-
-.nav-name {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
+/* ===== BEGIN copied unchanged from work/index.html (tiles, their marks, the detail sheet) ===== */
+/* Gallery: 2 columns on phones, 3 from 760px, 4 from 1040px */
+.grid {
   list-style: none;
-}
-
-.nav-links a {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  opacity: 0.7;
-  transition: opacity 0.3s;
-}
-
-.nav-links a:hover { opacity: 1; }
-
-/* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 8vw;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-overline {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: slide-in-left 1.2s ease forwards;
-  animation-delay: 3.2s;
-}
-
-@keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.hero-title {
-  font-family: var(--serif);
-  font-size: clamp(3rem, 7.4vw, 6.6rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  opacity: 0;
-  animation: reveal-up 2.4s cubic-bezier(0.25, 0, 0, 1) forwards;
-  animation-delay: 0.3s;
-}
-
-@keyframes reveal-up {
-  from { opacity: 0; transform: translateY(60px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.hero-title .accent {
-  color: var(--accent);
-}
-
-.hero-desc {
-  font-family: var(--sans);
-  font-size: 1.05rem;
-  font-weight: 300;
-  color: var(--text-light);
-  max-width: 480px;
-  line-height: 1.7;
-  margin-top: 3rem;
-  opacity: 0;
-  animation: fade-in 1.8s ease forwards;
-  animation-delay: 2s;
-}
-
-.hero-desc-trigger {
-  margin-top: 3rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7rem;
-}
-
-.hero-desc-trigger .hero-desc {
-  margin-top: 0;
-  transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.hero-desc-cue {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 2.2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.hero-desc-trigger:hover .hero-desc,
-.hero-desc-trigger:focus-visible .hero-desc {
-  color: var(--text);
-  transform: translateX(6px);
-}
-
-.hero-desc-trigger:hover .hero-desc-cue,
-.hero-desc-trigger:focus-visible .hero-desc-cue {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero-desc-trigger:focus-visible {
-  outline: none;
-}
-
-.hero-desc-trigger:focus-visible .hero-desc {
-  text-decoration: underline;
-  text-decoration-color: rgba(24, 179, 104, 0.45);
-  text-underline-offset: 0.22em;
-}
-
-.hero-watermark {
-  position: absolute;
-  right: 5vw;
-  bottom: 10vh;
-  font-family: var(--serif);
-  font-size: clamp(7rem, 16vw, 14rem);
-  font-weight: 900;
-  color: rgba(16, 24, 24, 0.05);
-  line-height: 1;
-  pointer-events: none;
-}
-
-/* HORIZONTAL SCROLL PROJECTS */
-.horizontal-section {
-  height: 400vh;
-  position: relative;
-}
-
-.horizontal-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-.horizontal-track {
-  display: flex;
-  gap: 4rem;
-  padding: 0 8vw;
-  will-change: transform;
-}
-
-.h-card {
-  min-width: 400px;
-  max-width: 400px;
-  flex-shrink: 0;
-}
-
-.h-card-number {
-  font-family: var(--serif);
-  font-size: 4rem;
-  font-weight: 900;
-  color: var(--accent);
-  opacity: 0.3;
-  line-height: 1;
-  margin-bottom: 1rem;
-}
-
-.h-card h3 {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
-  letter-spacing: -0.01em;
-}
-
-.h-card p {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-.h-card-tag {
-  display: inline-block;
-  margin-top: 1.2rem;
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  border-bottom: 1px solid var(--accent);
-  padding-bottom: 2px;
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
-
-a.h-card-tag:hover { opacity: 0.7; }
-
-/* BIG STATEMENT */
-.big-statement {
-  padding: 12rem 8vw;
-  position: relative;
-  overflow: hidden;
-  background: var(--bg-dark);
-  color: var(--bg);
-}
-
-.big-text {
-  font-family: var(--serif);
-  font-size: clamp(2.25rem, 5.25vw, 4.35rem);
-  font-weight: 400;
-  line-height: 1.4;
-  max-width: 900px;
-}
-
-
-/* SKILLS */
-.skills-editorial {
-  padding: 8rem 8vw;
-}
-
-.skills-label {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 4rem;
-}
-
-.skill-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.25, 0, 0, 1);
-  cursor: default;
-}
-
-.skill-row:hover {
-  padding-left: 2rem;
-  border-bottom-color: var(--accent);
-}
-
-.skill-row:hover .skill-name {
-  transform: skewX(-3deg);
-  color: var(--accent);
-}
-
-.skill-name {
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  font-weight: 700;
-  transition: all 0.4s cubic-bezier(0.25, 0, 0, 1);
-}
-
-.skill-level {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* CONTACT */
-.contact-editorial {
-  padding: 10rem 8vw;
-  text-align: center;
-}
-
-.contact-headline {
-  font-family: var(--serif);
-  font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  margin-bottom: 2rem;
-}
-
-/* Blinking cursor injected by JS as a span */
-.contact-cursor {
-  display: inline-block;
-  width: 3px;
-  background: var(--accent);
-  margin-left: 0.05em;
-  vertical-align: baseline;
-  height: 0.85em;
-  animation: contact-blink 0.7s step-end infinite;
-}
-
-@keyframes contact-blink {
-  50% { opacity: 0; }
-}
-
-.contact-headline .accent {
-  color: var(--accent);
-}
-
-/* Word-by-word stagger */
-.contact-sub {
-  font-size: 1rem;
-  color: var(--text-light);
-  font-weight: 300;
-  margin-bottom: 3rem;
-}
-
-.contact-sub span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(20px) scale(0.94);
-  margin-right: 0.25em;
-  /* No transition — WAAPI owns the entrance animation entirely.
-     Leaving a CSS transition here caused it to fire simultaneously
-     and smooth out the overshoot keyframe. */
-}
-
-.contact-sub.go span {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.contact-link {
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-  text-decoration: none;
-  color: var(--text);
-  padding-bottom: 4px;
-  border-bottom: none;
-  position: relative;
-  display: inline-block;
-  opacity: 0;
-}
-
-.contact-link:hover {
-  color: var(--accent);
-}
-
-/* "Hiring?" line under the email: plain, always visible (no entrance animation) */
-.contact-hiring {
-  margin-top: 2rem;
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--text-light);
-}
-.contact-hiring a {
-  color: var(--text);
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-underline-offset: 4px;
-}
-.contact-hiring a:hover { color: var(--accent); }
-
-/* Real DOM element replaces ::after — WAAPI cannot target pseudo-elements */
-.contact-underline {
-  position: absolute;
-  bottom: -1px;
-  left: 15%;
-  right: 15%;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 999px;
-  box-shadow: 0 0 0 rgba(24, 179, 104, 0);
-  transform: translateX(-110vw);
-  transform-origin: center center; /* compresses from the middle outward */
-}
-
-footer {
-  padding: 3rem 8vw;
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
-
-@media (max-width: 768px) {
-  .hero { padding: 0 5vw; }
-  .hero-title { font-size: clamp(2.7rem, 13vw, 4.35rem); line-height: 1.02; }
-  .hero-desc { font-size: 0.98rem; max-width: 24rem; margin-top: 2.25rem; }
-  .hero-desc-trigger { gap: 0.5rem; margin-top: 2.25rem; }
-  .hero-desc-cue { opacity: 1; transform: none; }
-  .hero-watermark { display: none; }
-  .h-card { min-width: 280px; max-width: 280px; }
-  .big-statement { padding: 8rem 5vw; }
-  .skills-editorial { padding: 6rem 5vw; }
-  .contact-editorial { padding: 6rem 5vw; }
-  footer { padding: 2rem 5vw; flex-direction: column; gap: 0.5rem; }
-  nav { padding: 1rem 1.5rem; }
-  .nav-links { gap: 1rem; }
-  .story-modal { width: min(700px, calc(100vw - 24px)); padding: 2rem 1.2rem 1.35rem; }
-  .story-grid { grid-template-columns: 1fr; gap: 1.35rem; }
-}
-
-/* ============================================
-   BEGIN PULSE — glowing text behind the fill
-   Visible only through the "begin" mask cutouts.
-   Animation controls opacity; cleared inline style
-   lets it snap back to 0 on stopTrace.
-   ============================================ */
-
-@keyframes begin-pulse {
-  0%   { opacity: 0;    filter: blur(0px);   }   /* fades in from invisible      */
-  25%  { opacity: 0.82; filter: blur(0px);   }   /* arrives sharp and warm       */
-  65%  { opacity: 1.0;  filter: blur(1.5px); }   /* drifts to soft peak          */
-  100% { opacity: 0.82; filter: blur(0px);   }   /* settles back — loops cleanly */
-}
-
-/* ============================================
-   SCROLL-TRACKING CTA BUTTON + MODAL
-   ============================================ */
-
-/* The puzzle piece button that rides the right edge, tracking scroll position */
-.scroll-cta {
-  position: fixed;
-  right: 24px;
-  top: 48px; /* overridden dynamically by JS */
-  z-index: 90;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  width: 82px;
-  will-change: top, opacity;
-  /*
-    Opacity is driven by --scroll-opacity, a custom property updated by JS as the
-    user scrolls. Default 0 means the button is invisible at page top. When the
-    .hidden class is applied (modal open), its direct opacity:0 wins via
-    specificity, so modal-hide behavior stays intact regardless of scroll state.
-  */
-  opacity: var(--scroll-opacity, 0);
-  transition: opacity 0.35s ease;
-}
-
-/* Active/press is instant — no transition-duration on transform */
-.scroll-cta:active {
-  transform: scale(0.95);
-}
-
-/* Fades out when modal opens */
-.scroll-cta.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* The puzzle piece SVG itself */
-.scroll-cta-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-/* Puzzle piece fill — hover darkens it slightly */
-.scroll-cta-svg path {
-  fill: var(--accent);
-  transition: fill 0.3s ease;
-}
-
-.scroll-cta:hover .scroll-cta-svg {
-  transform: scale(1.05);
-}
-
-
-/* ---- Overlay / backdrop ---- */
-.cta-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(12, 26, 21, 0.42);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-.cta-overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* ---- Modal card ---- */
-.cta-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 201;
-  width: min(460px, calc(100vw - 48px));
-  max-height: calc(100vh - 64px);
-  overflow-y: auto;
-  background: var(--bg);
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  padding: 2.5rem;
-  pointer-events: none;
-  opacity: 0;
-  /*
-    Starts tiny. transform-origin is set as an inline style by JS
-    so the scale radiates from wherever the button is sitting.
-    IMPORTANT: JS must never set inline opacity or transform —
-    only transformOrigin. Inline styles beat class styles, so if
-    JS sets transform inline, the .open class can never override it.
-  */
-  transform: translate(-50%, -50%) scale(0.01);
-  transform-origin: 90% 50%; /* fallback; JS overwrites per click */
-  transition: opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
-              transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.cta-modal.open {
-  pointer-events: all;
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-/*
-  .measuring — lets JS briefly inflate the modal to full size (invisible)
-  so it can read the actual rendered height before the blob animation starts.
-  Used only for a single synchronous measurement, then removed immediately.
-*/
-.cta-modal.measuring {
-  transition: none !important;
-  transform: translate(-50%, -50%) scale(1) !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/*
-  .no-transition — suppresses the scale/fade CSS transition for one frame
-  so the modal can snap to its open state without animating (the blob
-  handled all the visuals; this just makes the real DOM element appear).
-*/
-.cta-modal.no-transition {
-  transition: none !important;
-}
-
-/* Close button — min 44px touch target */
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1.2rem;
-  background: none;
-  border: none;
-  font-family: var(--mono);
-  font-size: 1rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  transition: color 0.2s ease;
-}
-
-.modal-close:hover { color: var(--text); }
-
-.modal-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.75rem;
-}
-
-.modal-title {
-  font-family: var(--serif);
-  font-size: 1.9rem;
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin-bottom: 2rem;
-}
-
-.modal-title em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-/* ---- Form fields ---- */
-.cta-form .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem 0.75rem;
+  padding-bottom: 3rem;
 }
+@media (min-width: 760px)  { .grid { grid-template-columns: repeat(3, 1fr); gap: 1.75rem 1.25rem; } }
+@media (min-width: 1040px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 
-.cta-form .form-group {
-  margin-bottom: 1.5rem;
-}
+.tile { display: block; }
+.tile:focus-visible .label { color: var(--signal-deep); }
 
-.cta-form label {
+/* The shell carries the shadow and the lift; the media inside is cut to the squircle,
+   so the shadow follows the squircle instead of a box */
+.shell {
   display: block;
-  font-family: var(--mono);
-  font-size: 0.5rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.45rem;
+  filter: drop-shadow(0 1px 1.5px rgba(16, 24, 24, 0.10));
+  transition: filter 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.tile:active .shell { transform: scale(0.97); transition-duration: 0s; }
+.tile:focus-visible .shell { filter: drop-shadow(0 6px 12px rgba(16, 24, 24, 0.18)); }
+@media (hover: hover) {
+  .tile:hover .shell { filter: drop-shadow(0 6px 12px rgba(16, 24, 24, 0.18)); transform: translateY(-1px); }
 }
 
-/* Inputs: no box, just a bottom border — editorial / minimal */
-.cta-form input,
-.cta-form textarea {
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(16, 24, 24, 0.14);
-  padding: 0.5rem 0;
-  font-family: var(--sans);
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: var(--text);
-  outline: none;
-  resize: none;
-  -webkit-appearance: none;
-  border-radius: 0;
-  transition: border-color 0.25s ease;
+.media {
+  position: relative;
+  display: grid; place-items: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--bg);
+  container-type: inline-size;
+  -webkit-mask: var(--squircle) center / 100% 100% no-repeat;
+          mask: var(--squircle) center / 100% 100% no-repeat;
 }
+.media > svg { display: block; }
 
-.cta-form input:focus,
-.cta-form textarea:focus {
-  border-bottom-color: var(--accent);
+.label {
+  display: block;
+  margin-top: 0.55rem;
+  padding: 0 0.15rem;
+  font: 500 0.95rem/1.25 var(--display);
+  transition: color 0.2s var(--ease);
 }
-
-.cta-form input::placeholder,
-.cta-form textarea::placeholder {
-  color: var(--text-muted);
-  font-weight: 300;
-  font-style: italic;
+.label:lang(zh-Hant) { font-family: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif; font-weight: 600; letter-spacing: 0.04em; }
+.does {
+  display: block;
+  margin-top: 0.15rem;
+  padding: 0 0.15rem;
+  color: var(--ink-soft);
   font-size: 0.85rem;
+  line-height: 1.35;
 }
 
-.cta-form textarea {
-  min-height: 56px;
-  line-height: 1.6;
-}
+/* ---- Carson Clean: the brand's animated C in its own gold-to-burgundy, over the stacked lockup's name ---- */
+.cc-lockup { display: flex; flex-direction: column; align-items: center; gap: 2cqi; width: 100%; }
+.cc-host { position: relative; width: 62%; aspect-ratio: 1 / 1; }
+.cc-host > svg { display: block; width: 100%; height: 100%; }
+.cc-word { font: italic 600 10.5cqi/1 'Fraunces', Georgia, serif; color: #D4A853; margin-top: -3cqi; } /* the gold-dash lockup's name colour */
 
-.submit-btn {
-  margin-top: 2rem;
-  background: var(--accent);
-  color: var(--bg);
+/* ---- ASSEMBLAGE: the landing page's wordmark; its burgundy glows drift, the gold moves through the letters ---- */
+.asm-glow { position: absolute; border-radius: 50%; pointer-events: none; }
+.asm-glow.g1 { width: 120%; height: 90%; right: -45%; top: -40%; background: radial-gradient(closest-side, #5a1a2e 0%, rgba(74, 21, 37, 0) 100%); animation: drift-a 14s ease-in-out infinite alternate; }
+.asm-glow.g2 { width: 100%; height: 80%; left: -40%; bottom: -40%; background: radial-gradient(closest-side, #3a1428 0%, rgba(45, 16, 32, 0) 100%); animation: drift-b 17s ease-in-out infinite alternate; }
+@keyframes drift-a { to { transform: translate(-22%, 18%); } }
+@keyframes drift-b { to { transform: translate(26%, -16%); } }
+.asm-word {
+  position: relative;
+  font: 400 8.6cqi/1 Georgia, Charter, 'Times New Roman', serif;
+  letter-spacing: 0.36em; padding-left: 0.36em; /* balances the last letter's trailing space */
+  color: #D4A853;
+  background: linear-gradient(100deg, #A97C2F 0%, #D4A853 18%, #F2D58C 34%, #D4A853 50%, #A97C2F 66%, #D4A853 82%, #F2D58C 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: gold-move 9s ease-in-out infinite alternate;
+}
+@keyframes gold-move { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+
+/* ASSEMBLAGE: the clips and the gold rule the script adds */
+.asm-bits { position: absolute; inset: 0; pointer-events: none; }
+.asm-bit { position: absolute; left: 0; top: 0; border-radius: 1.6cqi; }
+.asm-rule { position: absolute; left: 22%; right: 22%; top: calc(50% - 0.45cqi); height: 0.9cqi; opacity: 0; border-radius: 1cqi; background: linear-gradient(90deg, #A97C2F, #F2D58C, #A97C2F); transform-origin: center; }
+
+/* ---- Fitness / Zifang / Greenway artwork sizes ---- */
+.fx { width: 66%; height: auto; overflow: visible; }
+/* 字坊: two flashcards. Mandarin is always the dark side, English always the light side.
+   The script decides which face shows and which card is in front, so it looks the same in every browser
+   (Safari flattens 3D under the squircle mask, so depth sorting and backface hiding can't be trusted). */
+.zf-stage { position: absolute; inset: 0; }
+.zf-card { position: absolute; left: 27cqi; top: 27cqi; width: 46cqi; height: 46cqi; }
+.zf-face { position: absolute; inset: 0; border-radius: 11cqi; display: grid; place-items: center; }
+.zf-cn { background: #4682b4; color: #f5f0e8; font: 600 23cqi/1 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif; }
+.zf-en { background: #a9c1d6; color: #2c5a83; font: 500 6.6cqi/1 var(--display); letter-spacing: 0.01em; transform: scaleX(-1); }
+/* Resting pose (also the no-script and reduced-motion view): 字 in front, the English side of 坊 behind */
+.zf-card[data-card="0"] { z-index: 2; transform: perspective(140cqi) translate3d(8cqi, -8cqi, 10cqi) rotateZ(14deg); }
+.zf-card[data-card="0"] .zf-en { opacity: 0; }
+.zf-card[data-card="1"] { z-index: 1; transform: perspective(140cqi) translate3d(-8cqi, 8cqi, -10cqi) rotateZ(-15deg) rotateY(180deg); }
+.zf-card[data-card="1"] .zf-cn { opacity: 0; }
+.gw { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ---- Detail sheet ---- */
+dialog {
+  margin: auto auto 0;
+  width: 100%; max-width: 100%;
   border: none;
-  padding: 0.9rem 2rem;
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  border-radius: 20px;
+  border-radius: 16px 16px 0 0;
+  background: var(--paper-lift);
+  color: var(--ink);
+  padding: 0;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), overlay 0.25s allow-discrete, display 0.25s allow-discrete;
+}
+dialog[open] { opacity: 1; transform: none; }
+@starting-style { dialog[open] { opacity: 0; transform: translateY(24px); } }
+dialog::backdrop {
+  background: rgba(16, 24, 24, 0);
+  transition: background-color 0.25s var(--ease), overlay 0.25s allow-discrete, display 0.25s allow-discrete;
+}
+dialog[open]::backdrop { background: rgba(16, 24, 24, 0.45); }
+@starting-style { dialog[open]::backdrop { background: rgba(16, 24, 24, 0); } }
+@media (min-width: 760px) {
+  dialog { margin: auto; max-width: 560px; border-radius: var(--r-container); transform: translateY(8px) scale(0.96); }
+  @starting-style { dialog[open] { transform: translateY(8px) scale(0.96); } }
+}
+/* The sheet shows the same squircle tile, larger, on a band of the paper colour */
+.sheet-media { aspect-ratio: 16 / 10; background: var(--paper); display: grid; place-items: center; }
+.sheet-media .media { width: 51%; }
+.sheet-body { padding: 1.1rem 1.25rem 1.5rem; }
+.sheet-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.sheet-title { font: 700 1.35rem/1.2 var(--display); }
+.sheet-title:lang(zh-Hant) { font-family: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif; }
+.sheet-kind {
+  flex: none;
+  font: 400 0.72rem/1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.sheet-line { margin-top: 0.4rem; color: var(--ink-soft); }
+.sheet-actions { margin-top: 1.25rem; display: flex; gap: 0.5rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 1.25rem;
+  border: none; border-radius: var(--r-small);
   cursor: pointer;
-  width: auto;
-  min-width: 160px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  transition: background 0.25s ease;
+  transition: background-color 0.2s var(--ease);
 }
+.btn:active { transform: scale(0.95); }
+.btn-go { flex: 1; background: var(--ink); color: var(--paper-lift); font-weight: 500; }
+.btn-go:focus-visible { background: var(--signal-deep); }
+.btn-close { background: var(--paper); color: var(--ink-soft); }
+.btn-close:focus-visible { background: var(--focus-fill); color: var(--ink); }
+/* ===== END copied block. Below: the few changes this page needs ===== */
+.tile { color: inherit; text-decoration: none; }
+.tile:focus { outline: none; }
+.grid { padding: 0; }
+@media (min-width: 900px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 1.1rem; } }
+.label { color: var(--cream-bright); }
+.does { color: var(--rose); }
+.tile:focus-visible .label { color: var(--gold); }
+.shell { filter: drop-shadow(0 1px 2px rgba(10, 5, 6, 0.35)); }
+dialog .btn { text-decoration: none; font: inherit; }
+.btn-go { background: var(--oxblood); color: var(--cream-bright); }
+.btn-go:focus-visible { background: #7E2840; }
+.btn-close { color: var(--ink); }
+dialog :focus { outline: none; }
 
-.submit-btn:hover {
-  background: color-mix(in srgb, var(--accent) 80%, var(--bg-dark));
+/* ---------- the sheet behind each door: floats up and solidifies, 0.25s ---------- */
+.scrim { position: fixed; inset: 0; z-index: 10; background: rgba(18, 5, 10, .55); opacity: 0; pointer-events: none; transition: opacity .25s var(--ease); display: flex; padding: 1.25rem; overflow: auto; }
+.scrim.open { opacity: 1; pointer-events: auto; }
+.sheet { margin: auto; background: #F7F1E7; color: #2c2416; border-radius: 18px; width: min(640px, 100%); padding: 2rem 2rem 1.75rem; transform: translateY(8px) scale(.96); transition: transform .25s var(--ease); }
+.scrim.open .sheet { transform: none; }
+.sheet .over { color: #8a6a2a; }
+.sheet h2 { font-family: var(--display); font-weight: 600; font-size: 1.7rem; line-height: 1.15; color: var(--oxblood); margin: .5rem 0 .8rem; }
+.sheet p { color: #4b4032; }
+.sheet .line { height: 1px; background: var(--gold-line); margin: 1.3rem 0 1.1rem; }
+.rows { display: grid; grid-template-columns: 8.5rem 1fr; gap: .55rem 1rem; font-size: .95rem; }
+.rows dt { font-family: var(--display); color: #8a6a2a; font-size: .86rem; padding-top: .1rem; }
+.rows dd { margin: 0; color: #2c2416; }
+.rows dd span { color: #6f6252; }
+.steps { padding-left: 1.2rem; display: grid; gap: .45rem; color: #2c2416; }
+.contact { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: 1.4rem; }
+.email { font-family: var(--display); font-size: 1.02rem; color: var(--oxblood); user-select: all; }
+.sbtn { border: 0; outline: 0; border-radius: 14px; min-height: 44px; padding: .6rem 1.1rem; font-family: var(--display); font-size: .95rem; font-weight: 600; cursor: pointer; background: var(--oxblood); color: var(--cream-bright); transition: background .2s var(--ease); }
+a.sbtn { display: inline-flex; align-items: center; text-decoration: none; }
+.sbtn.quiet { background: color-mix(in srgb, var(--oxblood) 10%, #F7F1E7); color: var(--oxblood); }
+.sbtn:active { transform: scale(.95); }
+.sheet .sbtn:focus-visible { background: #7E2840; color: var(--cream-bright); }
+.sheet-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: .6rem; flex-wrap: wrap; }
+
+@media (max-width: 720px) {
+  .hero { padding: 3.25rem 0 3rem; }
+  .lanes, .tools, .doors, .feature { grid-template-columns: 1fr; }
+  .rows { grid-template-columns: 1fr; gap: .1rem; }
+  .rows dd { margin-bottom: .6rem; }
+  .sheet { padding: 1.5rem 1.35rem; }
 }
-
-.submit-btn:active { transform: scale(0.97); }
-
-.submit-btn:disabled {
-  opacity: 0.5;
-  cursor: default;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after, dialog, dialog::backdrop { animation: none !important; }
+  .scrim, .sheet, .door, .sbtn, nav a { transition: none; }
+  .sheet { transform: none; }
+  .door:active, .sbtn:active { transform: none; }
 }
-
-/* ---- Success state ---- */
-.modal-success {
-  display: none;
-  text-align: center;
-  padding: 3rem 0 1.5rem;
+/* Printing the background sheet gives a one-page résumé. */
+@media print {
+  body > *:not(#sheetA) { display: none !important; }
+  #sheetA { position: static; opacity: 1; background: none; padding: 0; display: block; }
+  #sheetA .sheet { transform: none; width: 100%; padding: 0; }
+  .sheet-foot, .contact .sbtn { display: none; }
 }
-
-.modal-success .success-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-.modal-success .success-title {
-  font-family: var(--serif);
-  font-size: 2.4rem;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
-}
-
-.modal-success p {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  font-weight: 300;
-}
-
-.story-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 210;
-  background: rgba(10, 18, 16, 0.54);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.32s ease;
-}
-
-.story-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.story-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 211;
-  width: min(700px, calc(100vw - 48px));
-  max-height: calc(100vh - 64px);
-  overflow-y: auto;
-  background: color-mix(in srgb, var(--bg) 94%, white);
-  border: 1px solid rgba(24, 179, 104, 0.28);
-  border-radius: 18px;
-  box-shadow: 0 24px 80px rgba(8, 20, 17, 0.18);
-  padding: 2.5rem 2.25rem 2.1rem;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, calc(-50% + 22px)) scale(0.97);
-  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.story-modal.open {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.story-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.85fr);
-  gap: 2rem;
-}
-
-.story-copy p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--text-light);
-  margin-bottom: 1.2rem;
-}
-
-.story-copy p:last-child {
-  margin-bottom: 0;
-}
-
-.story-aside {
-  padding: 1.1rem 1.15rem;
-  border-radius: 14px;
-  background: rgba(24, 179, 104, 0.06);
-  border: 1px solid rgba(24, 179, 104, 0.14);
-  align-self: start;
-}
-
-.story-aside-label {
-  font-family: var(--mono);
-  font-size: 0.52rem;
-  letter-spacing: 2.4px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.85rem;
-}
-
-.story-aside p {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: var(--text-light);
-}
-
-@media (max-width: 768px) {
-  .scroll-cta { right: 16px; }
-  .cta-modal { padding: 2rem 1.5rem; }
-  .modal-title { font-size: 1.5rem; }
-  .cta-form .form-row { grid-template-columns: 1fr; gap: 0; }
-}
-
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-name">Tim Carson | Work</div>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-overline">Cleveland, TN · 2026</div>
-  <h1 class="hero-title">
-    Sometimes the hardest part is
-    <span class="accent">naming</span> what needs to change.
-  </h1>
-  <button class="hero-desc-trigger" id="storyTrigger" type="button" aria-haspopup="dialog" aria-controls="storyModal">
-    <span class="hero-desc">Former teacher. Now I make short films and websites for small businesses.</span>
-    <span class="hero-desc-cue">More about me</span>
-  </button>
-  <div class="hero-watermark" id="watermark">TC</div>
-</section>
+<div class="wrap">
+  <nav>
+    <b>Tim Carson</b>
+    <div><a href="#work">Work</a><a href="#doors">Contact</a></div>
+  </nav>
+  <div class="rule"></div>
 
-<!-- PROJECTS -->
-<div class="horizontal-section" id="projects">
-  <div class="horizontal-sticky">
-    <div class="horizontal-track" id="h-track">
+  <header class="hero">
+    <div class="over">Cleveland, TN · 2026</div>
+    <h1>I make <em>films, brands and websites</em> for small businesses.</h1>
+    <p class="sub">Former teacher. One person, from the name to the finished film.</p>
+  </header>
 
-      <div class="h-card">
-        <div class="h-card-number">01</div>
-        <h3>Fitness Tracker</h3>
-        <p>A mobile-first workout tracking app built from scratch. IndexedDB for offline storage, custom sound design, progressive overload tracking, and a design system with mood colors, animations, and time inputs. No frameworks — just vanilla JS and intention.</p>
-        <a href="https://fit-logs.vercel.app" target="_blank" class="h-card-tag">View Live App →</a>
+  <section id="work">
+    <div class="kicker">What I do</div>
+    <div class="lanes">
+      <div class="lane">
+        <div class="still"><img src="img/sienna-poster.jpg" alt="Still from the 58-second Carson Clean film"></div>
+        <h2>Film</h2>
+        <p>Short films and ads that show a business doing what it does best.</p>
+        <p class="signed">Signed Assemblage</p>
       </div>
-
-      <div class="h-card">
-        <div class="h-card-number">02</div>
-        <h3>Chinese Learning Platform</h3>
-        <p>An interactive Mandarin learning system with flashcard apps, verb production drills, and grammar modules. Built around real correspondence with native speakers — not textbook exercises. Includes a persistent vocabulary tracker with 90+ entries.</p>
-        <a href="https://zifang.vercel.app" target="_blank" class="h-card-tag">View Live App →</a>
+      <div class="lane">
+        <div class="still"><img src="img/carson-site.jpg" alt="The Carson Clean website"></div>
+        <h2>Brand and web</h2>
+        <p>The name, the mark, how it moves, and the site it lives on.</p>
+        <p class="signed">Carson Clean, start to finish</p>
       </div>
+    </div>
+  </section>
 
-      <div class="h-card">
-        <div class="h-card-number">03</div>
-        <h3>Greenway Cleanup</h3>
-        <p>A community organizing site for trail cleanups in Cleveland, TN. Event info, volunteer signups, momentum. Software in service of picking up actual garbage — proof these tools work outside the browser too.</p>
-        <a href="https://greenwaycleanup.vercel.app" target="_blank" class="h-card-tag">View Live Site &rarr;</a>
-      </div>
+  <section>
+    <div class="kicker">Things I've built</div>
+    <ul class="grid">
+      <li><a class="tile" data-marius-id="car-detailing" href="https://carsonclean.co" data-kind="Business"
+        data-line="My mobile car detailing business, from the brand to the website.">
+        <span class="shell"><span class="media" data-anim="cc" style="--bg:#160E07">
+          <span class="cc-lockup">
+            <span class="cc-host" role="img" aria-label="Carson Clean logo">
+              <svg class="cc-static" viewBox="-27.4 -18.5 236.4 236.4"><defs><linearGradient id="cc-static-grad" gradientUnits="userSpaceOnUse" x1="49.62" y1="11.38" x2="117.81" y2="146.59"><stop offset="0" stop-color="#F7D477"/><stop offset=".222" stop-color="#C78B3E"/><stop offset=".445" stop-color="#6F3731"/><stop offset=".612" stop-color="#5E1C2A"/></linearGradient></defs><path fill="url(#cc-static-grad)" stroke="url(#cc-static-grad)" stroke-width="5" stroke-linejoin="round" d="M166.06,46.51C166.06,46.51 153.63,29.55 144.20,23.44C134.77,17.34 121.94,11.17 109.47,9.90C97.00,8.62 81.75,11.23 69.35,15.80C56.96,20.38 43.96,27.84 35.12,37.34C26.27,46.84 20.12,60.31 16.31,72.81C12.50,85.30 10.36,99.67 12.26,112.33C14.16,124.99 20.50,137.97 27.71,148.76C34.91,159.55 44.50,170.24 55.50,177.08C66.50,183.91 80.82,189.06 93.72,189.78C106.62,190.50 122.23,185.69 132.89,181.41C143.55,177.12 151.47,169.74 157.68,164.06C163.89,158.38 170.14,147.31 170.14,147.31C170.14,147.31 159.22,142.01 155.01,139.97C150.81,137.93 147.45,137.28 144.92,135.09C142.38,132.90 140.78,128.63 139.79,126.84C138.81,125.06 139.01,124.38 139.01,124.38C139.01,124.38 130.54,133.97 125.05,137.14C119.57,140.31 112.62,142.34 106.10,143.37C99.57,144.41 92.02,145.32 85.91,143.37C79.80,141.41 74.07,136.34 69.44,131.65C64.80,126.97 60.29,121.30 58.09,115.25C55.89,109.21 55.62,101.92 56.24,95.40C56.87,88.88 58.41,81.58 61.84,76.15C65.26,70.73 71.21,66.31 76.79,62.86C82.37,59.40 88.92,56.21 95.32,55.45C101.72,54.68 109.10,56.34 115.19,58.28C121.27,60.21 131.82,67.05 131.82,67.05C131.82,67.05 139.23,69.17 142.88,68.85C146.52,68.53 150.71,67.85 153.67,65.14C156.64,62.43 158.61,55.70 160.68,52.59C162.74,49.49 166.06,46.51 166.06,46.51Z"/></svg>
+            </span>
+            <span class="cc-word">Carson Clean</span>
+          </span>
+        </span></span>
+        <span class="label">Carson Clean</span>
+        <span class="does">Site for my car detailing business</span></a></li>
 
-      <div class="h-card">
-        <div class="h-card-number">04</div>
-        <h3>More Projects</h3>
-        <p>Everything I've built that's ready to show, in one gallery: a picture of each, what it does, and a link to try it.</p>
-        <a href="/work" class="h-card-tag">See them all &rarr;</a>
-      </div>
+      <li><a class="tile" data-marius-id="assemblage" href="https://assemblage-studio.vercel.app" data-kind="Studio"
+        data-line="My video studio: bring clips, photos or just an idea, and I build a film from it with editing and review tools I made.">
+        <span class="shell"><span class="media" data-anim="asm" style="--bg:#1A070D">
+          <span class="asm-glow g1"></span><span class="asm-glow g2"></span>
+          <span class="asm-word" role="img" aria-label="ASSEMBLAGE">ASSEMBLAGE</span>
+        </span></span>
+        <span class="label">Assemblage</span>
+        <span class="does">Turns your clips into a film</span></a></li>
 
-      <div class="h-card">
-        <div class="h-card-number">—</div>
-        <h3>What's next?</h3>
-        <p>Your project, maybe. I'm building new things every week and looking for the right problems to solve.</p>
-        <span class="h-card-tag">Let's talk</span>
-      </div>
+      <li><a class="tile" data-marius-id="fitness-tracker" href="https://fit-logs.vercel.app" data-kind="App"
+        data-line="A workout log for the phone that works offline, with its own sound design.">
+        <span class="shell"><span class="media" data-anim="fx" style="--bg:#1a0a12">
+          <svg class="fx" viewBox="100 100 310 310" role="img" aria-label="Fitness Tracker logo" fill="none" stroke="#a04574" stroke-linecap="round" stroke-linejoin="round">
+            <path class="fx-axis" stroke-width="22" d="M125 125V383H385"/>
+            <g class="fx-run">
+              <!-- Like real training: quick early gains, a setback, a strong run, then it levels off at a higher level it can hold -->
+              <path class="fx-line" stroke-width="13" d="M158 352L184 318L211 292L238 304L266 258L293 218L321 193L348 180L376 175"/>
+              <g class="fx-dots" fill="#a04574" stroke="none">
+                <circle cx="158" cy="352" r="10.5"/><circle cx="184" cy="318" r="10.5"/><circle cx="211" cy="292" r="10.5"/>
+                <circle cx="238" cy="304" r="10.5"/><circle cx="266" cy="258" r="10.5"/><circle cx="293" cy="218" r="10.5"/>
+                <circle cx="321" cy="193" r="10.5"/><circle cx="348" cy="180" r="10.5"/><circle cx="376" cy="175" r="10.5"/>
+              </g>
+              <circle class="fx-head" cx="376" cy="175" r="0" fill="#e58fb7" stroke="none"/>
+            </g>
+          </svg>
+        </span></span>
+        <span class="label">Fitness Tracker</span>
+        <span class="does">Logs workouts, even offline</span></a></li>
 
+      <li><a class="tile" data-marius-id="zifang" href="https://zifang.vercel.app" data-kind="App"
+        data-line="Mandarin drills built from real conversations with native speakers.">
+        <span class="shell"><span class="media" data-anim="zf" style="--bg:#f5f0e8">
+          <!-- Two real flashcards: Chinese on the dark side, English on the light side -->
+          <span class="zf-stage" role="img" aria-label="字坊 logo: flashcards for 字, character, and 坊, workshop">
+            <span class="zf-card" data-card="0"><span class="zf-face zf-cn" lang="zh-Hant">字</span><span class="zf-face zf-en">character</span></span>
+            <span class="zf-card" data-card="1"><span class="zf-face zf-cn" lang="zh-Hant">坊</span><span class="zf-face zf-en">workshop</span></span>
+          </span>
+        </span></span>
+        <span class="label" lang="zh-Hant">字坊</span>
+        <span class="does">Drills Mandarin from real chats</span></a></li>
+
+      <li><a class="tile" data-marius-id="greenway-cleanup" href="https://greenwaycleanup.vercel.app" data-kind="Community"
+        data-line="Trail cleanups in Cleveland, TN: events and volunteer sign-ups.">
+        <span class="shell"><span class="media" data-anim="gw" style="--bg:#3D5C20">
+          <!-- The Greenway badge, full bleed: the tile is the badge -->
+          <svg class="gw" viewBox="14 14 172 172" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Greenway Cleanup logo">
+            <g transform="rotate(20 100 100)">
+              <path class="gw-stream" fill="#3D8FB5" opacity="0.70" d="M-30,61 C 70,9 130,113 230,73 L 230,121 C 130,161 70,57 -30,109 Z"/>
+              <!-- Shimmer: two staggered rows of short dashes, one toward each bank, with wide gaps -->
+              <path class="gw-shimmer" data-off="-10" fill="none" stroke="#A8DCF0" stroke-width="3.5" opacity="0.45" stroke-linecap="round" stroke-dasharray="11 61" d="M-30,75 C 70,23 130,127 230,87"/>
+              <path class="gw-shimmer" data-off="10" fill="none" stroke="#A8DCF0" stroke-width="3.5" opacity="0.45" stroke-linecap="round" stroke-dasharray="11 61" stroke-dashoffset="36" d="M-30,95 C 70,43 130,147 230,107"/>
+              <path class="gw-trail" fill="none" stroke="#C8BAA8" stroke-width="13" opacity="0.82" d="M-30,129 C 70,77 130,181 230,141"/>
+              <g class="gw-walkers" fill="#F2C94C"></g>
+            </g>
+          </svg>
+        </span></span>
+        <span class="label">Greenway Cleanup</span>
+        <span class="does">Signs up trail-cleanup volunteers</span></a></li>
+    </ul>
+    <p class="private">Plus private systems I run every day. Ask and I'll show you.</p>
+  </section>
+
+  <section id="doors">
+    <div class="kicker">What now</div>
+    <div class="doors">
+      <button class="door" type="button" data-opens="sheetA">Hiring?<small>My background, on one page</small></button>
+      <button class="door" type="button" data-opens="sheetB">Own a business?<small>What I'd make for you</small></button>
+    </div>
+  </section>
+
+  <footer>Tim Carson · Cleveland, TN</footer>
+</div>
+
+<!-- Door A: the résumé replacement -->
+<div class="scrim" id="sheetA" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetA-title">
+    <div class="over">Background</div>
+    <h2 id="sheetA-title">Tim Carson</h2>
+    <p>I make films, brands and websites. I work alone and finish what I start.</p>
+    <div class="line"></div>
+    <dl class="rows">
+      <dt>Now</dt><dd>Founder, Carson Clean <span>· Mobile car detailing in Bradley and Polk counties. Made the name, mark, site and film.</span></dd>
+      <dt>Also now</dt><dd>Independent film and web work <span>· Films as Assemblage; web apps in daily use.</span></dd>
+      <dt>2025</dt><dd>Account Executive, Best Version Media <span>· Cleveland, TN.</span></dd>
+      <dt>2016 to 2024</dt><dd>Teacher in five countries <span>· English and Spanish, in Taiwan, China, France, Honduras and the US.</span></dd>
+      <dt>Education</dt><dd>BA Communication and BA Spanish <span>· University of Cincinnati, 2016.</span></dd>
+      <dt>Languages</dt><dd>English, Spanish <span>· basic Mandarin.</span></dd>
+    </dl>
+    <div class="contact">
+      <span class="email" id="emailA">tim.d.carson@gmail.com</span>
+      <button class="sbtn quiet" type="button" data-copy="emailA">Copy</button>
+    </div>
+    <div class="sheet-foot">
+      <a class="sbtn" href="/tim-carson-background.pdf" target="_blank" rel="noopener">Full background (PDF)</a>
+      <button class="sbtn quiet" type="button" data-close>Close</button>
     </div>
   </div>
 </div>
 
-<!-- BIG STATEMENT -->
-<section class="big-statement">
-  <div class="big-text">The perfect tool for your business probably doesn't exist yet. That used to be tough luck. Now it's a project we can finish in weeks.</div>
-</section>
-
-<!-- HOW I WORK -->
-<section class="big-statement">
-  <div class="big-text">Prompting is nice. Knowing what we’re making is nicer.</div>
-</section>
-
-<!-- SKILLS -->
-<section class="skills-editorial" id="skills">
-  <div class="skills-label">What I Bring</div>
-
-  <div class="skill-row"><span class="skill-name">AI-Assisted Development</span><span class="skill-level">Core</span></div>
-  <div class="skill-row"><span class="skill-name">Web Applications</span><span class="skill-level">Core</span></div>
-  <div class="skill-row"><span class="skill-name">Rapid Prototyping</span><span class="skill-level">Core</span></div>
-  <div class="skill-row"><span class="skill-name">Video Production</span><span class="skill-level">Growing</span></div>
-  <div class="skill-row"><span class="skill-name">API Integration</span><span class="skill-level">Growing</span></div>
-  <div class="skill-row"><span class="skill-name">Workflow Automation</span><span class="skill-level">Growing</span></div>
-  <div class="skill-row"><span class="skill-name">Brand & Visual Design</span><span class="skill-level">Exploring</span></div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-editorial" id="contact">
-  <h2 class="contact-headline" id="contact-headline"></h2>
-  <p class="contact-sub" id="contact-sub"><span>I'm</span><span>looking</span><span>for</span><span>the</span><span>right</span><span>people</span><span>with</span><span>the</span><span>right</span><span>problems.</span></p>
-  <a href="mailto:tim.d.carson@gmail.com" class="contact-link" id="contact-link">tim.d.carson@gmail.com<span class="contact-underline" id="contactLine"></span></a>
-  <p class="contact-hiring">Hiring? Here&rsquo;s my <a href="/tim-carson-background.pdf" target="_blank" rel="noopener">one-page background (PDF)</a>.</p>
-</section>
-
-<footer>
-  <span>Tim Carson · 2026</span>
-</footer>
-
-<div class="story-overlay" id="storyOverlay"></div>
-<div class="story-modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle" aria-describedby="storySummary">
-  <button class="modal-close" id="storyClose" aria-label="Close">&#x2715;</button>
-  <div class="modal-eyebrow">A little more context</div>
-  <h3 class="modal-title" id="storyTitle">How I got <em>here.</em></h3>
-  <div class="story-grid">
-    <div class="story-copy">
-      <p id="storySummary">I spent years teaching before I started building software. That matters because I still think like a teacher: start with the real confusion, name it clearly, and build the smallest thing that makes the next step obvious.</p>
-      <p>I am not coming at this from a traditional engineering biography. I came in through language, explanation, and the stubborn feeling that too many useful tools stayed trapped behind someone else's gate. AI changed that. It turned software from a closed profession I was orbiting into a medium I could work in directly.</p>
-      <p>Now I build apps, websites, and internal tools for people who can already feel the friction in their work, even if they do not yet know the shape of the fix. That is the through-line: translate a fuzzy problem into something concrete enough to ship.</p>
-      <p>If you want the short version, it is this: teacher brain, builder tools, very little patience for waste, and a real interest in making software feel more human than the process that usually produces it.</p>
+<!-- Door B: for a business owner -->
+<div class="scrim" id="sheetB" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetB-title">
+    <div class="over">For your business</div>
+    <h2 id="sheetB-title">What I'd make for you</h2>
+    <p>Whichever of these you're missing. Most owners start with one.</p>
+    <div class="line"></div>
+    <dl class="rows">
+      <dt>A film</dt><dd>About a minute of your real work, made to be watched with the sound off. <span>For your site, your Google listing and your social pages.</span></dd>
+      <dt>A brand</dt><dd>A name if you need one, a mark, colours and type. <span>Delivered as files you own.</span></dd>
+      <dt>A website</dt><dd>One clear page that says what you do and how to book you. <span>Fast, and readable on a phone.</span></dd>
+    </dl>
+    <div class="line"></div>
+    <ol class="steps">
+      <li>We talk for twenty minutes about what isn't working.</li>
+      <li>I show you one small piece before you commit to the rest.</li>
+      <li>You decide whether to keep going.</li>
+    </ol>
+    <div class="contact">
+      <span class="email" id="emailB">tim.d.carson@gmail.com</span>
+      <button class="sbtn quiet" type="button" data-copy="emailB">Copy</button>
     </div>
-    <aside class="story-aside">
-      <div class="story-aside-label">Quick sketch</div>
-      <p>Based in Cleveland, Tennessee. Former teacher. Now building practical software with AI, design, and a bias toward clarity over theater.</p>
-    </aside>
+    <div class="sheet-foot">
+      <span></span>
+      <button class="sbtn quiet" type="button" data-close>Close</button>
+    </div>
   </div>
 </div>
 
-<!-- SCROLL-TRACKING CTA BUTTON — puzzle piece with "begin" cut out; fades in on scroll -->
-<button class="scroll-cta" id="scrollCta" aria-label="Get in touch">
-  <svg class="scroll-cta-svg" viewBox="0 0 497.689 497.689" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <!--
-        Mask that cuts "begin" out of the puzzle piece fill.
-        White pixels keep the fill visible; black pixels punch through to transparent.
-        The word itself is painted black inside a white rectangle, so the letters
-        become see-through holes that reveal whatever page content is behind the button.
-      -->
-      <mask id="beginCutout">
-        <rect width="497.689" height="497.689" fill="white"/>
-        <text x="248.845" y="238"
-              fill="black"
-              text-anchor="middle"
-              dominant-baseline="central"
-              font-family="'IBM Plex Mono', monospace"
-              font-size="72"
-              font-weight="500"
-              letter-spacing="2">begin</text>
-      </mask>
-    </defs>
-    <path d="M88.604,318.598c24.989-24.99,65.503-24.99,90.489,0c24.989,24.988,24.989,65.5,0,90.488
-      c-3.233,3.233-6.729,6.039-10.417,8.436l80.169,80.168l80.168-80.168c-3.686-2.396-7.182-5.201-10.416-8.436
-      c-24.989-24.988-24.989-65.5,0-90.488c24.988-24.99,65.502-24.99,90.488,0c3.234,3.232,6.039,6.73,8.436,10.415l80.168-80.168
-      l-80.168-80.168c3.686-2.396,7.184-5.202,10.416-8.436c24.99-24.989,24.99-65.502,0-90.489c-24.988-24.989-65.502-24.989-90.488,0
-      c-3.232,3.234-6.037,6.732-8.436,10.417L248.845,0l-80.168,80.168c-2.396-3.685-5.202-7.183-8.436-10.417
-      c-24.989-24.989-65.502-24.989-90.489,0c-24.986,24.989-24.989,65.5,0,90.489c3.235,3.234,6.732,6.039,10.417,8.436L0,248.845
-      l80.168,80.168C82.566,325.328,85.37,321.83,88.604,318.598z"
-      mask="url(#beginCutout)"/>
-  </svg>
-</button>
-
-<!-- WARM INK OVERLAY / BACKDROP -->
-<div class="cta-overlay" id="ctaOverlay"></div>
-
-<!-- CONTACT MODAL -->
-<div class="cta-modal" id="ctaModal" role="dialog" aria-modal="true" aria-label="Contact Tim">
-  <button class="modal-close" id="modalClose" aria-label="Close">&#x2715;</button>
-
-  <h3 class="modal-title">Say <em>hello.</em></h3>
-
-  <!--
-    FORMSPREE SETUP:
-    1. Go to https://formspree.io and create a free account
-    2. Create a new form — it will give you an ID like "xyzabc12"
-    3. Replace REPLACE_WITH_YOUR_FORM_ID below with that ID
-    Submissions will land in your inbox at tim.d.carson@gmail.com
-  -->
-  <form class="cta-form" id="ctaForm"
-        action="https://formspree.io/f/xkokjrnw"
-        method="POST">
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="ctaName">Name</label>
-        <input type="text" id="ctaName" name="name" placeholder="Your name" required>
-      </div>
-      <div class="form-group">
-        <label for="ctaEmail">Email</label>
-        <input type="email" id="ctaEmail" name="email" placeholder="your@email.com" required>
-      </div>
+<!-- The /work detail sheet and tile scripts, copied unchanged from work/index.html -->
+<dialog id="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-media" id="sheet-media"></div>
+  <div class="sheet-body">
+    <div class="sheet-top"><h2 class="sheet-title" id="sheet-title"></h2><span class="sheet-kind" id="sheet-kind"></span></div>
+    <p class="sheet-line" id="sheet-line"></p>
+    <div class="sheet-actions">
+      <a class="btn btn-go" id="sheet-go" target="_blank" rel="noopener">Open it</a>
+      <button class="btn btn-close" type="button" id="sheet-close">Close</button>
     </div>
-
-    <div class="form-group">
-      <label for="ctaProject">What are you working on or trying to build?</label>
-      <textarea id="ctaProject" name="project" rows="3"
-                placeholder="Tell me about it..."></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="ctaPain">What are you wasting time on that a tool could handle?</label>
-      <textarea id="ctaPain" name="pain_point" rows="3"
-                placeholder="The thing you keep doing manually that shouldn't need a human."></textarea>
-    </div>
-
-    <button type="submit" class="submit-btn" id="submitBtn">Send it</button>
-  </form>
-
-  <div class="modal-success" id="modalSuccess">
-    <div class="success-eyebrow">Received.</div>
-    <div class="success-title">I'll be in touch.</div>
-    <p>Go back to what you were doing.</p>
   </div>
-</div>
+</dialog>
 
 <script>
-// Horizontal scroll
-(function() {
-  const section = document.querySelector('.horizontal-section');
-  const track = document.getElementById('h-track');
+/* Carson Clean's approved mark animation (carson-mark-embed.js from the CCAD Claude Design export,
+   ~/Desktop/CCAD, 2026-11-06), copied for the /work tile on 2026-11-08 with only these changes:
+   - colours unchanged: Tim's gold-to-burgundy gradient (he rejected a white version, 2026-11-08);
+   - a factory, so the tile and the detail sheet can each run one: CarsonMarkWhite(host) -> api;
+   - one requestAnimationFrame clock that runs only while started (no interval or message-channel driver),
+     with start() and stop() so off-screen tiles cost nothing.
+   The choreography (three wipe passes, hold, dust burial, 19.6 s loop) is unchanged. */
+window.CarsonMarkTile = function (HOST) {
+  var SVGNS = 'http://www.w3.org/2000/svg';
 
-  function updateHorizontalScroll() {
-    if (!section || !track) return;
-    const rect = section.getBoundingClientRect();
-    const sectionHeight = section.offsetHeight - window.innerHeight;
-    const scrollProgress = Math.max(0, Math.min(1, -rect.top / sectionHeight));
-    const trackWidth = track.scrollWidth - window.innerWidth;
-    const translateX = -scrollProgress * trackWidth;
-    track.style.transform = `translateX(${translateX}px)`;
-  }
+  /* ---- the approved mark ------------------------------------------------ */
+  var MARK_D = 'M166.06,46.51C166.06,46.51 153.63,29.55 144.20,23.44C134.77,17.34 121.94,11.17 109.47,9.90C97.00,8.62 81.75,11.23 69.35,15.80C56.96,20.38 43.96,27.84 35.12,37.34C26.27,46.84 20.12,60.31 16.31,72.81C12.50,85.30 10.36,99.67 12.26,112.33C14.16,124.99 20.50,137.97 27.71,148.76C34.91,159.55 44.50,170.24 55.50,177.08C66.50,183.91 80.82,189.06 93.72,189.78C106.62,190.50 122.23,185.69 132.89,181.41C143.55,177.12 151.47,169.74 157.68,164.06C163.89,158.38 170.14,147.31 170.14,147.31C170.14,147.31 159.22,142.01 155.01,139.97C150.81,137.93 147.45,137.28 144.92,135.09C142.38,132.90 140.78,128.63 139.79,126.84C138.81,125.06 139.01,124.38 139.01,124.38C139.01,124.38 130.54,133.97 125.05,137.14C119.57,140.31 112.62,142.34 106.10,143.37C99.57,144.41 92.02,145.32 85.91,143.37C79.80,141.41 74.07,136.34 69.44,131.65C64.80,126.97 60.29,121.30 58.09,115.25C55.89,109.21 55.62,101.92 56.24,95.40C56.87,88.88 58.41,81.58 61.84,76.15C65.26,70.73 71.21,66.31 76.79,62.86C82.37,59.40 88.92,56.21 95.32,55.45C101.72,54.68 109.10,56.34 115.19,58.28C121.27,60.21 131.82,67.05 131.82,67.05C131.82,67.05 139.23,69.17 142.88,68.85C146.52,68.53 150.71,67.85 153.67,65.14C156.64,62.43 158.61,55.70 160.68,52.59C162.74,49.49 166.06,46.51 166.06,46.51Z';
+  var GRAD = [[0,'#F7D477'],[0.056,'#F0C662'],[0.111,'#E7B550'],[0.167,'#DAA145'],[0.222,'#C78B3E'],
+              [0.278,'#B1733A'],[0.333,'#9A5C37'],[0.389,'#834734'],[0.445,'#6F3731'],[0.5,'#632C2E'],
+              [0.556,'#5E232B'],[0.612,'#5E1C2A'],[1,'#5E1C2A']];
+  var PANEL = '#160E07';
 
-  window.addEventListener('scroll', updateHorizontalScroll, { passive: true });
-})();
+  /* ---- choreography ----------------------------------------------------- */
+  var WINDOWS = [[0.10, 1.46, 0.4], [1.94, 3.26, 2.1], [3.75, 5.42, 1.2]];
+  var DUST_IN = 16.6, TOTAL = 19.6;
 
-// Parallax watermark
-(function() {
-  const watermark = document.getElementById('watermark');
-  window.addEventListener('scroll', () => {
-    const y = window.pageYOffset;
-    if (y < window.innerHeight * 1.5) {
-      watermark.style.transform = `translateY(${y * -0.3}px)`;
-    }
-  }, { passive: true });
-})();
-
-// Hero story modal: optional context for people who want more than the one-line version.
-(function() {
-  const trigger = document.getElementById('storyTrigger');
-  const overlay = document.getElementById('storyOverlay');
-  const modal = document.getElementById('storyModal');
-  const closeBtn = document.getElementById('storyClose');
-  if (!trigger || !overlay || !modal || !closeBtn) return;
-
-  let lastFocused = null;
-
-  function openStory() {
-    lastFocused = document.activeElement;
-    overlay.classList.add('open');
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    closeBtn.focus();
-  }
-
-  function closeStory() {
-    overlay.classList.remove('open');
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-    if (lastFocused && typeof lastFocused.focus === 'function') {
-      lastFocused.focus();
-    }
-  }
-
-  trigger.addEventListener('click', openStory);
-  closeBtn.addEventListener('click', closeStory);
-  overlay.addEventListener('click', closeStory);
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.classList.contains('open')) {
-      closeStory();
-    }
-  });
-})();
-
-
-// Contact section reveal sequence: typewriter -> reassemble cascade -> ink blot
-(function() {
-  const headline = document.getElementById('contact-headline');
-  const sub = document.getElementById('contact-sub');
-  const link = document.getElementById('contact-link');
-  if (!headline) return;
-
-  const wordSpans = sub.querySelectorAll('span');
-  let hasRun = false;
-
-  // The text to type, with markup for the accent span
-  const typeText = [
-    { text: "Let's ", accent: false },
-    { text: "build.", accent: true }
+  var PASSES = [
+    { r:80, w:28,  soft:1.7, pad:-4,  padB:-8, ramp:0.10, fade:0.06, op:0.80, back:false, wob:1.9, waves:2.6, seed:5  },
+    { r:52, w:28,  soft:1.7, pad:-18, padB:-4, ramp:0.10, fade:0.06, op:0.68, back:true,  wob:2.2, waves:3.4, seed:9  },
+    { r:66, w:100, wmin:62, soft:3.0, pad:-3, padB:14, ramp:0.18, fade:0.12, op:1.00, back:false, wob:1.1, waves:1.8, seed:14 }
   ];
-  const CHAR_DELAY = 142; // Slightly faster type cadence for a quicker headline beat
-  const CASCADE_SPEED = 50; // ms between words from the selected WDM spec
-  const CASCADE_INTENSITY = 1.0; // 100%
-  const MOTION_CALM = 0.13; // calm 13%
-  const IMPACT = 0.95; // 95%
+  var TAPER = [
+    [[0.000,0.11,1.90],[0.018,0.14,1.62],[0.038,0.18,1.32],[0.062,0.24,1.02],[0.088,0.31,0.72],[0.116,0.40,0.42]],
+    [[0.000,0.11,1.90],[0.019,0.14,1.62],[0.040,0.18,1.32],[0.065,0.24,1.02],[0.092,0.31,0.72],[0.122,0.40,0.42]],
+    [[0.000,0.12,1.30],[0.006,0.22,1.16],[0.013,0.36,1.02],[0.021,0.52,0.88],[0.030,0.72,0.73],[0.040,1.00,0.58]]
+  ];
+  var HEADX = [
+    [0.070,0.057,0.044,0.032,0.020,0.008],
+    [0.070,0.057,0.044,0.032,0.020,0.008],
+    [0.004,0.012,0.020,0.028,0.036,0.045]
+  ];
 
-  const CURSOR_HTML = '<span class="contact-cursor"></span>';
-
-  function typeWriter(callback) {
-    // Show cursor immediately
-    headline.innerHTML = CURSOR_HTML;
-
-    let segments = [];
-    typeText.forEach(seg => {
-      for (let i = 0; i < seg.text.length; i++) {
-        segments.push({ char: seg.text[i], accent: seg.accent });
-      }
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  var D2R = Math.PI / 180;
+  function pt(th, r) { return { x: 100 + r * Math.cos(th * D2R), y: 100 + r * Math.sin(th * D2R) }; }
+  function ease(t, ph) {
+    var b = -(Math.cos(Math.PI * t) - 1) / 2;
+    return clamp(b + 0.045 * Math.sin(t * Math.PI * 3.1 + ph) * (1 - t) * t * 4, 0, 1);
+  }
+  function crOpen(pts) {
+    var n = pts.length, tg = pts.map(function (p, i) {
+      var a = pts[Math.max(0, i - 1)], b = pts[Math.min(n - 1, i + 1)];
+      return { x: (b.x - a.x) * 0.5, y: (b.y - a.y) * 0.5 };
     });
-
-    let idx = 0;
-    let plainBuf = '';
-    let accentBuf = '';
-    let inAccent = false;
-
-    function typeNext() {
-      if (idx >= segments.length) {
-        // Typing done — brief blink then remove cursor.
-        // Kept short so the subtitle handoff feels immediate.
-        setTimeout(() => {
-          const cursor = headline.querySelector('.contact-cursor');
-          if (cursor) cursor.remove();
-          callback();
-        }, 100);
-        return;
-      }
-      const seg = segments[idx];
-      if (seg.accent) {
-        inAccent = true;
-        accentBuf += seg.char;
-      } else {
-        plainBuf += seg.char;
-      }
-      // Rebuild innerHTML each tick, cursor always at the end
-      headline.innerHTML = plainBuf +
-        (inAccent ? '<span class="accent">' + accentBuf + '</span>' : '') +
-        CURSOR_HTML;
-      idx++;
-      setTimeout(typeNext, CHAR_DELAY);
+    var d = 'M' + pts[0].x.toFixed(2) + ',' + pts[0].y.toFixed(2);
+    for (var i = 0; i < n - 1; i++) {
+      var a = pts[i], b = pts[i + 1], ta = tg[i], tb = tg[i + 1];
+      d += 'C' + (a.x + ta.x / 3).toFixed(2) + ',' + (a.y + ta.y / 3).toFixed(2) + ' ' +
+                 (b.x - tb.x / 3).toFixed(2) + ',' + (b.y - tb.y / 3).toFixed(2) + ' ' +
+                  b.x.toFixed(2) + ',' + b.y.toFixed(2);
     }
-    typeNext();
+    return d;
   }
-
-  function runContactReveal() {
-    if (hasRun) return;
-    hasRun = true;
-
-    // Phase 1: JS typewriter on "Let's build."
-    typeWriter(() => {
-      // Phase 2: exact WDM #03 "Reassemble" choreography.
-      // Uses the same scatter math and easing model as the lab, with the
-      // selected live values plugged into the same formula.
-      const character = MOTION_CALM;
-      const intensity = CASCADE_INTENSITY;
-      const impact = IMPACT * intensity;
-      const WORD_DUR = 420 + (impact * 280);
-      const STAGGER = CASCADE_SPEED;
-      const easing = `cubic-bezier(.16, ${(0.72 + (0.22 * character)).toFixed(2)}, ${(0.22 - (0.16 * character)).toFixed(2)}, 1)`;
-
-      wordSpans.forEach((span, i) => {
-        setTimeout(() => {
-          const sign = i % 2 ? 1 : -1;
-          const y = (12 + (28 * impact)) * sign;
-          const x = (7 + (22 * impact)) * ((i % 3) - 1);
-          const r = (2 + (10 * impact)) * sign;
-          const anim = span.animate(
-            [
-              {
-                opacity: 0,
-                transform: `translate(${x}px, ${y}px) rotate(${r}deg)`,
-                filter: `blur(${1 + (4 * impact)}px)`,
-                offset: 0,
-                easing
-              },
-              {
-                opacity: 1,
-                filter: 'blur(0px)',
-                transform: 'translate(0px, 0px) rotate(0deg)',
-                offset: 1
-              }
-            ],
-            {
-              duration: WORD_DUR + (impact * 140),
-              fill: 'forwards'
-            }
-          );
-          anim.onfinish = () => { anim.commitStyles(); anim.cancel(); };
-        }, i * STAGGER);
-      });
-
-      // Phase 3: email fades in just before the final word resolves.
-      const emailDelay = (wordSpans.length - 1) * STAGGER + WORD_DUR - 200;
-      setTimeout(() => {
-        link.style.transition = 'opacity 0.6s ease';
-        link.style.opacity    = '1';
-
-        // Phase 4: underline WAAPI — slides in from left, overshoots right,
-        // compresses at peak, thickens under pressure, then settles.
-        // ::after can't be targeted by WAAPI — real span used.
-        setTimeout(() => {
-          const line = document.getElementById('contactLine');
-          const anim = line.animate(
-            [
-              {
-                transform: 'translateX(-110vw) scaleX(1.14) scaleY(0.72)',
-                opacity: 0.35,
-                filter: 'blur(0px)',
-                boxShadow: '0 0 0 rgba(24, 179, 104, 0)',
-                offset: 0,
-                easing: 'cubic-bezier(0.32, 0, 0.72, 1)'
-              },
-              {
-                transform: 'translateX(28px) scaleX(0.46) scaleY(2.5)',
-                opacity: 1,
-                filter: 'blur(0px)',
-                boxShadow: '0 0 14px rgba(24, 179, 104, 0.32)',
-                offset: 0.58,
-                easing: 'cubic-bezier(0.22, 0.88, 0.2, 1)'
-              },
-              {
-                transform: 'translateX(-6px) scaleX(1.06) scaleY(0.88)',
-                opacity: 1,
-                filter: 'blur(0px)',
-                boxShadow: '0 0 8px rgba(24, 179, 104, 0.2)',
-                offset: 0.82,
-                easing: 'cubic-bezier(0.22, 0.06, 0.18, 1)'
-              },
-              {
-                transform: 'translateX(0) scaleX(1) scaleY(1)',
-                opacity: 1,
-                filter: 'blur(0px)',
-                boxShadow: '0 0 0 rgba(24, 179, 104, 0)',
-                offset: 1
-              }
-            ],
-            { duration: 860, fill: 'forwards' }
-          );
-          anim.onfinish = () => { anim.commitStyles(); anim.cancel(); };
-        }, 200);
-      }, emailDelay);
-    });
-  }
-
-  const contactSection = document.querySelector('.contact-editorial');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        runContactReveal();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  observer.observe(contactSection);
-})();
-
-// ============================================
-// SCROLL-TRACKING CTA + MODAL
-// ============================================
-(function() {
-  const btn      = document.getElementById('scrollCta');
-  const overlay  = document.getElementById('ctaOverlay');
-  const modal    = document.getElementById('ctaModal');
-  const closeBtn = document.getElementById('modalClose');
-  const form     = document.getElementById('ctaForm');
-  const success  = document.getElementById('modalSuccess');
-  const submitBtn = document.getElementById('submitBtn');
-
-  if (!btn || !modal) return;
-
-  // Stored button center — captured in openModal() BEFORE overflow:hidden shifts
-  // the scrollbar away. closeModal() reuses these so the blob lands in the right spot.
-  var storedBtnCX = 0;
-  var storedBtnCY = 0;
-
-  // ---- 1. Scroll-position tracking + fade-in ----
-  // The button rides the right edge like a scroll thumb.
-  // As the page scrolls from top → bottom, the button moves
-  // from 48px from the top → 48px from the bottom.
-  //
-  // It also fades in from opacity 0 → 1 as the user scrolls the first 220px.
-  // The 30px grace zone at the top means tiny accidental scrolls (from trackpad
-  // inertia, touch jitter, etc.) don't start revealing the button prematurely.
-  const FADE_START_PX = 30;   // scroll distance before fade begins
-  const FADE_RANGE_PX = 220;  // scroll distance over which fade completes
-
-  function updateBtnPosition() {
-    const scrollY    = window.pageYOffset;
-    const maxScroll  = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const fraction   = Math.min(1, scrollY / maxScroll);
-    const pad        = 48;                                         // px gap from top and bottom edges
-    const travel     = window.innerHeight - btn.offsetHeight - (pad * 2);
-    btn.style.top    = (pad + fraction * travel) + 'px';
-
-    // Scroll-driven fade. Clamped 0 → 1. Feeds CSS var --scroll-opacity.
-    const fadeRaw = (scrollY - FADE_START_PX) / FADE_RANGE_PX;
-    const fadeIn  = Math.min(1, Math.max(0, fadeRaw));
-    btn.style.setProperty('--scroll-opacity', fadeIn.toFixed(3));
-  }
-
-  window.addEventListener('scroll', updateBtnPosition, { passive: true });
-  window.addEventListener('resize', updateBtnPosition, { passive: true });
-  updateBtnPosition(); // set initial position immediately
-
-  // ---- 2 & 3. Blob morph — Web Animations API ----
-  //
-  // We use element.animate() (WAAPI) instead of CSS transitions because we
-  // need TWO different easing curves within a single unbroken motion:
-  //
-  //   OPEN  leg 1: slow-start → accelerates  (ease-in)  as circle expands from dot
-  //   OPEN  leg 2: fast → decelerates        (ease-out) as it settles into the modal
-  //   CLOSE leg 1: sits → accelerates        (ease-in)  as modal contracts toward button
-  //   CLOSE leg 2: fast → decelerates        (ease-out) as circle collapses to a dot
-  //
-  // A middle keyframe at offset 0.28 (open) / 0.72 (close) marks the handoff
-  // point where the circle has just covered the button. The easing property ON
-  // a keyframe governs the curve FROM that keyframe TO the next one.
-  //
-  // The puzzle piece button is NOT hidden at the start — the expanding circle
-  // simply grows over it (z-index 202 vs button's 90). This is what creates
-  // the feeling that the puzzle piece IS the circle; nothing disappears.
-
-  function openModal() {
-    var btnRect = btn.getBoundingClientRect();
-    var btnCX   = btnRect.left + btnRect.width  / 2;
-    var btnCY   = btnRect.top  + btnRect.height / 2;
-    // Threshold: hide the button the frame the blob matches or exceeds this.
-    // Use the larger dimension in case the button isn't perfectly square.
-    var btnSize = Math.max(btnRect.width, btnRect.height);
-
-    // FIX B — store these NOW, before overflow:hidden removes the scrollbar
-    // and shifts fixed elements. closeModal() will read storedBtnCX/Y instead
-    // of re-measuring, so both ends of the animation aim at the same pixel.
-    storedBtnCX = btnCX;
-    storedBtnCY = btnCY;
-
-    // Blob starts at the same accent as the resting puzzle piece.
-    // The hover fill-color change has been removed from CSS so there's no
-    // mismatch between the button color and the blob's starting color.
-    var startColor = '#18b368';
-
-    // Measure modal at full size while invisible.
-    modal.style.transformOrigin = '';
-    modal.classList.add('measuring');
-    void modal.getBoundingClientRect();
-    var modalW = modal.offsetWidth;
-    var modalH = modal.offsetHeight;
-    modal.classList.remove('measuring');
-
-    var modalCX = window.innerWidth  / 2;
-    var modalCY = window.innerHeight / 2;
-
-    // Disable clicks immediately but leave the button VISIBLE.
-    // The expanding circle (z-index 202) grows over it naturally.
-    // overflow:hidden fires now (scroll lock) but the overlay is withheld —
-    // it won't darken the background until the blob has fully covered the button.
-    btn.style.pointerEvents = 'none';
-    document.body.style.overflow = 'hidden';
-
-    // Re-read the button center AFTER overflow:hidden.
-    // On systems with visible scrollbars, removing the scrollbar shifts
-    // position:fixed elements to the right. storedBtnCX (set above) holds
-    // the pre-shift value used by closeModal so the blob lands correctly
-    // when the scrollbar returns. blobStartX is the post-shift value — where
-    // the button actually sits during the open animation.
-    var postRect  = btn.getBoundingClientRect();
-    var blobStartX = postRect.left + postRect.width  / 2;
-    var blobStartY = postRect.top  + postRect.height / 2;
-
-    // Blob starts as a 4px dot at the exact geometric center of the button.
-    var blob = document.createElement('div');
-    blob.id = 'morphBlob';
-    blob.style.cssText = [
-      'position:fixed',
-      'z-index:202',
-      'pointer-events:none',
-      'box-sizing:border-box',
-      'background:' + startColor,
-      'border:2px solid ' + startColor,
-      'border-radius:50%',
-      'width:4px',
-      'height:4px',
-      'left:' + blobStartX + 'px',
-      'top:'  + blobStartY + 'px',
-      'transform:translate(-50%,-50%)',
-    ].join(';');
-    document.body.appendChild(blob);
-
-    // midSize: the blob's diameter at the leg-1/leg-2 handoff.
-    // Must exceed the button so it's fully covered BEFORE the blob starts
-    // moving toward the modal. Add 20px safety margin.
-    var midSize = Math.max(130, btnSize + 20);
-
-    // WAAPI — three keyframes, two legs, two easings:
-    //
-    // Leg 1 (0 → 0.44) — ease-in: blob grows from dot to midSize, stays
-    //   centered over the button. Button hidden via setTimeout at t=440ms,
-    //   the exact moment this keyframe fires.
-    //
-    // Leg 2 (0.44 → 1.0) — ease-out: blob travels to modal center, grows
-    //   to modal dimensions, corners square off, fill transitions to the page background.
-    var totalDur = 1000;
-    var anim = blob.animate([
-      {
-        width: '4px',
-        height: '4px',
-        left: blobStartX + 'px',
-        top:  blobStartY + 'px',
-        borderRadius: '50%',
-        background: startColor,
-        easing: 'cubic-bezier(0.4, 0, 1, 1)'   // ease-in: starts slow, accelerates
-      },
-      {
-        width: midSize + 'px',
-        height: midSize + 'px',
-        left: blobStartX + 'px',
-        top:  blobStartY + 'px',
-        borderRadius: '50%',
-        background: startColor,
-        offset: 0.44,
-        easing: 'cubic-bezier(0.25, 0, 0, 1)'  // ease-out: carries momentum, settles
-      },
-      {
-        width: modalW + 'px',
-        height: modalH + 'px',
-        left: modalCX + 'px',
-        top:  modalCY + 'px',
-        borderRadius: '12px',
-        background: '#e9eef5'
-      }
-    ], {
-      duration: totalDur,
-      fill: 'forwards'
-    });
-
-    // --- Exact-timing button hide ---
-    // At totalDur * 0.44 the blob is guaranteed to be at the midpoint keyframe:
-    // still centered over the button, already midSize px wide — definitely
-    // covering the button. Using setTimeout to this exact ms is reliable;
-    // getComputedStyle polling was unreliable because WAAPI can run on the
-    // compositor thread, making the width appear as the static 4px to JS.
-    // --- Size-based button hide ---
-    // Poll getComputedStyle(blob).width every frame. 'width' is a layout
-    // property so it runs on the main thread — unlike transform/opacity,
-    // it IS readable mid-WAAPI-animation.
-    // Threshold: 85% of btnSize. The puzzle SVG doesn't fill every corner
-    // of its bounding box, so the blob covers the visible shape slightly
-    // before reaching the full bbox edge.
-    // Fallback setTimeout at 44% fires if rAF somehow misses it.
-    var buttonHidden = false;
-    function hideButton() {
-      if (buttonHidden) return;
-      btn.style.transition = 'none'; // instant disappear, no 350ms fade
-      btn.classList.add('hidden');
-      overlay.classList.add('open');
-      buttonHidden = true;
+  var CENTRE = PASSES.map(function (P) {
+    var a0 = 321 + P.pad, a1 = 34 - P.padB, N = 18, pts = [];
+    for (var k = 0; k <= N; k++) {
+      var u = k / N, th = a0 + (a1 - a0) * u;
+      var r = P.r + P.wob * Math.sin(u * Math.PI * P.waves + P.seed) +
+                    P.wob * 0.42 * Math.sin(u * Math.PI * P.waves * 2.3 + P.seed * 1.7);
+      pts.push(pt(th, r));
     }
-    function watchCoverage() {
-      if (buttonHidden) return;
-      var w = parseFloat(window.getComputedStyle(blob).width);
-      if (w >= btnSize * 0.85) {
-        hideButton();
-        return;
-      }
-      requestAnimationFrame(watchCoverage);
-    }
-    requestAnimationFrame(watchCoverage);
-    setTimeout(hideButton, Math.round(totalDur * 0.44)); // hard fallback
-
-    anim.onfinish = function() {
-      // Commit animated values to inline styles before canceling.
-      // Canceling without this snaps the blob back to 4px.
-      blob.style.width        = modalW  + 'px';
-      blob.style.height       = modalH  + 'px';
-      blob.style.left         = modalCX + 'px';
-      blob.style.top          = modalCY + 'px';
-      blob.style.borderRadius = '12px';
-      blob.style.background   = '#e9eef5';
-      anim.cancel();
-
-      // Safety net: ensure button is gone even if both rAF and setTimeout missed.
-      hideButton();
-
-      // Snap real modal in — no CSS transition (blob is covering it).
-      modal.classList.add('no-transition');
-      void modal.getBoundingClientRect();
-      modal.classList.add('open');
-      void modal.getBoundingClientRect();
-      modal.classList.remove('no-transition');
-
-      // Fade blob out — modal is underneath, identical in appearance.
-      blob.style.transition = 'opacity 200ms ease';
-      blob.style.opacity    = '0';
-      setTimeout(function() {
-        if (blob.parentNode) blob.parentNode.removeChild(blob);
-      }, 200);
-    };
-  }
-
-  function closeModal() {
-    var stale = document.getElementById('morphBlob');
-    if (stale && stale.parentNode) stale.parentNode.removeChild(stale);
-
-    if (!modal.classList.contains('open')) {
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-      setTimeout(function() { btn.classList.remove('hidden'); }, 300);
-      return;
-    }
-
-    var mRect  = modal.getBoundingClientRect();
-    var blobCX = mRect.left + mRect.width  / 2;
-    var blobCY = mRect.top  + mRect.height / 2;
-
-    // FIX B — use the coordinates captured at open time (before overflow:hidden
-    // shifted the scrollbar). Reading getBoundingClientRect() here would give a
-    // position ~15-17px to the right because the scrollbar is still hidden.
-    var btnCX = storedBtnCX;
-    var btnCY = storedBtnCY;
-
-    // Blob starts as an exact visual copy of the open modal.
-    var blob = document.createElement('div');
-    blob.id = 'morphBlob';
-    blob.style.cssText = [
-      'position:fixed',
-      'z-index:202',
-      'pointer-events:none',
-      'box-sizing:border-box',
-      'background:#e9eef5',
-      'border:2px solid #18b368',
-      'border-radius:12px',
-      'width:'  + mRect.width  + 'px',
-      'height:' + mRect.height + 'px',
-      'left:'   + blobCX       + 'px',
-      'top:'    + blobCY       + 'px',
-      'transform:translate(-50%,-50%)',
-    ].join(';');
-    document.body.appendChild(blob);
-
-    // Instantly hide the real modal — blob takes over visually.
-    modal.classList.add('no-transition');
-    void modal.getBoundingClientRect();
-    modal.classList.remove('open');
-    void modal.getBoundingClientRect();
-    modal.classList.remove('no-transition');
-
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-
-    // WAAPI keyframes — exact reverse of open:
-    //
-    // Frame 0 → Frame 1  (0% to 72%, ~864ms)
-    //   Easing: cubic-bezier(0.8, 0, 1, 0.8) — ease-in
-    //   Blob contracts from modal shape → circle covering the button.
-    //   Color fades page background → accent, corners dissolve, rushes to button.
-    //
-    // Frame 1 → Frame 2  (72% to 100%, ~336ms)
-    //   Easing: cubic-bezier(0.2, 0, 0.6, 1) — ease-out
-    //   Circle collapses from 110px to a 4px dot, decelerating into place.
-    var totalDur = 1000;
-    var anim = blob.animate([
-      {
-        width: mRect.width  + 'px',
-        height: mRect.height + 'px',
-        left: blobCX + 'px',
-        top:  blobCY + 'px',
-        borderRadius: '12px',
-        background: '#e9eef5',
-        easing: 'cubic-bezier(1, 0, 0.75, 1)'  // reverse of open leg 2 — fast start, decelerates to circle
-      },
-      {
-        width: '110px',
-        height: '110px',
-        left: btnCX + 'px',
-        top:  btnCY + 'px',
-        borderRadius: '50%',
-        background: '#18b368',
-        offset: 0.56,
-        easing: 'cubic-bezier(0, 0, 0.6, 1)'   // reverse of open leg 1 — ease-out, soft landing at button
-      },
-      {
-        width: '4px',
-        height: '4px',
-        left: btnCX + 'px',
-        top:  btnCY + 'px',
-        borderRadius: '50%',
-        background: '#18b368'
-      }
-    ], {
-      duration: totalDur,
-      fill: 'forwards'
-    });
-
-    // Button reappears when blob reaches button size (72% = 864ms).
-    // Both are terracotta at this point, so the blob circle sits over the
-    // button seamlessly while collapsing to a dot in the final 28%.
-    setTimeout(function() {
-      // Blob is still covering the button at this point, so the reveal is
-      // invisible to the user. Instant show (no transition) — blob shrinks
-      // away over the remaining 44% and exposes the button naturally.
-      // Also clear pointerEvents inline style set during openModal — without
-      // this the button looks normal but ignores every click after first use.
-      btn.style.transition = 'none';
-      btn.style.pointerEvents = '';
-      btn.classList.remove('hidden');
-    }, Math.round(totalDur * 0.56));
-
-    anim.onfinish = function() {
-      anim.cancel();
-      if (blob.parentNode) blob.parentNode.removeChild(blob);
-      // Restore opacity transition so scroll-driven fade works on next scroll.
-      btn.style.transition = '';
-    };
-  }
-
-  // ---- 4. Event listeners ----
-  btn.addEventListener('click', openModal);
-  closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', closeModal);
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (P.back) pts.reverse();
+    return crOpen(pts);
   });
 
-  // ---- 5. Form submission via Formspree ----
-  // Sends data as JSON to Formspree (no page reload).
-  // On success: shows the "I'll be in touch" panel, then auto-closes.
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled    = true;
+  /* ---- streaky dirt noise, baked once ----------------------------------- */
+  function noiseURL(seed, lo, hi, gx, gy) {
+    var S = 200, c = document.createElement('canvas');
+    c.width = S; c.height = S;
+    var g = c.getContext('2d'), s = seed >>> 0;
+    function rnd() { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; }
+    function octave(w, h) {
+      var t = document.createElement('canvas'); t.width = w; t.height = h;
+      var tg = t.getContext('2d'), img = tg.createImageData(w, h);
+      for (var i = 0; i < w * h; i++) {
+        var v = Math.round(255 * rnd());
+        img.data[i*4] = img.data[i*4+1] = img.data[i*4+2] = v; img.data[i*4+3] = 255;
+      }
+      tg.putImageData(img, 0, 0); return t;
+    }
+    g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+    g.fillStyle = '#808080'; g.fillRect(0, 0, S, S);
+    g.globalAlpha = 0.72; g.drawImage(octave(gx, gy), 0, 0, S, S);
+    g.globalAlpha = 0.34; g.drawImage(octave(gx * 2, gy * 2), 0, 0, S, S);
+    g.globalAlpha = 1;
+    var d = g.getImageData(0, 0, S, S);
+    for (var i2 = 0; i2 < S * S; i2++) {
+      var v2 = Math.round(255 * (lo + (hi - lo) * (d.data[i2*4] / 255)));
+      d.data[i2*4] = d.data[i2*4+1] = d.data[i2*4+2] = v2;
+    }
+    g.putImageData(d, 0, 0);
+    return c.toDataURL();
+  }
 
-    try {
-      const res = await fetch(form.action, {
-        method:  'POST',
-        body:    new FormData(form),
-        headers: { 'Accept': 'application/json' }
+  /* ---- build the SVG once; frames only touch attributes ----------------- */
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(SVGNS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  var uid = 'cm' + Math.random().toString(36).slice(2, 7);
+  var svg = el('svg', { viewBox: '-27.4 -18.5 236.4 236.4', width: '100%', height: '100%' }, HOST);
+  svg.style.display = 'block';
+  var defs = el('defs', {}, svg);
+
+  var lg = el('linearGradient', { id: uid + 'grad', gradientUnits: 'userSpaceOnUse',
+    x1: 49.62, y1: 11.38, x2: 117.81, y2: 146.59 }, defs);
+  GRAD.forEach(function (st) { el('stop', { offset: st[0], 'stop-color': st[1] }, lg); });
+
+  var softF = PASSES.map(function (P, i) {
+    var f = el('filter', { id: uid + 'soft' + i, filterUnits: 'userSpaceOnUse',
+      x: -42, y: -42, width: 284, height: 284 }, defs);
+    el('feGaussianBlur', { stdDeviation: P.soft }, f);
+    return f;
+  });
+  var smF = el('filter', { id: uid + 'sm', filterUnits: 'userSpaceOnUse', x: -42, y: -42, width: 284, height: 284 }, defs);
+  el('feGaussianBlur', { stdDeviation: 3 }, smF);
+
+  var shapeF = el('filter', { id: uid + 'shapeF', filterUnits: 'userSpaceOnUse', x: -38, y: -38, width: 276, height: 276 }, defs);
+  el('feTurbulence', { type: 'fractalNoise', baseFrequency: 0.028, numOctaves: 1, seed: 9, result: 't' }, shapeF);
+  el('feDisplacementMap', { in: 'SourceGraphic', in2: 't', scale: 2.8, xChannelSelector: 'R', yChannelSelector: 'G', result: 'd' }, shapeF);
+  var shapeBlur = el('feGaussianBlur', { in: 'd', stdDeviation: 1.9 }, shapeF);
+
+  var BOX = { maskUnits: 'userSpaceOnUse', x: -28, y: -28, width: 256, height: 256 };
+  var shapeMask = el('mask', Object.assign({ id: uid + 'shape' }, BOX), defs);
+  var shapeG = el('g', { filter: 'url(#' + uid + 'shapeF)' }, shapeMask);
+  el('path', { d: MARK_D, fill: '#fff', stroke: '#fff', 'stroke-width': 5,
+    'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, shapeG);
+
+  var dirtMask = el('mask', Object.assign({ id: uid + 'dirt' }, BOX), defs);
+  el('image', { href: noiseURL(21, 0.54, 1, 10, 42), x: -28, y: -28, width: 256, height: 256,
+    preserveAspectRatio: 'none' }, dirtMask);
+
+  var wipeMask = el('mask', Object.assign({ id: uid + 'wipe' }, BOX), defs);
+  el('rect', { x: -28, y: -28, width: 256, height: 256, fill: '#000' }, wipeMask);
+  var clipped = el('g', { mask: 'url(#' + uid + 'shape)' }, wipeMask);
+  var g01 = el('g', { mask: 'url(#' + uid + 'dirt)' }, clipped);
+  var soft01 = el('g', { filter: 'url(#' + uid + 'soft0)' }, g01);
+  var soft2 = el('g', { filter: 'url(#' + uid + 'soft2)' }, clipped);
+
+  var layers = [[], [], []];
+  PASSES.forEach(function (P, i) {
+    var host = i === 2 ? soft2 : soft01;
+    TAPER[i].forEach(function () {
+      layers[i].push(el('path', { d: CENTRE[i], fill: 'none', stroke: '#fff',
+        'stroke-linecap': 'round', pathLength: 1, 'stroke-opacity': 0, 'stroke-width': 0 }, host));
+    });
+  });
+
+  /* CEILING CLAMP (transparent cut). Early in the wipe the silhouette mask is
+     blurred wide (erode 1.9 -> 0), so low-alpha paint lands outside the finished
+     silhouette. The panel used to hide it; with nothing behind, the mask box cuts
+     that spill into a faint rectangle. Same fix as the GIF/APNG path: clamp all
+     paint to the CLEAN silhouette (displacement only, no blur). Static, so it
+     costs no per-frame rasterise. */
+  var ceilF = el('filter', { id: uid + 'ceilF', filterUnits: 'userSpaceOnUse',
+    x: -38, y: -38, width: 276, height: 276 }, defs);
+  el('feTurbulence', { type: 'fractalNoise', baseFrequency: 0.028, numOctaves: 1, seed: 9, result: 't' }, ceilF);
+  el('feDisplacementMap', { in: 'SourceGraphic', in2: 't', scale: 2.8,
+    xChannelSelector: 'R', yChannelSelector: 'G' }, ceilF);
+  var ceilMask = el('mask', Object.assign({ id: uid + 'ceil' }, BOX), defs);
+  var ceilG = el('g', { filter: 'url(#' + uid + 'ceilF)' }, ceilMask);
+  el('path', { d: MARK_D, fill: '#fff', stroke: '#fff', 'stroke-width': 5,
+    'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, ceilG);
+
+  /* TRANSPARENT CUT: no panel rect. The cloth smudges were painted in PANEL, so
+     with nothing behind them they'd be brown streaks in mid-air — dropped. */
+  el('rect', { x: -28, y: -28, width: 256, height: 256, fill: 'url(#' + uid + 'grad)',
+    mask: 'url(#' + uid + 'wipe)' }, el('g', { mask: 'url(#' + uid + 'ceil)' }, svg));
+
+  var smudges = PASSES.map(function () { return []; });
+
+  /* ---- dust burial: baked bitmap + counting-sorted cursor (see CLAUDE.md).
+     Not SVG filters — an animated filter chain gets abandoned after a cycle. --- */
+  var DN = 440;
+  var dcv = document.createElement('canvas');
+  dcv.width = DN; dcv.height = DN;
+  dcv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;' +
+    'opacity:0;pointer-events:none';
+  HOST.style.position = HOST.style.position || 'relative';
+  HOST.appendChild(dcv);
+  var dctx = dcv.getContext('2d'), dsrc = null, dframe = null, dorder = null, dcur = 0, dshown = false;
+
+  function vnoise(cells, rnd) {
+    var g = new Float32Array((cells + 1) * (cells + 1));
+    for (var i = 0; i < g.length; i++) g[i] = rnd();
+    var sm = function (t) { return t * t * (3 - 2 * t); };
+    return function (x, y) {
+      var fx = x * cells, fy = y * cells;
+      var ix = Math.min(cells - 1, fx | 0), iy = Math.min(cells - 1, fy | 0);
+      var tx = sm(fx - ix), ty = sm(fy - iy), w = cells + 1;
+      var a = g[iy * w + ix], b = g[iy * w + ix + 1], c = g[(iy + 1) * w + ix], d = g[(iy + 1) * w + ix + 1];
+      return (a + (b - a) * tx) * (1 - ty) + (c + (d - c) * tx) * ty;
+    };
+  }
+  function hash2(x, y, seed) {
+    var h = (x * 374761393 + y * 668265263 + seed * 1274126177) | 0;
+    h = (h ^ (h >>> 13)) * 1274126177; h ^= h >>> 16;
+    return (h >>> 0) / 4294967296;
+  }
+  function buildOrder(alpha) {
+    var st = 22858 >>> 0;
+    var rnd = function () { st = (st * 1103515245 + 12345) & 0x7fffffff; return st / 0x7fffffff; };
+    var lowB = vnoise(15, rnd);
+    var ax = 49.62, ay = 11.38, dx = 117.81 - ax, dy = 146.59 - ay, L2 = dx * dx + dy * dy;
+    var map = new Float32Array(DN * DN), B = 8192, cnt = new Int32Array(B + 1), live = [];
+    for (var Y = 0; Y < DN; Y++) for (var X = 0; X < DN; X++) {
+      var px = X / DN, py = Y / DN;
+      var ux = -27.4 + px * 236.4, uy = -18.5 + py * 236.4;
+      var u = clamp(((ux - ax) * dx + (uy - ay) * dy) / L2, 0, 1);
+      var i = Y * DN + X;
+      map[i] = 0.74 * (1 - u) + 0.14 * hash2(X, Y, 5) + 0.12 * lowB(px, py);
+      if (alpha[i * 4 + 3] >= 8) { live.push(i); cnt[Math.min(B - 1, (map[i] * B) | 0)]++; }
+    }
+    var acc = 0, start = new Int32Array(B + 1);
+    for (var b = 0; b < B; b++) { start[b] = acc; acc += cnt[b]; }
+    var order = new Int32Array(acc), cur = start.slice();
+    for (var k = 0; k < live.length; k++) {
+      var ii = live[k], bb = Math.min(B - 1, (map[ii] * B) | 0);
+      order[cur[bb]++] = ii;
+    }
+    return order;
+  }
+  function bakeMark() {
+    var stops = GRAD.map(function (st) { return '<stop offset="' + st[0] + '" stop-color="' + st[1] + '"/>'; }).join('');
+    var svgStr = '<svg xmlns="http://www.w3.org/2000/svg" width="' + DN + '" height="' + DN + '" viewBox="-27.4 -18.5 236.4 236.4">' +
+      '<defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="49.62" y1="11.38" x2="117.81" y2="146.59">' + stops + '</linearGradient>' +
+      '<filter id="e" filterUnits="userSpaceOnUse" x="-38" y="-38" width="276" height="276">' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="1" seed="9" result="t"/>' +
+      '<feDisplacementMap in="SourceGraphic" in2="t" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>' +
+      '</filter></defs><g filter="url(#e)"><path d="' + MARK_D + '" fill="url(#g)" stroke="url(#g)" ' +
+      'stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></g></svg>';
+    var img = new Image();
+    img.onload = function () {
+      var c = document.createElement('canvas'); c.width = DN; c.height = DN;
+      var g = c.getContext('2d'); g.drawImage(img, 0, 0, DN, DN);
+      dsrc = g.getImageData(0, 0, DN, DN);
+      dframe = dctx.createImageData(DN, DN);
+      dframe.data.set(dsrc.data);
+      dorder = buildOrder(dsrc.data);
+      dctx.putImageData(dframe, 0, 0);
+    };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+  }
+  bakeMark();
+
+  function dustFrame(q) {
+    if (!dorder) return;
+    if (q <= 0 && !dshown && dcur === 0) return;
+    var want = q > 0;
+    /* No panel to hide it, so the live SVG must step aside for the dust canvas. */
+    if (want !== dshown) { dcv.style.opacity = want ? 1 : 0; svg.style.opacity = want ? 0 : 1; dshown = want; }
+    var t = clamp(q * dorder.length, 0, dorder.length) | 0;   /* linear sweep */
+    if (t === dcur) return;
+    var d = dframe.data;
+    if (t > dcur) { for (var k = dcur; k < t; k++) d[dorder[k] * 4 + 3] = 0; }
+    else { for (var k2 = t; k2 < dcur; k2++) { var i = dorder[k2] * 4 + 3; d[i] = dsrc.data[i]; } }
+    dcur = t;
+    dctx.putImageData(dframe, 0, 0);
+  }
+
+  /* ---- one frame -------------------------------------------------------- */
+  var lastEdge = -1;
+  function frame(T) {
+    var p = WINDOWS.map(function (w) {
+      return ease(clamp((T - w[0]) / (w[1] - w[0]), 0, 1), w[2]);
+    });
+
+    var e = Math.round(1.9 * (1 - clamp(0.30 * p[0] + 0.25 * p[1] +
+      0.45 * clamp((p[2] - 0.06) / 0.82, 0, 1), 0, 1)) / 0.05) * 0.05;
+    if (e !== lastEdge) { shapeBlur.setAttribute('stdDeviation', e.toFixed(2)); lastEdge = e; }
+
+    dustFrame(clamp((T - DUST_IN) / (TOTAL - DUST_IN), 0, 1));
+
+    PASSES.forEach(function (P, i) {
+      var prog = p[i], grow = clamp(prog / P.ramp, 0, 1), touch = clamp(prog / P.fade, 0, 1);
+      var hs = clamp((1 - prog) / 0.12, 0, 1);
+      TAPER[i].forEach(function (L, j) {
+        var n = layers[i][j];
+        var len = prog <= 0.002 ? 0 : prog - 2 * L[0] - HEADX[i][j] * hs;
+        if (len <= 0.0015) { n.setAttribute('stroke-opacity', 0); return; }
+        n.setAttribute('stroke-opacity', (L[1] * touch * P.op).toFixed(4));
+        n.setAttribute('stroke-width', Math.max(P.w * L[2] * grow, P.wmin || 0).toFixed(2));
+        n.setAttribute('stroke-dasharray', len.toFixed(4) + ' 2');
+        n.setAttribute('stroke-dashoffset', -L[0]);
       });
 
-      if (res.ok) {
-        form.style.display    = 'none';
-        success.style.display = 'block';
-
-        // Auto-close after 3s, then reset for next use
-        setTimeout(closeModal, 3000);
-        setTimeout(function() {
-          form.reset();
-          form.style.display    = '';
-          success.style.display = 'none';
-          submitBtn.textContent = 'Send it';
-          submitBtn.disabled    = false;
-        }, 3600);
-      } else {
-        submitBtn.textContent = 'Something went wrong — try again';
-        submitBtn.disabled    = false;
-      }
-    } catch (err) {
-      submitBtn.textContent = 'Something went wrong — try again';
-      submitBtn.disabled    = false;
-    }
-  });
-})();
-
-// ============================================
-// PUZZLE PIECE PERIMETER TRACE
-// Triggers when user hits 100% scroll — a gentle
-// "hey, take the next step" loop around the outline.
-// ============================================
-(function() {
-  const btn = document.getElementById('scrollCta');
-  if (!btn) return;
-  const svg = btn.querySelector('svg');
-  const mainPath = svg.querySelector('path');
-
-  // ── "begin" pulse text ──────────────────────────────────────────────
-  // Inserted BEFORE the main path so it renders behind the terracotta fill.
-  // The fill's mask punches "begin" holes → this text glows through them.
-  // Nothing outside the cutout area is visible because the fill covers it.
-  const pulseText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  pulseText.setAttribute('x', '248.845');
-  pulseText.setAttribute('y', '238');
-  pulseText.setAttribute('text-anchor', 'middle');
-  pulseText.setAttribute('dominant-baseline', 'central');
-  pulseText.setAttribute('font-family', "'IBM Plex Mono', monospace");
-  pulseText.setAttribute('font-size', '72');
-  pulseText.setAttribute('font-weight', '500');
-  pulseText.setAttribute('letter-spacing', '2');
-  pulseText.setAttribute('fill', 'rgba(255, 200, 165, 1)'); // warm peach glow
-  pulseText.setAttribute('pointer-events', 'none');
-  pulseText.textContent = 'begin';
-  pulseText.style.opacity = '0';           // hidden at rest
-  pulseText.style.transition = 'opacity 0.6s ease'; // fade-out on stopTrace
-  svg.insertBefore(pulseText, mainPath);   // behind the fill, above nothing
-
-  // Clone the same shape as a pure stroke path — no fill, no mask.
-  // The mask on the original cuts "begin" into the fill; the trace
-  // goes on top and ignores it, tracing the raw puzzle edge.
-  const tracePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  tracePath.setAttribute('d', mainPath.getAttribute('d'));
-  tracePath.setAttribute('fill', 'none');
-  tracePath.setAttribute('stroke', 'rgba(255, 245, 238, 0.92)');
-  tracePath.setAttribute('stroke-width', '18');       // ~3px visual at 82px render size
-  tracePath.setAttribute('stroke-linecap', 'round');  // tapered ends on the traveling arc
-  tracePath.style.opacity = '0';
-  tracePath.style.transition = 'opacity 0.6s ease';
-  tracePath.style.pointerEvents = 'none';
-  svg.appendChild(tracePath);
-
-  // Measure the exact perimeter after appending (must be in DOM)
-  const totalLength = tracePath.getTotalLength();
-  const dashLen = totalLength * 0.25; // 25% arc travels around the edge
-
-  // dasharray: [visible arc, gap] — gap fills the remaining 75%
-  // so only one arc is ever on-screen at once
-  tracePath.setAttribute('stroke-dasharray', `${dashLen} ${totalLength - dashLen}`);
-  tracePath.setAttribute('stroke-dashoffset', '0');
-
-  // rAF loop — advances offset by (totalLength / duration) each ms
-  // One full lap = 3200ms
-  const speed = totalLength / 3200;
-  let offset = 0;
-  let lastTs = null;
-  let animFrame = null;
-  let running = false;
-
-  function tick(ts) {
-    if (lastTs === null) lastTs = ts;
-    const elapsed = ts - lastTs;
-    lastTs = ts;
-    offset = (offset + speed * elapsed) % totalLength;
-    tracePath.setAttribute('stroke-dashoffset', -offset);
-    animFrame = requestAnimationFrame(tick);
+      var s0 = Math.max(prog - 0.085, 0.002);
+      var o = (prog <= 0.05 || prog >= 0.96) ? 0
+        : 0.11 * clamp((prog - 0.05) / 0.10, 0, 1) * clamp((0.96 - prog) / 0.12, 0, 1);
+      smudges[i].forEach(function (n, k) {
+        n.setAttribute('stroke-opacity', (o * (k ? 0.5 : 1)).toFixed(4));
+        n.setAttribute('stroke-dasharray', (prog - s0).toFixed(4) + ' 2');
+        n.setAttribute('stroke-dashoffset', -s0);
+      });
+    });
   }
 
-  function startTrace() {
-    if (running) return;
-    running = true;
-    lastTs = null;
-    tracePath.style.opacity = '1';
-    animFrame = requestAnimationFrame(tick);
-    // Begin pulse: clear inline opacity so the @keyframes animation owns it.
-    // The animation fades in and pulses on its own loop.
-    pulseText.style.opacity = '';
-    pulseText.style.animation = 'begin-pulse 3.4s ease-in-out infinite';
-  }
-
-  function stopTrace() {
+  /* ---- transport: one rAF clock, only while started ---------------------- */
+  var t0 = 0, paused = false, holdT = 0, running = false, raf = 0;
+  function tick(now) {
     if (!running) return;
-    running = false;
-    tracePath.style.opacity = '0';
-    if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
-    // Stop begin pulse: clear animation, restore inline opacity → 0.6s fade out.
-    pulseText.style.animation = '';
-    pulseText.style.opacity = '0';
+    frame(paused ? holdT : ((now - t0) / 1000) % TOTAL);
+    raf = requestAnimationFrame(tick);
+  }
+  var API = {
+    start: function () { if (running) return; running = true; t0 = performance.now() - (API._at || 0) * 1000; raf = requestAnimationFrame(tick); },
+    stop: function () { if (!running) return; running = false; cancelAnimationFrame(raf); API._at = ((performance.now() - t0) / 1000) % TOTAL; },
+    restart: function () { API._at = 0; paused = false; API.stop(); API._at = 0; API.start(); },
+    seek: function (t) { paused = true; holdT = clamp(t, 0, TOTAL); frame(holdT); },
+    hold: function () { API.seek(11.0); },
+    destroy: function () { API.stop(); HOST.innerHTML = ''; },
+    duration: TOTAL
+  };
+  frame(0);
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) API.hold();
+  return API;
+};
+
+
+
+
+
+
+</script>
+<script>
+(() => {
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+  const smooth = u => u * u * (3 - 2 * u);
+  const easeIO = u => u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+  const lerp = (a, b, u) => a + (b - a) * u;
+  const rgb = (c1, c2, u) => `rgb(${c1.map((v, i) => Math.round(lerp(v, c2[i], u))).join(',')})`;
+
+  /* One clock for every animated tile; a tile only ticks while it is on screen. */
+  const live = new Set();
+  let raf = 0;
+  const loop = now => { live.forEach(a => a.tick((now - a.t0) / 1000)); raf = live.size ? requestAnimationFrame(loop) : 0; };
+  const ticker = (tick, rest) => {
+    const a = { tick, t0: 0, at: 0,
+      start() { if (still) return tick(rest); if (live.has(a)) return; a.t0 = performance.now() - a.at * 1000; live.add(a); if (!raf) raf = requestAnimationFrame(loop); },
+      stop() { if (!live.has(a)) return; a.at = (performance.now() - a.t0) / 1000; live.delete(a); },
+      destroy() { a.stop(); } };
+    return a;
+  };
+
+  /* ---- Carson Clean: the approved CCAD reveal (carson-mark-tile.js), looping ---- */
+  function makeCC(root) {
+    const host = root.querySelector('.cc-host');
+    if (!window.CarsonMarkTile) return null;             // no script: the static C stays
+    host.querySelector('.cc-static')?.remove();
+    const m = window.CarsonMarkTile(host);
+    return { start: () => still ? m.hold() : m.start(), stop: () => m.stop(), destroy: () => m.destroy() };
   }
 
-  // Hysteresis band: starts at 98% scroll, stops below 94%.
-  // The gap prevents rapid start/stop flickering near the trigger point.
-  let atBottom = false;
-
-  window.addEventListener('scroll', function() {
-    const scrollY    = window.pageYOffset;
-    const maxScroll  = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const fraction   = scrollY / maxScroll;
-
-    if (fraction >= 0.98 && !atBottom) {
-      atBottom = true;
-      startTrace();
-    } else if (fraction < 0.94 && atBottom) {
-      atBottom = false;
-      stopTrace();
-    }
-  }, { passive: true });
-})();
-
-// Smooth scroll with ease-in-out quart easing
-(function() {
-  function easeInOutQuart(t) {
-    return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+  /* ---- Fitness: the line is drawn as progress is made: early gains, a dip, a strong run, then a plateau it holds ---- */
+  function makeFx(root) {
+    const line = root.querySelector('.fx-line'), run = root.querySelector('.fx-run');
+    const dots = [...root.querySelectorAll('.fx-dots circle')], head = root.querySelector('.fx-head');
+    const P = dots.map(c => [+c.getAttribute('cx'), +c.getAttribute('cy')]);
+    const cum = [0];
+    for (let i = 1; i < P.length; i++) cum.push(cum[i - 1] + Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]));
+    const L = cum[cum.length - 1];
+    line.setAttribute('stroke-dasharray', L + ' ' + L);
+    const DRAW = 4.0, HOLD = 2.2, FADE = 0.6, GAP = 0.4, CYCLE = DRAW + HOLD + FADE + GAP;
+    return ticker(t => {
+      const c = t % CYCLE;
+      const p = clamp(c / DRAW, 0, 1), d = p * L;          // steady pace, so the dip reads as time passing
+      line.setAttribute('stroke-dashoffset', L - d);
+      dots.forEach((dot, i) => dot.setAttribute('r', (10.5 * smooth(clamp((d - cum[i] + 6) / 14, 0, 1))).toFixed(2)));
+      let k = 1; while (k < cum.length - 1 && cum[k] < d) k++;
+      const u = clamp((d - cum[k - 1]) / (cum[k] - cum[k - 1]), 0, 1);
+      head.setAttribute('cx', lerp(P[k - 1][0], P[k][0], u).toFixed(1));
+      head.setAttribute('cy', lerp(P[k - 1][1], P[k][1], u).toFixed(1));
+      head.setAttribute('r', p > 0 && p < 1 ? 9 : (p >= 1 ? 9 * (1 - clamp((c - DRAW) / 0.5, 0, 1)) : 0));
+      run.setAttribute('opacity', (1 - clamp((c - DRAW - HOLD) / FADE, 0, 1)).toFixed(3));
+    }, DRAW + 1);
   }
 
-  function smoothScrollTo(targetY, duration) {
-    const startY = window.pageYOffset;
-    const distance = targetY - startY;
-    const startTime = performance.now();
-
-    function step(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeInOutQuart(progress);
-
-      window.scrollTo(0, startY + distance * easedProgress);
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    }
-
-    requestAnimationFrame(step);
+  /* ---- Greenway: the stream flows, and five volunteers canvass the trail like a search line.
+     Each keeps a lane a few feet from the next (never touching), some a little ahead, some behind.
+     They drift side to side and step back now and then (picking something up), but all move from the
+     top-left of the tile down to the bottom-right, then fade out, and the sweep starts again. ---- */
+  function makeGw(root) {
+    const stream = root.querySelector('.gw-stream'), shimmers = [...root.querySelectorAll('.gw-shimmer')];
+    const trail = root.querySelector('.gw-trail'), walkersG = root.querySelector('.gw-walkers');
+    const NS = 'http://www.w3.org/2000/svg', TL = trail.getTotalLength();
+    const LANES = [-20, -10, 0, 10, 20], AHEAD = [0, -9, 5, -6, 8];   // a loose line, not a straight one
+    const walkers = LANES.map((lane, i) => {
+      const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', 3.4); walkersG.appendChild(c);
+      return { c, lane, ahead: AHEAD[i], p1: i * 1.9 + 0.4, p2: i * 2.7 + 1.1, f1: 0.55 + 0.07 * i, f2: 0.42 + 0.05 * ((i * 3) % 5) };
+    });
+    const S0 = 0.13 * TL, S1 = 0.86 * TL;                            // the stretch of trail the tile shows
+    const SWEEP = 15, FADE = 1.2, REST = 1.2, CYCLE = SWEEP + REST;
+    const at = s => trail.getPointAtLength(clamp(s, 0, TL));
+    return ticker(t => {
+      const a = 3 * Math.sin(t * 0.5), b = 6 * Math.sin(t * 0.35 + 1);
+      stream.setAttribute('d', `M-30,${61 + a} C 70,${9 + b} 130,${113 - b} 230,${73 + a} L 230,${121 + a} C 130,${161 - b} 70,${57 + b} -30,${109 + a} Z`);
+      shimmers.forEach((sh, i) => {
+        const o = +sh.dataset.off;
+        sh.setAttribute('d', `M-30,${85 + o + a} C 70,${33 + o + b} 130,${137 + o - b} 230,${97 + o + a}`);
+        sh.setAttribute('stroke-dashoffset', (36 * i - t * 9).toFixed(1));
+      });
+      const c = t % CYCLE, u = c / SWEEP;
+      const vis = c > SWEEP ? 0 : Math.min(1, c / FADE, (SWEEP - c) / FADE);   // fade in at the start, out at the end
+      walkers.forEach(w => {
+        // forward overall, with small steps back and pauses: picking something up, then carrying on
+        const s = lerp(S0, S1, u) + w.ahead + 3.2 * Math.sin(t * w.f2 + w.p2);
+        const p = at(s), q = at(s + 1.5);
+        let nx = -(q.y - p.y), ny = q.x - p.x; const len = Math.hypot(nx, ny) || 1; nx /= len; ny /= len;
+        // drift within their own lane, a few feet either way
+        const off = w.lane + 2.6 * Math.sin(t * w.f1 + w.p1) + 0.9 * Math.sin(t * w.f1 * 2.3 + w.p2);
+        w.c.setAttribute('cx', (p.x + nx * off).toFixed(2));
+        w.c.setAttribute('cy', (p.y + ny * off).toFixed(2));
+        w.c.setAttribute('opacity', clamp(vis, 0, 1).toFixed(3));
+      });
+    }, 7);
   }
 
-  document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
+  /* ---- 字坊: two double-sided flashcards. Mandarin is the dark side, English the light side.
+     At rest the front card shows Mandarin and the back card shows English (English sides face inward).
+     1. The front card flips: 字 -> character.  2. The cards trade places around a shared axis: the front
+     card slides back still showing its English, while the back card swings forward and turns to its
+     Mandarin side: 坊.  3. That one flips: 坊 -> workshop.  4. They trade places again: 字.  And on. ---- */
+  function makeZf(root) {
+    const cards = [...root.querySelectorAll('.zf-card')];
+    const H1 = 1.1, F = 0.75, H2 = 1.2, O = 1.25, STEP = H1 + F + H2 + O;
+    const R0 = Math.hypot(8, 10), PHI0 = Math.atan2(8, 10);
+    const pose = (card, phi, turn, lift) => {
+      const R = R0 * (1 + 0.7 * Math.pow(Math.sin(phi), 2));     // swing wide mid-way so the cards pass cleanly
+      const x = R * Math.sin(phi + PHI0), z = R * Math.cos(phi + PHI0) + lift, y = -8 * Math.cos(phi);
+      const tilt = lerp(14, -15, (1 - Math.cos(phi)) / 2);
+      card.style.transform = `perspective(140cqi) translate3d(${x.toFixed(2)}cqi, ${y.toFixed(2)}cqi, ${z.toFixed(2)}cqi) rotateZ(${tilt.toFixed(2)}deg) rotateY(${turn.toFixed(4)}rad)`;
+      card.style.zIndex = z > 0 ? 2 : 1;                    // nearer card on top
+      const chineseUp = Math.cos(turn) > 0;                 // which side faces the viewer
+      card.querySelector('.zf-cn').style.opacity = chineseUp ? 1 : 0;
+      card.querySelector('.zf-en').style.opacity = chineseUp ? 0 : 1;
+    };
+    return ticker(t => {
+      const n = Math.floor(t / STEP), c = t % STEP;
+      const flipU = easeIO(clamp((c - H1) / F, 0, 1));
+      const orbU = easeIO(clamp((c - H1 - F - H2) / O, 0, 1));
+      const f = cards[n % 2], k = cards[(n + 1) % 2];      // front card this step, back card this step
+      pose(f, Math.PI * orbU, Math.PI * flipU, 7 * Math.sin(Math.PI * flipU));   // flips to English, then slides back
+      pose(k, Math.PI + Math.PI * orbU, Math.PI + Math.PI * orbU, 0);           // swings forward, turning to Mandarin
+    }, 0);
+  }
+
+  /* ---- ASSEMBLAGE (Tim picked option C, 2026-11-08): five clips slide in and line up; they close ranks,
+     flatten and turn gold until they physically become one line; in the same motion the line lowers
+     and the word drops in from above to the exact centre; hold; fade; again. ---- */
+  const ASM_TONES = [[107, 31, 53], [74, 32, 53], [133, 84, 103], [90, 26, 46], [125, 91, 94]];
+  const GOLD = [212, 168, 83];
+  function makeAsm(root) {
+    const word = root.querySelector('.asm-word');
+    const bits = document.createElement('span'); bits.className = 'asm-bits'; root.appendChild(bits);
+    const rule = document.createElement('span'); rule.className = 'asm-rule'; root.appendChild(rule);
+    const pieces = ASM_TONES.map(() => { const b = document.createElement('span'); b.className = 'asm-bit'; bits.appendChild(b); return b; });
+    const starts = [[-30, 12], [118, 78], [40, -22], [122, 22], [-26, 86]];   // off the tile, all sides
+    const W0 = 10, H0 = 7, GAP = 1.5, LINE = 56, LEFT = 22, LH = 0.9, DROP = 13;
+    const CYCLE = 8;
+    return ticker(t => {
+      const c = t % CYCLE;
+      // one continuous move, no pause: as the clips fuse into the line, the line is already lowering
+      // and the word is already dropping in from above
+      const merge = easeIO(clamp((c - 1.5) / 0.9, 0, 1));            // close ranks, flatten, turn gold
+      const lower = easeIO(clamp((c - 1.5) / 1.35, 0, 1));           // the line lowers...
+      const enter = easeIO(clamp((c - 1.5) / 1.35, 0, 1));           // ...as the word drops in
+      const out = easeIO(clamp((c - 7.1) / 0.6, 0, 1));
+      pieces.forEach((b, i) => {
+        const u = easeIO(clamp((c - 0.22 * i) / 1.1, 0, 1));
+        const rowX = LEFT + i * (W0 + GAP), rowY = 50 - H0 / 2;          // a row of clips across the centre
+        const w = lerp(W0, LINE / 5 + 0.4, merge), h = lerp(H0, LH, merge);
+        const lineX = LEFT + i * (LINE / 5), lineY = 50 - LH / 2;
+        const x = lerp(lerp(starts[i][0], rowX, u), lineX, merge);
+        const y = lerp(lerp(starts[i][1], rowY, u), lineY, merge) + DROP * lower;
+        b.style.width = w.toFixed(2) + 'cqi'; b.style.height = h.toFixed(2) + 'cqi';
+        b.style.borderRadius = lerp(1.6, 0.45, merge).toFixed(2) + 'cqi';
+        b.style.transform = `translate(${x.toFixed(2)}cqi, ${y.toFixed(2)}cqi)`;
+        b.style.background = rgb(ASM_TONES[i], GOLD, merge);
+        b.style.opacity = (u * (1 - out)).toFixed(3);
+      });
+      // once the clips are a solid line, a seamless gold rule takes over (same place, same size)
+      const handoff = clamp((merge - 0.92) / 0.08, 0, 1);
+      bits.style.opacity = (1 - handoff).toFixed(3);
+      rule.style.opacity = (handoff * (1 - out)).toFixed(3);
+      rule.style.transform = `translateY(${(DROP * lower).toFixed(2)}cqi)`;
+      word.style.opacity = (enter * (1 - out)).toFixed(3);
+      word.style.transform = `translateY(${(-20 * (1 - enter)).toFixed(2)}cqi)`;
+    }, 4.5);
+  }
+
+  const MAKERS = { cc: makeCC, fx: makeFx, gw: makeGw, zf: makeZf, asm: makeAsm };
+  const make = media => { const f = MAKERS[media.dataset.anim]; return f ? f(media) : null; };
+
+  /* Tiles animate only while on screen */
+  const seen = new IntersectionObserver(entries => entries.forEach(e => {
+    const a = e.target._anim; if (!a) return;
+    e.isIntersecting ? a.start() : a.stop();
+  }), { threshold: 0.15 });
+
+  const sheet = document.getElementById('sheet');
+  const $ = id => document.getElementById(id);
+  let sheetAnim = null;
+
+  document.querySelectorAll('.tile').forEach(tile => {
+    const media = tile.querySelector('.media');
+    const pristine = media.cloneNode(true);               // untouched copy, for the sheet
+    media._anim = make(media);
+    seen.observe(media);
+    tile.addEventListener('click', e => {
       e.preventDefault();
-      const targetId = this.getAttribute('href').slice(1);
-      const targetEl = document.getElementById(targetId);
-      if (!targetEl) return;
+      const art = pristine.cloneNode(true);
+      $('sheet-media').replaceChildren(art);
+      sheetAnim?.destroy(); sheetAnim = make(art); sheetAnim?.start();
+      const label = tile.querySelector('.label');
+      $('sheet-title').textContent = label.textContent;
+      label.lang ? $('sheet-title').setAttribute('lang', label.lang) : $('sheet-title').removeAttribute('lang');
+      $('sheet-kind').textContent = tile.dataset.kind;
+      $('sheet-line').textContent = tile.dataset.line;
+      $('sheet-go').href = tile.href;
+      sheet.showModal();
+    });
+  });
 
-      const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset;
-      smoothScrollTo(targetY, 1200);
+  sheet.addEventListener('close', () => { sheetAnim?.destroy(); sheetAnim = null; });
+  $('sheet-close').addEventListener('click', () => sheet.close());
+  // Tapping the dimmed area outside the sheet closes it
+  sheet.addEventListener('click', e => { if (e.target === sheet) sheet.close(); });
+})();
+</script>
+
+<script>
+// JavaScript: open and close the two sheets. Escape and a click outside close; focus returns to the door.
+(function () {
+  var opener = null;
+  function open(id, from) {
+    var s = document.getElementById(id);
+    opener = from;
+    s.classList.add('open');
+    s.setAttribute('aria-hidden', 'false');
+    s.querySelector('[data-close]').focus();
+  }
+  function close() {
+    var s = document.querySelector('.scrim.open');
+    if (!s) return;
+    s.classList.remove('open');
+    s.setAttribute('aria-hidden', 'true');
+    if (opener) opener.focus();
+  }
+  document.querySelectorAll('[data-opens]').forEach(function (b) {
+    b.addEventListener('click', function () { open(b.getAttribute('data-opens'), b); });
+  });
+  document.querySelectorAll('[data-close]').forEach(function (b) { b.addEventListener('click', close); });
+  document.querySelectorAll('.scrim').forEach(function (s) {
+    s.addEventListener('click', function (e) { if (e.target === s) close(); });
+    // keep Tab inside the open sheet
+    s.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var f = s.querySelectorAll('button');
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = document.getElementById(b.getAttribute('data-copy')).textContent;
+      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done); else done();
     });
   });
 })();
