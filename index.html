@@ -332,8 +332,8 @@ html, body { overflow-x: hidden; }
 #about .tag.t-photo { left: 1rem; top: 1rem; width: auto; padding: 0 .8rem; border-radius: 15px; font-size: .78rem; background: var(--oxblood); color: var(--gold); }
 
 /* 2: the band's top and bottom edges dissolve into dots */
-.mx-edge-top { left: 0; width: 100%; top: -133px; height: 133px; }
-.mx-edge-bottom { left: 0; width: 100%; bottom: -133px; height: 133px; }
+.mx-edge-top { left: 0; width: 100%; top: -133px; height: 137px; }
+.mx-edge-bottom { left: 0; width: 100%; bottom: -133px; height: 137px; }
 #about > .tag.t2 { right: 1.5rem; top: -118px; }
 .after-about { padding-top: 9rem; }
 
@@ -366,10 +366,10 @@ footer .tag { right: 0; top: 1rem; }
 @media (max-width: 560px) { .grid.grid-main { gap: 1.1rem .8rem; } .grid.grid-side { gap: 1.1rem .6rem; } .tile.big .label { font-size: 1.1rem; } }
 
 /* the seal at the bottom: no link yet, a quiet lift on hover */
-footer { display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; }
-.seal { width: 96px; height: 96px; position: relative; z-index: 1; transition: transform .3s var(--ease), filter .3s var(--ease); }
-.seal svg { display: block; width: 100%; height: 100%; overflow: visible; }
-@media (hover: hover) { .seal:hover { transform: translateY(-2px) scale(1.04); filter: brightness(1.12); } }
+footer { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; }
+.footer-seal { width: 96px; height: 96px; position: relative; z-index: 1; transition: transform .3s var(--ease), filter .3s var(--ease); }
+.footer-seal svg { display: block; width: 100%; height: 100%; overflow: visible; }
+@media (hover: hover) { .footer-seal:hover { transform: translateY(-2px) scale(1.04); filter: brightness(1.12); } }
 
 /* copy as an icon: clipboard, then a tick for 1.6 s (both drawn, crossfaded) */
 .copy { position: relative; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: color-mix(in srgb, var(--oxblood) 10%, #F7F1E7); color: var(--oxblood); cursor: pointer; transition: background .2s var(--ease); }
@@ -415,8 +415,8 @@ footer { display: flex; flex-direction: column; align-items: flex-start; gap: 1.
       <div class="about-copy">
         <div class="sec-label">About</div>
         <h2>How I got here.</h2>
-        <p>I taught English and Spanish in five countries. Teaching taught me to find the one thing someone needs to understand, and make it plain.</p>
-        <p>Now I make films, brands and websites for small businesses. The first was my own: Carson Clean, a mobile detailing business here in Cleveland. I made its name, its mark, its site and its film.</p>
+        <p>I taught English in five countries.</p>
+        <p>Now I make films, brands and websites for small businesses. The first was my own: Carson Clean, a mobile detailing business here in Cleveland.</p>
       </div>
     </div>
   </div>
@@ -519,7 +519,7 @@ footer { display: flex; flex-direction: column; align-items: flex-start; gap: 1.
     </div>
   </section>
 
-  <footer data-matrix="footer"><div class="seal" data-seal role="img" aria-label="Seal: 蒂姆製作, made by Tim"></div><span>Tim Carson · Cleveland, TN</span></footer>
+  <footer data-matrix="footer"><div class="footer-seal" data-seal role="img" aria-label="Seal: 蒂姆製作, made by Tim Carson"></div></footer>
 </div>
 
 <!-- Door A: the résumé replacement -->
@@ -1032,6 +1032,7 @@ window.CarsonMarkTile = function (HOST) {
       card.querySelector('.zf-en').style.opacity = chineseUp ? 0 : 1;
     };
     return ticker(t => {
+      t = Math.max(0, t);                                     // the clock can start a hair below zero; never pick a card that isn't there
       const n = Math.floor(t / STEP), c = t % STEP;
       const flipU = easeIO(clamp((c - H1) / F, 0, 1));
       const orbU = easeIO(clamp((c - H1 - F - H2) / O, 0, 1));

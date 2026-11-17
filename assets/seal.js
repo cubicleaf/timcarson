@@ -261,6 +261,37 @@ function dry(tr, at, dur, apply) { var from = PAL.wet, to = PAL.ink; once(tr, fu
 
 var CARVE = { score: 100, clear: 30, gap: 100, charGap: 500, together: true };
 var LOOKS = {
+  // Glide (timcarson.vercel.app, Tim 2026-11-17: "make it just glide easier"). Everything overlaps and eases, nothing
+  // stops and starts: the seal rises 6px as it fades in; the four frame sides draw together at full width; the plate
+  // soaks in as long overlapping fades; the strokes of all four characters flow in at full width, each starting
+  // when the one before it is 45% drawn, with a soft in-out ease; each character's true outline crossfades in over 0.4 s.
+  glide: function (svg) {
+    var tr = [], fr = q(svg, '.frame'), half = q(svg, '.half'), pg = q(svg, '.plategrp'), cf = svg.querySelectorAll('.cf');
+    var fw = SCRIPT.frameW, SOFT = bezier(0.42, 0, 0.3, 1);
+    once(tr, function () { svg.style.opacity = 0; svg.style.transform = 'translateY(6px)'; });
+    tr.push({ start: 0, dur: 700, ease: EASE, set: function (f) { svg.style.opacity = f; svg.style.transform = 'translateY(' + (6 * (1 - f)).toFixed(2) + 'px)'; } });
+    cf.forEach(function (p, k) {
+      once(tr, function () { p.style.strokeWidth = fw; });
+      tr.push({ start: 80 + k * 60, dur: 900, ease: SOFT, set: function (f) { draw(p, f); } });
+    });
+    tr.push({ start: 1260, dur: 1, set: function (f) { if (f >= 1) { fr.style.opacity = 1; cf.forEach(function (p) { p.style.opacity = 0; }); } } });
+    once(tr, function () { half.style.opacity = 1; plateEdge(svg, -400); });
+    svg.querySelectorAll('.soak').forEach(function (s, k) {
+      tr.push({ start: 300 + k * 90, dur: 650, ease: EASE, set: function (f) { if (k === 0) pg.style.opacity = f > 0 ? 1 : 0; s.setAttribute('opacity', f.toFixed(3)); } });
+    });
+    var all = svg.querySelectorAll('.stk'), avg = 0; all.forEach(function (p) { avg += p._len; }); avg /= all.length;
+    [0, 1, 2, 3].forEach(function (i) {
+      var t = 650 + i * 70;
+      strokesOf(svg, i).forEach(function (p) {
+        var d = 360 * Math.max(.7, Math.min(1.3, p._len / avg));
+        tr.push({ start: t, dur: d, ease: SOFT, set: function (f) { draw(p, f); } });
+        t += d * .45;
+      });
+      var w = q(svg, '.whole[data-i="' + i + '"]'), g = q(svg, '.brushes[data-i="' + i + '"]');
+      tr.push({ start: t + 120, dur: 400, ease: EASE, set: function (f) { w.style.opacity = f; g.style.opacity = 1 - f; } });
+    });
+    return tr;
+  },
   // 2: Carved. The frame is cut one side at a time; the plate soaks in as spreading blotches; then each stroke is
   // scored thin and cleared to full width. The sliders set the cadence of the strokes.
   carved: function (svg) {
@@ -306,7 +337,7 @@ function play(svg) {
   var end = run(svg, tracks);
 }
 
-  host.innerHTML = sealSVG('fseal').replace('<svg ', '<svg data-look="carved" ');
+  host.innerHTML = sealSVG('fseal').replace('<svg ', '<svg data-look="glide" ');
   var svg = host.firstChild;
   prep(svg); paint(svg);
   if (REDUCED) finished(svg); else reset(svg);

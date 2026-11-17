@@ -18,6 +18,11 @@
   for (var i = 0; i < 8; i++) { var wl = rand(180, 720); WAVES.push({ k: Math.PI * 2 / wl, omega: (38 * (Math.PI * 2 / wl)) * rand(.55, 1.9) * (R() < .5 ? -1 : 1), phase: rand(0, Math.PI * 2), amp: rand(.5, 1.4), angVel: rand(-.025, .025), angle: rand(0, Math.PI * 2) }); }
   WAVES.forEach(function (w) { AMP += w.amp; });
   function field(x, y, t) { var m = 0; for (var i = 0; i < WAVES.length; i++) { var w = WAVES[i]; m += Math.sin(w.k * (Math.cos(w.angle) * x + Math.sin(w.angle) * y) + w.omega * t + w.phase) * w.amp; } return m / AMP; }
+  /* The cream band's edge: three long, slow waves along x only (wavelengths about 0.9, 1.5 and 2.4 thousand px),
+     so the shoreline is a few broad, unhurried curves that never repeat in an obvious rhythm. Tim, 2026-11-17. */
+  var SHORE = [];
+  for (var s2 = 0; s2 < 3; s2++) SHORE.push({ k: Math.PI * 2 / [900, 1500, 2400][s2] / rand(.85, 1.15), w: rand(.05, .11) * (R() < .5 ? -1 : 1), ph: rand(0, Math.PI * 2), a: [1, .7, .5][s2] });
+  function shore(x, t, side) { var m = 0; for (var i = 0; i < 3; i++) { var q = SHORE[i]; m += Math.sin(q.k * x + q.w * t + q.ph + side * 2.1) * q.a; } return m / 2.2; }
   var mag = function (v) { return Math.pow(clamp((clamp(v, -1, 1) + 1) * .5, 0, 1), 1.7); };
 
   var layers = [];
@@ -43,6 +48,7 @@
   Layer.prototype.draw = function (t) {
     var ctx = this.ctx, W = this.W, H = this.H, X = this.X, Y = this.Y, m = this.mode, narrow = innerWidth < 761;
     ctx.setTransform(this.Q, 0, 0, this.Q, -X * this.Q, -Y * this.Q); ctx.clearRect(X, Y, W, H);
+    if (m === 'edge-top' || m === 'edge-bottom') { ctx.fillStyle = 'rgb(' + CREAM.join(',') + ')'; ctx.fillRect(X, m === 'edge-top' ? Y + H - 6 : Y, W, 6); }
     for (var i = 0; i < this.dots.length; i++) {
       var x = this.dots[i][0], y = this.dots[i][1], u = (x - X) / W, v = (y - Y) / H, f = field(x, y, t), g = mag(2.2 * f), r, a, col = GOLD;
       if (m === 'hero') {            /* 1: quiet on the left where the words are, fuller toward the right and the bottom */
@@ -50,9 +56,9 @@
         r = .8 + 4.6 * g; a = (.04 + .5 * g) * keep;
       } else if (m === 'edge-top' || m === 'edge-bottom') {   /* 2: the cream band's edge dissolves into cream dots */
         var near = m === 'edge-top' ? v : 1 - v;              /* 1 at the cream, 0 away from it */
-        /* the wave decides how far the cream reaches, so the edge is uneven and drifts */
-        var reach = clamp(near + .38 * f, 0, 1.2);
-        r = D * .78 * smooth(.08, 1, reach) * (.75 + .35 * g); a = 1; col = CREAM;
+        /* the long shoreline waves decide how far the cream reaches; dots grow toward it and merge */
+        var reach = near + .42 * shore(x, t, m === 'edge-top' ? 0 : 1) + .05 * f;
+        r = D * .8 * smooth(.12, .95, reach) * smooth(0, .3, near); a = 1; col = CREAM;   /* never a hard cut at the strip's outer edge */
       } else if (m === 'door') {      /* 3: faint at rest; dots swell under the pointer */
         var d = Math.hypot(x - pointer.x, y - pointer.y), lift = HOVER ? 1 - smooth(0, 150, d) : .35 * g;
         r = 1 + 2.2 * g + 4 * lift; a = .07 + .16 * g + .45 * lift;
