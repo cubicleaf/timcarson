@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tim Carson | Work</title>
+<title>Tim Carson</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -410,6 +410,21 @@ a.h-card-tag:hover { opacity: 0.7; }
 .contact-link:hover {
   color: var(--accent);
 }
+
+/* "Hiring?" line under the email: plain, always visible (no entrance animation) */
+.contact-hiring {
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-light);
+}
+.contact-hiring a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
+.contact-hiring a:hover { color: var(--accent); }
 
 /* Real DOM element replaces ::after — WAAPI cannot target pseudo-elements */
 .contact-underline {
@@ -862,13 +877,13 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-overline">Chattanooga, TN · 2026</div>
+  <div class="hero-overline">Cleveland, TN · 2026</div>
   <h1 class="hero-title">
     Sometimes the hardest part is
     <span class="accent">naming</span> what needs to change.
   </h1>
   <button class="hero-desc-trigger" id="storyTrigger" type="button" aria-haspopup="dialog" aria-controls="storyModal">
-    <span class="hero-desc">Former teacher. Now I use AI to build apps, websites, and tools for people who know what they need but not how to get there.</span>
+    <span class="hero-desc">Former teacher. Now I make short films and websites for small businesses.</span>
     <span class="hero-desc-cue">More about me</span>
   </button>
   <div class="hero-watermark" id="watermark">TC</div>
@@ -881,35 +896,27 @@ footer {
 
       <div class="h-card">
         <div class="h-card-number">01</div>
-        <h3>Good Steward Workshop</h3>
-        <p>An 11-module interactive brand-building workshop built for a working farm — with an AI assistant who knows the whole operation embedded in the room. Clients walk through one small decision at a time and leave with a downloadable brand brief. Real client, real deliverable.</p>
-        <!-- TODO(Tim): confirm with Charles & Sarah before deploying this link publicly -->
-        <a href="https://good-steward-workshop.vercel.app" target="_blank" class="h-card-tag">View Live App &rarr;</a>
-      </div>
-
-      <div class="h-card">
-        <div class="h-card-number">02</div>
         <h3>Fitness Tracker</h3>
         <p>A mobile-first workout tracking app built from scratch. IndexedDB for offline storage, custom sound design, progressive overload tracking, and a design system with mood colors, animations, and time inputs. No frameworks — just vanilla JS and intention.</p>
         <a href="https://fit-logs.vercel.app" target="_blank" class="h-card-tag">View Live App →</a>
       </div>
 
       <div class="h-card">
-        <div class="h-card-number">03</div>
+        <div class="h-card-number">02</div>
         <h3>Chinese Learning Platform</h3>
         <p>An interactive Mandarin learning system with flashcard apps, verb production drills, and grammar modules. Built around real correspondence with native speakers — not textbook exercises. Includes a persistent vocabulary tracker with 90+ entries.</p>
         <a href="https://zifang.vercel.app" target="_blank" class="h-card-tag">View Live App →</a>
       </div>
 
       <div class="h-card">
-        <div class="h-card-number">04</div>
+        <div class="h-card-number">03</div>
         <h3>Greenway Cleanup</h3>
         <p>A community organizing site for trail cleanups in Cleveland, TN. Event info, volunteer signups, momentum. Software in service of picking up actual garbage — proof these tools work outside the browser too.</p>
         <a href="https://greenwaycleanup.vercel.app" target="_blank" class="h-card-tag">View Live Site &rarr;</a>
       </div>
 
       <div class="h-card">
-        <div class="h-card-number">05</div>
+        <div class="h-card-number">04</div>
         <h3>More Projects</h3>
         <p>Everything I've built that's ready to show, in one gallery: a picture of each, what it does, and a link to try it.</p>
         <a href="/work" class="h-card-tag">See them all &rarr;</a>
@@ -954,6 +961,7 @@ footer {
   <h2 class="contact-headline" id="contact-headline"></h2>
   <p class="contact-sub" id="contact-sub"><span>I'm</span><span>looking</span><span>for</span><span>the</span><span>right</span><span>people</span><span>with</span><span>the</span><span>right</span><span>problems.</span></p>
   <a href="mailto:tim.d.carson@gmail.com" class="contact-link" id="contact-link">tim.d.carson@gmail.com<span class="contact-underline" id="contactLine"></span></a>
+  <p class="contact-hiring">Hiring? Here&rsquo;s my <a href="/tim-carson-background.pdf" target="_blank" rel="noopener">one-page background (PDF)</a>.</p>
 </section>
 
 <footer>
@@ -974,7 +982,7 @@ footer {
     </div>
     <aside class="story-aside">
       <div class="story-aside-label">Quick sketch</div>
-      <p>Based in Chattanooga. Former teacher. Now building practical software with AI, design, and a bias toward clarity over theater.</p>
+      <p>Based in Cleveland, Tennessee. Former teacher. Now building practical software with AI, design, and a bias toward clarity over theater.</p>
     </aside>
   </div>
 </div>
